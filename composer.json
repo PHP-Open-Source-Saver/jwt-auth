@@ -34,7 +34,7 @@
         "illuminate/database": "^8.61",
         "illuminate/http": "^5.2|^6|^7|^8",
         "illuminate/support": "^5.2|^6|^7|^8",
-        "lcobucci/jwt": "<3.4",
+        "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
         "nesbot/carbon": "^1.0|^2.0"
     },
