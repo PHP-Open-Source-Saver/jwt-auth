@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 use DateInterval;
 use DateTimeInterface;
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
-use Tymon\JWTAuth\Support\Utils;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
+use PHPOpenSourceSaver\JWTAuth\Support\Utils;
 
 trait DatetimeTrait
 {
@@ -30,7 +30,7 @@ trait DatetimeTrait
      *
      * @param  mixed  $value
      *
-     * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException
      *
      * @return $this
      */

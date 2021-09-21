@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\Auth;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\Auth;
 
 use Illuminate\Contracts\Auth\Guard;
 use Mockery;
-use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate as Auth;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class IlluminateTest extends AbstractTestCase
 {
@@ -24,7 +24,7 @@ class IlluminateTest extends AbstractTestCase
     protected $authManager;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\Auth\Illuminate
+     * @var \PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate
      */
     protected $auth;
 

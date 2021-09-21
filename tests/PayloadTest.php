@@ -9,32 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use BadMethodCallException;
 use Mockery;
-use Tymon\JWTAuth\Claims\Audience;
-use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Claims\Audience;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\PayloadValidator
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 
     /**
-     * @var \Tymon\JWTAuth\Payload
+     * @var \PHPOpenSourceSaver\JWTAuth\Payload
      */
     protected $payload;
 
@@ -48,7 +48,7 @@ class PayloadTest extends AbstractTestCase
     /**
      * @param  array  $extraClaims
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     private function getTestPayload(array $extraClaims = [])
     {

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
 
 class Expiration extends Claim
 {

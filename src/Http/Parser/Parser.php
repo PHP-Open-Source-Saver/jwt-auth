@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Http\Parser;
+namespace PHPOpenSourceSaver\JWTAuth\Http\Parser;
 
 use Illuminate\Http\Request;
 
@@ -56,7 +56,7 @@ class Parser
     /**
      * Add a new parser to the chain.
      *
-     * @param array|\Tymon\JWTAuth\Contracts\Http\Parser $parsers
+     * @param array|\PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser $parsers
      *
      * @return $this
      */

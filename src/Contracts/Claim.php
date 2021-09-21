@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Contracts;
+namespace PHPOpenSourceSaver\JWTAuth\Contracts;
 
 interface Claim
 {
@@ -18,7 +18,7 @@ interface Claim
      *
      * @param  mixed  $value
      *
-     * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException
      *
      * @return $this
      */

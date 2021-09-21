@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Console;
+namespace PHPOpenSourceSaver\JWTAuth\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;

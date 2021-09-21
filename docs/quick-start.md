@@ -3,7 +3,7 @@ Before continuing, make sure you have installed the package as per the installat
 
 ### Update your User model
 
-Firstly you need to implement the `Tymon\JWTAuth\Contracts\JWTSubject` contract on your User model,
+Firstly you need to implement the `PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject` contract on your User model,
 which requires that you implement the 2 methods `getJWTIdentifier()` and `getJWTCustomClaims()`.
 
 The example below should give you an idea of how this could look. Obviously you should make any
@@ -14,7 +14,7 @@ changes, as necessary, to suit your own needs.
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

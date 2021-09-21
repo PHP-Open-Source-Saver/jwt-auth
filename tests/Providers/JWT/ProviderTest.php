@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\JWT;
 
-use Tymon\JWTAuth\Test\AbstractTestCase;
-use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Test\Stubs\JWTProviderStub;
 
 class ProviderTest extends AbstractTestCase
 {
     /**
-     * @var \Tymon\JWTAuth\Test\Stubs\JWTProviderStub
+     * @var \PHPOpenSourceSaver\JWTAuth\Test\Stubs\JWTProviderStub
      */
     protected $provider;
 

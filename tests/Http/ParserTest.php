@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Http;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Http;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
 use Mockery;
-use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\Cookies;
-use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\Http\Parser\RouteParams;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser as ParserContract;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\AuthHeaders;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Cookies;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\InputSource;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\LumenRouteParams;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\QueryString;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\RouteParams;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class ParserTest extends AbstractTestCase
 {
