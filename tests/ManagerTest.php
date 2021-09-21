@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -32,27 +33,27 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 class ManagerTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT
+     * @var MockInterface|JWT
      */
     protected $jwt;
 
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Blacklist
+     * @var MockInterface|Blacklist
      */
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Factory
+     * @var MockInterface|Factory
      */
     protected $factory;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Manager
+     * @var Manager
      */
     protected $manager;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var MockInterface
      */
     protected $validator;
 

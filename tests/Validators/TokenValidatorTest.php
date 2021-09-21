@@ -18,7 +18,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 class TokenValidatorTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator
+     * @var TokenValidator
      */
     protected $validator;
 
@@ -39,7 +39,7 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
      *
-     * @param  string  $token
+     * @param string $token
      */
     public function it_should_return_false_when_providing_a_malformed_token($token)
     {

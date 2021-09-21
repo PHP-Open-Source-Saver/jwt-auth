@@ -17,7 +17,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\Stubs\JWTProviderStub;
 class ProviderTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Test\Stubs\JWTProviderStub
+     * @var JWTProviderStub
      */
     protected $provider;
 

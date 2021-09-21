@@ -22,6 +22,14 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class CollectionTest extends AbstractTestCase
 {
+    /** @test */
+    public function it_should_sanitize_the_claims_to_associative_array()
+    {
+        $collection = $this->getCollection();
+
+        $this->assertSame(array_keys($collection->toArray()), ['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']);
+    }
+
     private function getCollection()
     {
         $claims = [
@@ -34,14 +42,6 @@ class CollectionTest extends AbstractTestCase
         ];
 
         return new Collection($claims);
-    }
-
-    /** @test */
-    public function it_should_sanitize_the_claims_to_associative_array()
-    {
-        $collection = $this->getCollection();
-
-        $this->assertSame(array_keys($collection->toArray()), ['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']);
     }
 
     /** @test */

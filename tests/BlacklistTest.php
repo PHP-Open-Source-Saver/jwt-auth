@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -23,21 +24,22 @@ use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage;
 use PHPOpenSourceSaver\JWTAuth\Payload;
 use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Validators\Validator;
 
 class BlacklistTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage|\Mockery\MockInterface
+     * @var Storage|MockInterface
      */
     protected $storage;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Blacklist
+     * @var Blacklist
      */
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Validators\Validator
+     * @var MockInterface|Validator
      */
     protected $validator;
 

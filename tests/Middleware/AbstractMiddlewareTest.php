@@ -13,18 +13,19 @@ namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
 use Illuminate\Http\Request;
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 abstract class AbstractMiddlewareTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\JWTAuth
+     * @var MockInterface|JWTAuth
      */
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface|\Illuminate\Http\Request
+     * @var MockInterface|Request
      */
     protected $request;
 

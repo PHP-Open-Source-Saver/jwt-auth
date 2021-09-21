@@ -13,15 +13,15 @@ namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
 use Illuminate\Http\Response;
 use Mockery;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class RefreshTokenTest extends AbstractMiddlewareTest
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken
+     * @var RefreshToken
      */
     protected $middleware;
 

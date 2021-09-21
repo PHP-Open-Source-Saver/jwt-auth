@@ -13,6 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use BadMethodCallException;
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Audience;
 use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -29,12 +30,12 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 class PayloadTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
+     * @var MockInterface|PayloadValidator
      */
     protected $validator;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Payload
+     * @var Payload
      */
     protected $payload;
 
@@ -46,9 +47,9 @@ class PayloadTest extends AbstractTestCase
     }
 
     /**
-     * @param  array  $extraClaims
+     * @param array $extraClaims
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
+     * @return Payload
      */
     private function getTestPayload(array $extraClaims = [])
     {
@@ -94,8 +95,8 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_cast_the_payload_to_a_string_as_json()
     {
-        $this->assertSame((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
-        $this->assertJsonStringEqualsJsonString((string) $this->payload, json_encode($this->payload->get()));
+        $this->assertSame((string)$this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
+        $this->assertJsonStringEqualsJsonString((string)$this->payload, json_encode($this->payload->get()));
     }
 
     /** @test */
@@ -206,7 +207,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_match_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = (string) $values['sub'];
+        $values['sub'] = (string)$values['sub'];
 
         $this->assertTrue($this->payload->matches($values));
     }
@@ -239,7 +240,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_not_match_strict_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = (string) $values['sub'];
+        $values['sub'] = (string)$values['sub'];
 
         $this->assertFalse($this->payload->matchesStrict($values));
         $this->assertFalse($this->payload->matches($values, true));

@@ -14,6 +14,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\JWT;
 use Exception;
 use InvalidArgumentException;
 use Mockery;
+use Mockery\MockInterface;
 use Namshi\JOSE\JWS;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
@@ -23,12 +24,12 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 class NamshiTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var MockInterface
      */
     protected $jws;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Providers\JWT\Namshi
+     * @var Namshi
      */
     protected $provider;
 
@@ -51,6 +52,11 @@ class NamshiTest extends AbstractTestCase
         $token = $this->getProvider('secret', 'HS256')->encode($payload);
 
         $this->assertSame('foo.bar.baz', $token);
+    }
+
+    public function getProvider($secret, $algo, array $keys = [])
+    {
+        return new Namshi($this->jws, $secret, $algo, $keys);
     }
 
     /** @test */
@@ -123,6 +129,16 @@ class NamshiTest extends AbstractTestCase
         $token = $provider->encode($payload);
 
         $this->assertSame('foo.bar.baz', $token);
+    }
+
+    public function getDummyPrivateKey()
+    {
+        return file_get_contents(__DIR__ . '/../Keys/id_rsa');
+    }
+
+    public function getDummyPublicKey()
+    {
+        return file_get_contents(__DIR__ . '/../Keys/id_rsa.pub');
     }
 
     /** @test */
@@ -199,20 +215,5 @@ class NamshiTest extends AbstractTestCase
         );
 
         $this->assertSame($keys, $provider->getKeys());
-    }
-
-    public function getProvider($secret, $algo, array $keys = [])
-    {
-        return new Namshi($this->jws, $secret, $algo, $keys);
-    }
-
-    public function getDummyPrivateKey()
-    {
-        return file_get_contents(__DIR__.'/../Keys/id_rsa');
-    }
-
-    public function getDummyPublicKey()
-    {
-        return file_get_contents(__DIR__.'/../Keys/id_rsa.pub');
     }
 }

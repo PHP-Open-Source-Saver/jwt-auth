@@ -13,7 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Illuminate\Http\Request;
 use Mockery;
-use stdClass;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
@@ -24,26 +24,27 @@ use PHPOpenSourceSaver\JWTAuth\Manager;
 use PHPOpenSourceSaver\JWTAuth\Payload;
 use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
 use PHPOpenSourceSaver\JWTAuth\Token;
+use stdClass;
 
 class JWTAuthTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Manager
+     * @var MockInterface|Manager
      */
     protected $manager;
 
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth
+     * @var MockInterface|Auth
      */
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser
+     * @var MockInterface|Parser
      */
     protected $parser;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\JWTAuth
+     * @var JWTAuth
      */
     protected $jwtAuth;
 
@@ -62,10 +63,10 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
 
         $this->manager
-             ->shouldReceive('getPayloadFactory->customClaims')
-             ->once()
-             ->with(['sub' => 1, 'prv' => sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
-             ->andReturn($payloadFactory);
+            ->shouldReceive('getPayloadFactory->customClaims')
+            ->once()
+            ->with(['sub' => 1, 'prv' => sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
+            ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
@@ -80,8 +81,8 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory = Mockery::mock(Factory::class);
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
-                       ->with('prv')
-                       ->andReturn(sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'));
+            ->with('prv')
+            ->andReturn(sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'));
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
@@ -94,8 +95,8 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory = Mockery::mock(Factory::class);
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
-                       ->with('prv')
-                       ->andReturnNull();
+            ->with('prv')
+            ->andReturnNull();
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
@@ -108,8 +109,8 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory = Mockery::mock(Factory::class);
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
-                       ->with('prv')
-                       ->andReturn(sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub1'));
+            ->with('prv')
+            ->andReturn(sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub1'));
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
@@ -123,10 +124,10 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
 
         $this->manager
-             ->shouldReceive('getPayloadFactory->customClaims')
-             ->once()
-             ->with(['sub' => 1, 'prv' => sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
-             ->andReturn($payloadFactory);
+            ->shouldReceive('getPayloadFactory->customClaims')
+            ->once()
+            ->with(['sub' => 1, 'prv' => sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
+            ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
@@ -168,7 +169,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
         $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
-        $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
+        $this->auth->shouldReceive('user')->once()->andReturn((object)['id' => 1]);
 
         $user = $this->jwtAuth->setToken('foo.bar.baz')->customClaims(['foo' => 'bar'])->authenticate();
 

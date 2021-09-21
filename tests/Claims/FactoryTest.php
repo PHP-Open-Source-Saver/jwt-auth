@@ -26,7 +26,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\Fixtures\Foo;
 class FactoryTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Factory
+     * @var Factory
      */
     protected $factory;
 
