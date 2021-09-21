@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
 use ArrayAccess;
 use BadMethodCallException;
@@ -19,25 +19,25 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use JsonSerializable;
-use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {
     /**
      * The collection of claims.
      *
-     * @var \Tymon\JWTAuth\Claims\Collection
+     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     private $claims;
 
     /**
      * Build the Payload.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     * @param  \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator  $validator
      * @param  bool  $refreshFlow
      *
      * @return void
@@ -50,7 +50,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the array of claim instances.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     public function getClaims()
     {
@@ -121,7 +121,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  string  $claim
      *
-     * @return \Tymon\JWTAuth\Claims\Claim
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Claim
      */
     public function getInternal($claim)
     {
@@ -131,7 +131,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine whether the payload has the claim (by instance).
      *
-     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Claim  $claim
      *
      * @return bool
      */
@@ -224,7 +224,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * @param  mixed  $key
      * @param  mixed  $value
      *
-     * @throws \Tymon\JWTAuth\Exceptions\PayloadException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException
      */
     public function offsetSet($key, $value)
     {
@@ -236,7 +236,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  string  $key
      *
-     * @throws \Tymon\JWTAuth\Exceptions\PayloadException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException
      *
      * @return void
      */
@@ -281,7 +281,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     {
         if (preg_match('/get(.+)\b/i', $method, $matches)) {
             foreach ($this->claims as $claim) {
-                if (get_class($claim) === 'Tymon\\JWTAuth\\Claims\\'.$matches[1]) {
+                if (get_class($claim) === 'PHPOpenSourceSaver\\JWTAuth\\Claims\\'.$matches[1]) {
                     return $claim->getValue();
                 }
             }

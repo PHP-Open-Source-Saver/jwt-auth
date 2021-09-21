@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Claims;
 
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class NotBeforeTest extends AbstractTestCase
 {

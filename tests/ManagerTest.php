@@ -9,45 +9,45 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Token;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Blacklist;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException;
+use PHPOpenSourceSaver\JWTAuth\Factory;
+use PHPOpenSourceSaver\JWTAuth\Manager;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Token;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class ManagerTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Contracts\Providers\JWT
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT
      */
     protected $jwt;
 
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Blacklist
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Blacklist
      */
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Factory
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Factory
      */
     protected $factory;
 
     /**
-     * @var \Tymon\JWTAuth\Manager
+     * @var \PHPOpenSourceSaver\JWTAuth\Manager
      */
     protected $manager;
 

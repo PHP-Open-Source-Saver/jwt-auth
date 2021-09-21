@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Tymon\JWTAuth\Support\Utils;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage;
+use PHPOpenSourceSaver\JWTAuth\Support\Utils;
 
 class Blacklist
 {
     /**
      * The storage.
      *
-     * @var \Tymon\JWTAuth\Contracts\Providers\Storage
+     * @var \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage
      */
     protected $storage;
 
@@ -47,7 +47,7 @@ class Blacklist
     /**
      * Constructor.
      *
-     * @param  \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage  $storage
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return bool
      */
@@ -88,7 +88,7 @@ class Blacklist
     /**
      * Get the number of minutes until the token expiry.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return int
      */
@@ -106,7 +106,7 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist indefinitely.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return bool
      */
@@ -120,7 +120,7 @@ class Blacklist
     /**
      * Determine whether the token has been blacklisted.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return bool
      */
@@ -140,7 +140,7 @@ class Blacklist
     /**
      * Remove the token (jti claim) from the blacklist.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return bool
      */
@@ -199,7 +199,7 @@ class Blacklist
     /**
      * Get the unique key held within the blacklist.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return mixed
      */

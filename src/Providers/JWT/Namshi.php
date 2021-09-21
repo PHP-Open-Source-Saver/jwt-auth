@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
 use Exception;
 use InvalidArgumentException;
@@ -17,9 +17,9 @@ use Namshi\JOSE\JWS;
 use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use ReflectionClass;
 use ReflectionException;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
 class Namshi extends Provider implements JWT
 {
@@ -52,7 +52,7 @@ class Namshi extends Provider implements JWT
      *
      * @param  array  $payload
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return string
      */
@@ -72,7 +72,7 @@ class Namshi extends Provider implements JWT
      *
      * @param  string  $token
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return array
      */

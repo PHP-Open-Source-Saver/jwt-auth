@@ -9,41 +9,41 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Illuminate\Http\Request;
 use Mockery;
 use stdClass;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Token;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Factory;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Manager;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
+use PHPOpenSourceSaver\JWTAuth\Token;
 
 class JWTAuthTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Manager
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Manager
      */
     protected $manager;
 
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Contracts\Providers\Auth
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth
      */
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Http\Parser\Parser
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser
      */
     protected $parser;
 
     /**
-     * @var \Tymon\JWTAuth\JWTAuth
+     * @var \PHPOpenSourceSaver\JWTAuth\JWTAuth
      */
     protected $jwtAuth;
 
@@ -64,7 +64,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
              ->once()
-             ->with(['sub' => 1, 'prv' => sha1('Tymon\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
+             ->with(['sub' => 1, 'prv' => sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
@@ -81,11 +81,11 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
                        ->with('prv')
-                       ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub'));
+                       ->andReturn(sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'));
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
-        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -99,7 +99,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
-        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -109,11 +109,11 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
                        ->with('prv')
-                       ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub1'));
+                       ->andReturn(sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub1'));
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
-        $this->assertFalse($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertFalse($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -125,7 +125,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
              ->once()
-             ->with(['sub' => 1, 'prv' => sha1('Tymon\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
+             ->with(['sub' => 1, 'prv' => sha1('PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');

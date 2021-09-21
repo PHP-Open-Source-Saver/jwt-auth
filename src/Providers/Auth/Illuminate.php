@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Providers\Auth;
+namespace PHPOpenSourceSaver\JWTAuth\Providers\Auth;
 
 use Illuminate\Contracts\Auth\Guard as GuardContract;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 
 class Illuminate implements Auth
 {

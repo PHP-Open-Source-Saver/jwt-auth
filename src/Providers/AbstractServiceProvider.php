@@ -9,34 +9,34 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Providers;
+namespace PHPOpenSourceSaver\JWTAuth\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Builder as JWTBuilder;
 use Lcobucci\JWT\Parser as JWTParser;
 use Namshi\JOSE\JWS;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
-use Tymon\JWTAuth\Http\Middleware\Check;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\JWTGuard;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Providers\JWT\Lcobucci;
-use Tymon\JWTAuth\Providers\JWT\Namshi;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Blacklist;
+use PHPOpenSourceSaver\JWTAuth\Claims\Factory as ClaimFactory;
+use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateSecretCommand;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT as JWTContract;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage;
+use PHPOpenSourceSaver\JWTAuth\Factory;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Check;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\AuthHeaders;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\InputSource;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\QueryString;
+use PHPOpenSourceSaver\JWTAuth\JWT;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTGuard;
+use PHPOpenSourceSaver\JWTAuth\Manager;
+use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Lcobucci;
+use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Namshi;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 abstract class AbstractServiceProvider extends ServiceProvider
 {

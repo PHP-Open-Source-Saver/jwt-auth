@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Validators;
+namespace PHPOpenSourceSaver\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Support\RefreshFlow;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Validator as ValidatorContract;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
 
 abstract class Validator implements ValidatorContract
 {

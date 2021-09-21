@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Http\Parser;
+namespace PHPOpenSourceSaver\JWTAuth\Http\Parser;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class RouteParams implements ParserContract
 {

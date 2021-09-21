@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\JWT;
 
 use Exception;
 use InvalidArgumentException;
@@ -17,10 +17,10 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Mockery;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Providers\JWT\Lcobucci;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Lcobucci;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class LcobucciTest extends AbstractTestCase
 {
@@ -35,7 +35,7 @@ class LcobucciTest extends AbstractTestCase
     protected $builder;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\JWT\Namshi
+     * @var \PHPOpenSourceSaver\JWTAuth\Providers\JWT\Namshi
      */
     protected $provider;
 

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Stubs;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Stubs;
 
-use Tymon\JWTAuth\Providers\Storage\Illuminate as Storage;
+use PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate as Storage;
 
 class TaggedStorage extends Storage
 {

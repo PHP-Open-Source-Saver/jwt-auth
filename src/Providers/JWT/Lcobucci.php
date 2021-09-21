@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
 use Exception;
 use Illuminate\Support\Collection;
@@ -28,9 +28,9 @@ use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
 use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
 use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
 use ReflectionClass;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
 class Lcobucci extends Provider implements JWT
 {
@@ -95,7 +95,7 @@ class Lcobucci extends Provider implements JWT
      *
      * @param  array  $payload
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return string
      */
@@ -121,7 +121,7 @@ class Lcobucci extends Provider implements JWT
      *
      * @param  string  $token
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return array
      */
@@ -145,7 +145,7 @@ class Lcobucci extends Provider implements JWT
     /**
      * Get the signer instance.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return \Lcobucci\JWT\Signer
      */

@@ -9,23 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Http\Request;
 use Mockery;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
-use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\JWTGuard;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
+use PHPOpenSourceSaver\JWTAuth\Factory;
+use PHPOpenSourceSaver\JWTAuth\JWT;
+use PHPOpenSourceSaver\JWTAuth\JWTGuard;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase
 {
     /**
-     * @var \Tymon\JWTAuth\JWT|\Mockery\MockInterface
+     * @var \PHPOpenSourceSaver\JWTAuth\JWT|\Mockery\MockInterface
      */
     protected $jwt;
 
@@ -35,7 +35,7 @@ class JWTGuardTest extends AbstractTestCase
     protected $provider;
 
     /**
-     * @var \Tymon\JWTAuth\JWTGuard|\Mockery\MockInterface
+     * @var \PHPOpenSourceSaver\JWTAuth\JWTGuard|\Mockery\MockInterface
      */
     protected $guard;
 
@@ -65,12 +65,12 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
         $this->jwt->shouldReceive('checkSubjectModel')
                   ->once()
-                  ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
+                  ->with('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub')
                   ->andReturn(true);
 
         $this->provider->shouldReceive('getModel')
                        ->once()
-                       ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
+                       ->andReturn('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub');
         $this->provider->shouldReceive('retrieveById')
                        ->once()
                        ->with(1)
@@ -97,12 +97,12 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
         $this->jwt->shouldReceive('checkSubjectModel')
                   ->once()
-                  ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
+                  ->with('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub')
                   ->andReturn(true);
 
         $this->provider->shouldReceive('getModel')
                        ->once()
-                       ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
+                       ->andReturn('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub');
         $this->provider->shouldReceive('retrieveById')
              ->once()
              ->with(1)

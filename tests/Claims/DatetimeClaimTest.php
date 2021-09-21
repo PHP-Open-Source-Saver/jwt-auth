@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Claims;
 
 use Carbon\Carbon;
 use DateInterval;
@@ -17,21 +17,21 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Mockery;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Test\AbstractTestCase;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class DatetimeClaimTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\PayloadValidator
+     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 
