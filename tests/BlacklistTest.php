@@ -9,35 +9,37 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use Mockery\MockInterface;
+use PHPOpenSourceSaver\JWTAuth\Blacklist;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Validators\Validator;
 
 class BlacklistTest extends AbstractTestCase
 {
     /**
-     * @var \Tymon\JWTAuth\Contracts\Providers\Storage|\Mockery\MockInterface
+     * @var Storage|MockInterface
      */
     protected $storage;
 
     /**
-     * @var \Tymon\JWTAuth\Blacklist
+     * @var Blacklist
      */
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\Validator
+     * @var MockInterface|Validator
      */
     protected $validator;
 

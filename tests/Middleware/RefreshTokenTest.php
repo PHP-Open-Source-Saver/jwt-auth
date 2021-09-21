@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Middleware;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
 use Illuminate\Http\Response;
 use Mockery;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
-use Tymon\JWTAuth\Http\Parser\Parser;
 
 class RefreshTokenTest extends AbstractMiddlewareTest
 {
     /**
-     * @var \Tymon\JWTAuth\Http\Middleware\RefreshToken
+     * @var RefreshToken
      */
     protected $middleware;
 

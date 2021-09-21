@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
-use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Support\CustomClaims;
-use Tymon\JWTAuth\Support\RefreshFlow;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT as JWTContract;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException;
+use PHPOpenSourceSaver\JWTAuth\Support\CustomClaims;
+use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
 
 class Manager
 {
@@ -24,21 +24,21 @@ class Manager
     /**
      * The provider.
      *
-     * @var \Tymon\JWTAuth\Contracts\Providers\JWT
+     * @var \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT
      */
     protected $provider;
 
     /**
      * The blacklist.
      *
-     * @var \Tymon\JWTAuth\Blacklist
+     * @var \PHPOpenSourceSaver\JWTAuth\Blacklist
      */
     protected $blacklist;
 
     /**
      * the payload factory.
      *
-     * @var \Tymon\JWTAuth\Factory
+     * @var \PHPOpenSourceSaver\JWTAuth\Factory
      */
     protected $payloadFactory;
 
@@ -61,9 +61,9 @@ class Manager
     /**
      * Constructor.
      *
-     * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
-     * @param  \Tymon\JWTAuth\Blacklist  $blacklist
-     * @param  \Tymon\JWTAuth\Factory  $payloadFactory
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT  $provider
+     * @param  \PHPOpenSourceSaver\JWTAuth\Blacklist  $blacklist
+     * @param  \PHPOpenSourceSaver\JWTAuth\Factory  $payloadFactory
      *
      * @return void
      */
@@ -77,9 +77,9 @@ class Manager
     /**
      * Encode a Payload and return the Token.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
-     * @return \Tymon\JWTAuth\Token
+     * @return \PHPOpenSourceSaver\JWTAuth\Token
      */
     public function encode(Payload $payload)
     {
@@ -91,12 +91,12 @@ class Manager
     /**
      * Decode a Token and return the Payload.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
+     * @param  \PHPOpenSourceSaver\JWTAuth\Token  $token
      * @param  bool  $checkBlacklist
      *
-     * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function decode(Token $token, $checkBlacklist = true)
     {
@@ -124,11 +124,11 @@ class Manager
     /**
      * Refresh a Token and return a new Token.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
+     * @param  \PHPOpenSourceSaver\JWTAuth\Token  $token
      * @param  bool  $forceForever
      * @param  bool  $resetClaims
      *
-     * @return \Tymon\JWTAuth\Token
+     * @return \PHPOpenSourceSaver\JWTAuth\Token
      */
     public function refresh(Token $token, $forceForever = false, $resetClaims = false)
     {
@@ -150,10 +150,10 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
+     * @param  \PHPOpenSourceSaver\JWTAuth\Token  $token
      * @param  bool  $forceForever
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return bool
      */
@@ -172,7 +172,7 @@ class Manager
     /**
      * Build the claims to go into the refreshed token.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
      *
      * @return array
      */
@@ -197,7 +197,7 @@ class Manager
     /**
      * Get the Payload Factory instance.
      *
-     * @return \Tymon\JWTAuth\Factory
+     * @return \PHPOpenSourceSaver\JWTAuth\Factory
      */
     public function getPayloadFactory()
     {
@@ -207,7 +207,7 @@ class Manager
     /**
      * Get the JWTProvider instance.
      *
-     * @return \Tymon\JWTAuth\Contracts\Providers\JWT
+     * @return \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT
      */
     public function getJWTProvider()
     {
@@ -217,7 +217,7 @@ class Manager
     /**
      * Get the Blacklist instance.
      *
-     * @return \Tymon\JWTAuth\Blacklist
+     * @return \PHPOpenSourceSaver\JWTAuth\Blacklist
      */
     public function getBlacklist()
     {

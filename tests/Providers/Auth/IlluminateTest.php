@@ -9,22 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\Auth;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\Auth;
 
 use Illuminate\Contracts\Auth\Guard;
 use Mockery;
-use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use Mockery\MockInterface;
+use PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate as Auth;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class IlluminateTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Illuminate\Contracts\Auth\Guard
+     * @var MockInterface|Guard
      */
     protected $authManager;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\Auth\Illuminate
+     * @var Auth
      */
     protected $auth;
 
@@ -60,7 +61,7 @@ class IlluminateTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_currently_authenticated_user()
     {
-        $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
+        $this->authManager->shouldReceive('user')->once()->andReturn((object)['id' => 1]);
         $this->assertSame($this->auth->user()->id, 1);
     }
 }

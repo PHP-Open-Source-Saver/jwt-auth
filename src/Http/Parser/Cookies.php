@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Http\Parser;
+namespace PHPOpenSourceSaver\JWTAuth\Http\Parser;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class Cookies implements ParserContract
 {

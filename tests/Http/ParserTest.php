@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Http;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Http;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
 use Mockery;
-use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\Cookies;
-use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\Http\Parser\RouteParams;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser as ParserContract;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\AuthHeaders;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Cookies;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\InputSource;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\LumenRouteParams;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\QueryString;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\RouteParams;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class ParserTest extends AbstractTestCase
 {
@@ -334,6 +334,15 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
+    protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
+    {
+        return Mockery::mock(Route::class)
+            ->shouldReceive('parameter')
+            ->with($expectedParameterName)
+            ->andReturn($expectedParameterValue)
+            ->getMock();
+    }
+
     /** @test */
     public function it_should_return_the_token_from_route_with_a_custom_param()
     {
@@ -460,7 +469,7 @@ class ParserTest extends AbstractTestCase
             new RouteParams,
         ];
 
-        /* @var \Illuminate\Http\Request $request */
+        /* @var Request $request */
         $request = Mockery::mock(Request::class);
 
         $parser = new Parser($request);
@@ -507,14 +516,5 @@ class ParserTest extends AbstractTestCase
 
         $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
-    }
-
-    protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
-    {
-        return Mockery::mock(Route::class)
-            ->shouldReceive('parameter')
-            ->with($expectedParameterName)
-            ->andReturn($expectedParameterValue)
-            ->getMock();
     }
 }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Auth\GuardHelpers;
@@ -17,9 +17,9 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Traits\Macroable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard
 {
@@ -37,7 +37,7 @@ class JWTGuard implements Guard
     /**
      * The JWT instance.
      *
-     * @var \Tymon\JWTAuth\JWT
+     * @var \PHPOpenSourceSaver\JWTAuth\JWT
      */
     protected $jwt;
 
@@ -51,7 +51,7 @@ class JWTGuard implements Guard
     /**
      * Instantiate the class.
      *
-     * @param  \Tymon\JWTAuth\JWT  $jwt
+     * @param  \PHPOpenSourceSaver\JWTAuth\JWT  $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
      *
@@ -86,7 +86,7 @@ class JWTGuard implements Guard
     /**
      * Get the currently authenticated user or throws an exception.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\UserNotDefinedException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable
      */
@@ -133,7 +133,7 @@ class JWTGuard implements Guard
     /**
      * Create a token for a user.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $user
      *
      * @return string
      */
@@ -178,7 +178,7 @@ class JWTGuard implements Guard
      *
      * @param  bool  $forceForever
      *
-     * @return \Tymon\JWTAuth\JWT
+     * @return \PHPOpenSourceSaver\JWTAuth\JWT
      */
     public function invalidate($forceForever = false)
     {
@@ -264,7 +264,7 @@ class JWTGuard implements Guard
     /**
      * Get the raw Payload instance.
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function getPayload()
     {
@@ -274,7 +274,7 @@ class JWTGuard implements Guard
     /**
      * Alias for getPayload().
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function payload()
     {
@@ -284,7 +284,7 @@ class JWTGuard implements Guard
     /**
      * Set the token.
      *
-     * @param  \Tymon\JWTAuth\Token|string  $token
+     * @param  \PHPOpenSourceSaver\JWTAuth\Token|string  $token
      *
      * @return $this
      */
@@ -409,9 +409,9 @@ class JWTGuard implements Guard
     /**
      * Ensure that a token is available in the request.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
-     * @return \Tymon\JWTAuth\JWT
+     * @return \PHPOpenSourceSaver\JWTAuth\JWT
      */
     protected function requireToken()
     {

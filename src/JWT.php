@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Support\CustomClaims;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use PHPOpenSourceSaver\JWTAuth\Support\CustomClaims;
 
 class JWT
 {
@@ -25,21 +25,21 @@ class JWT
     /**
      * The authentication manager.
      *
-     * @var \Tymon\JWTAuth\Manager
+     * @var \PHPOpenSourceSaver\JWTAuth\Manager
      */
     protected $manager;
 
     /**
      * The HTTP parser.
      *
-     * @var \Tymon\JWTAuth\Http\Parser\Parser
+     * @var \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser
      */
     protected $parser;
 
     /**
      * The token.
      *
-     * @var \Tymon\JWTAuth\Token|null
+     * @var \PHPOpenSourceSaver\JWTAuth\Token|null
      */
     protected $token;
 
@@ -53,8 +53,8 @@ class JWT
     /**
      * JWT constructor.
      *
-     * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
+     * @param  \PHPOpenSourceSaver\JWTAuth\Manager  $manager
+     * @param  \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser  $parser
      *
      * @return void
      */
@@ -67,7 +67,7 @@ class JWT
     /**
      * Generate a token for a given subject.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
      *
      * @return string
      */
@@ -81,7 +81,7 @@ class JWT
     /**
      * Alias to generate a token for a given user.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $user
      *
      * @return string
      */
@@ -127,9 +127,9 @@ class JWT
      * Alias to get the payload, and as a result checks that
      * the token is valid i.e. not expired or blacklisted.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function checkOrFail()
     {
@@ -141,7 +141,7 @@ class JWT
      *
      * @param  bool  $getPayload
      *
-     * @return \Tymon\JWTAuth\Payload|bool
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload|bool
      */
     public function check($getPayload = false)
     {
@@ -157,7 +157,7 @@ class JWT
     /**
      * Get the token.
      *
-     * @return \Tymon\JWTAuth\Token|null
+     * @return \PHPOpenSourceSaver\JWTAuth\Token|null
      */
     public function getToken()
     {
@@ -175,7 +175,7 @@ class JWT
     /**
      * Parse the token from the request.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return $this
      */
@@ -191,7 +191,7 @@ class JWT
     /**
      * Get the raw Payload instance.
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function getPayload()
     {
@@ -203,7 +203,7 @@ class JWT
     /**
      * Alias for getPayload().
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function payload()
     {
@@ -225,9 +225,9 @@ class JWT
     /**
      * Create a Payload instance.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function makePayload(JWTSubject $subject)
     {
@@ -237,7 +237,7 @@ class JWT
     /**
      * Build the claims array and return it.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
      *
      * @return array
      */
@@ -253,7 +253,7 @@ class JWT
     /**
      * Get the claims associated with a given subject.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
      *
      * @return array
      */
@@ -295,7 +295,7 @@ class JWT
     /**
      * Set the token.
      *
-     * @param  \Tymon\JWTAuth\Token|string  $token
+     * @param  \PHPOpenSourceSaver\JWTAuth\Token|string  $token
      *
      * @return $this
      */
@@ -321,7 +321,7 @@ class JWT
     /**
      * Ensure that a token is available.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return void
      */
@@ -363,7 +363,7 @@ class JWT
     /**
      * Get the Manager instance.
      *
-     * @return \Tymon\JWTAuth\Manager
+     * @return \PHPOpenSourceSaver\JWTAuth\Manager
      */
     public function manager()
     {
@@ -373,7 +373,7 @@ class JWT
     /**
      * Get the Parser instance.
      *
-     * @return \Tymon\JWTAuth\Http\Parser\Parser
+     * @return \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser
      */
     public function parser()
     {
@@ -383,7 +383,7 @@ class JWT
     /**
      * Get the Payload Factory.
      *
-     * @return \Tymon\JWTAuth\Factory
+     * @return \PHPOpenSourceSaver\JWTAuth\Factory
      */
     public function factory()
     {
@@ -393,7 +393,7 @@ class JWT
     /**
      * Get the Blacklist.
      *
-     * @return \Tymon\JWTAuth\Blacklist
+     * @return \PHPOpenSourceSaver\JWTAuth\Blacklist
      */
     public function blacklist()
     {

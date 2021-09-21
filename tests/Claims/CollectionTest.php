@@ -9,19 +9,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Claims;
 
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class CollectionTest extends AbstractTestCase
 {
+    /** @test */
+    public function it_should_sanitize_the_claims_to_associative_array()
+    {
+        $collection = $this->getCollection();
+
+        $this->assertSame(array_keys($collection->toArray()), ['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']);
+    }
+
     private function getCollection()
     {
         $claims = [
@@ -34,14 +42,6 @@ class CollectionTest extends AbstractTestCase
         ];
 
         return new Collection($claims);
-    }
-
-    /** @test */
-    public function it_should_sanitize_the_claims_to_associative_array()
-    {
-        $collection = $this->getCollection();
-
-        $this->assertSame(array_keys($collection->toArray()), ['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']);
     }
 
     /** @test */

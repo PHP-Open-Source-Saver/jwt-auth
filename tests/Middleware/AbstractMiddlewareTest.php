@@ -9,22 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Middleware;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
 use Illuminate\Http\Request;
 use Mockery;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use Mockery\MockInterface;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 abstract class AbstractMiddlewareTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\JWTAuth
+     * @var MockInterface|JWTAuth
      */
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface|\Illuminate\Http\Request
+     * @var MockInterface|Request
      */
     protected $request;
 

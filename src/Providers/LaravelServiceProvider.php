@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Providers;
+namespace PHPOpenSourceSaver\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Http\Parser\Cookies;
-use Tymon\JWTAuth\Http\Parser\RouteParams;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Cookies;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\RouteParams;
 
 class LaravelServiceProvider extends AbstractServiceProvider
 {

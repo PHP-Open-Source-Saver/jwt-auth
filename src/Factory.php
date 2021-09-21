@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
-use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Support\CustomClaims;
-use Tymon\JWTAuth\Support\RefreshFlow;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Factory as ClaimFactory;
+use PHPOpenSourceSaver\JWTAuth\Support\CustomClaims;
+use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class Factory
 {
@@ -25,14 +25,14 @@ class Factory
     /**
      * The claim factory.
      *
-     * @var \Tymon\JWTAuth\Claims\Factory
+     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Factory
      */
     protected $claimFactory;
 
     /**
      * The validator.
      *
-     * @var \Tymon\JWTAuth\Validators\PayloadValidator
+     * @var \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 
@@ -52,15 +52,15 @@ class Factory
     /**
      * The claims collection.
      *
-     * @var \Tymon\JWTAuth\Claims\Collection
+     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     protected $claims;
 
     /**
      * Constructor.
      *
-     * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
-     * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Factory  $claimFactory
+     * @param  \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator  $validator
      *
      * @return void
      */
@@ -76,7 +76,7 @@ class Factory
      *
      * @param  bool  $resetClaims
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function make($resetClaims = false)
     {
@@ -154,7 +154,7 @@ class Factory
     /**
      * Build out the Claim DTO's.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     protected function resolveClaims()
     {
@@ -166,7 +166,7 @@ class Factory
     /**
      * Build and get the Claims Collection.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     public function buildClaimsCollection()
     {
@@ -176,9 +176,9 @@ class Factory
     /**
      * Get a Payload instance with a claims collection.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function withClaims(Collection $claims)
     {
@@ -236,7 +236,7 @@ class Factory
     /**
      * Get the PayloadValidator instance.
      *
-     * @return \Tymon\JWTAuth\Validators\PayloadValidator
+     * @return \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
      */
     public function validator()
     {

@@ -9,32 +9,33 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use BadMethodCallException;
 use Mockery;
-use Tymon\JWTAuth\Claims\Audience;
-use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use Mockery\MockInterface;
+use PHPOpenSourceSaver\JWTAuth\Claims\Audience;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException;
+use PHPOpenSourceSaver\JWTAuth\Payload;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\PayloadValidator
+     * @var MockInterface|PayloadValidator
      */
     protected $validator;
 
     /**
-     * @var \Tymon\JWTAuth\Payload
+     * @var Payload
      */
     protected $payload;
 
@@ -46,9 +47,9 @@ class PayloadTest extends AbstractTestCase
     }
 
     /**
-     * @param  array  $extraClaims
+     * @param array $extraClaims
      *
-     * @return \Tymon\JWTAuth\Payload
+     * @return Payload
      */
     private function getTestPayload(array $extraClaims = [])
     {
@@ -94,8 +95,8 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_cast_the_payload_to_a_string_as_json()
     {
-        $this->assertSame((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
-        $this->assertJsonStringEqualsJsonString((string) $this->payload, json_encode($this->payload->get()));
+        $this->assertSame((string)$this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
+        $this->assertJsonStringEqualsJsonString((string)$this->payload, json_encode($this->payload->get()));
     }
 
     /** @test */
@@ -206,7 +207,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_match_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = (string) $values['sub'];
+        $values['sub'] = (string)$values['sub'];
 
         $this->assertTrue($this->payload->matches($values));
     }
@@ -239,7 +240,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_not_match_strict_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = (string) $values['sub'];
+        $values['sub'] = (string)$values['sub'];
 
         $this->assertFalse($this->payload->matchesStrict($values));
         $this->assertFalse($this->payload->matches($values, true));

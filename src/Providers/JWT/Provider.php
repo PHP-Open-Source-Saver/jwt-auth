@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
 use Illuminate\Support\Arr;
 
@@ -182,7 +182,7 @@ abstract class Provider
      * Determine if the algorithm is asymmetric, and thus
      * requires a public/private key combo.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
      * @return bool
      */

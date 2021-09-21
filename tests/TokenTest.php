@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
-use Tymon\JWTAuth\Token;
+use PHPOpenSourceSaver\JWTAuth\Token;
 
 class TokenTest extends AbstractTestCase
 {
     /**
-     * @var \Tymon\JWTAuth\Token
+     * @var Token
      */
     protected $token;
 
@@ -30,7 +30,7 @@ class TokenTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_token_when_casting_to_a_string()
     {
-        $this->assertEquals((string) $this->token, $this->token);
+        $this->assertEquals((string)$this->token, $this->token);
     }
 
     /** @test */

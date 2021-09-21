@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Validators;
+namespace PHPOpenSourceSaver\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
 class TokenValidator extends Validator
 {
@@ -30,7 +30,7 @@ class TokenValidator extends Validator
     /**
      * @param  string  $token
      *
-     * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      *
      * @return string
      */

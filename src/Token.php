@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
-use Tymon\JWTAuth\Validators\TokenValidator;
+use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 
 class Token
 {

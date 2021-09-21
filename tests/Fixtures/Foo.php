@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Fixtures;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Fixtures;
 
-use Tymon\JWTAuth\Claims\Claim;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
 
 class Foo extends Claim
 {

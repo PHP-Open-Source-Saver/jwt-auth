@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Middleware;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
 use Mockery;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Http\Middleware\Check;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Test\Stubs\UserStub;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Check;
+use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
+use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
 
 class CheckTest extends AbstractMiddlewareTest
 {
     /**
-     * @var \Tymon\JWTAuth\Http\Middleware\Check
+     * @var Check
      */
     protected $middleware;
 

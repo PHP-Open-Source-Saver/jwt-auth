@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
-use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Claim as ClaimContract;
 
 abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
 {
@@ -47,7 +47,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @param  mixed  $value
      *
-     * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException
      *
      * @return $this
      */

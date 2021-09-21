@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Contracts;
+namespace PHPOpenSourceSaver\JWTAuth\Contracts;
 
 interface Validator
 {
