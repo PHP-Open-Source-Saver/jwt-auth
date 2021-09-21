@@ -20,7 +20,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
 class CheckTest extends AbstractMiddlewareTest
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Http\Middleware\Check
+     * @var Check
      */
     protected $middleware;
 

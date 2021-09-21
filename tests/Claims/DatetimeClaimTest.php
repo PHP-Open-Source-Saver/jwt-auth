@@ -17,6 +17,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
 use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
@@ -31,7 +32,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 class DatetimeClaimTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
+     * @var MockInterface|PayloadValidator
      */
     protected $validator;
 
@@ -109,7 +110,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetime_immutable_claims()
     {
-        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
+        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string)$this->testNowTimestamp);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $testDateTimeImmutable);
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);

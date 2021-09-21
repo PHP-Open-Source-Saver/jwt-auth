@@ -12,16 +12,16 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
 use Mockery;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticateTest extends AbstractMiddlewareTest
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate
+     * @var Authenticate
      */
     protected $middleware;
 

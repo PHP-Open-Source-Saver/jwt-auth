@@ -27,7 +27,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 class PayloadValidatorTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
+     * @var PayloadValidator
      */
     protected $validator;
 

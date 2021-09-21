@@ -13,18 +13,19 @@ namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\Auth;
 
 use Illuminate\Contracts\Auth\Guard;
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate as Auth;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class IlluminateTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Illuminate\Contracts\Auth\Guard
+     * @var MockInterface|Guard
      */
     protected $authManager;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate
+     * @var Auth
      */
     protected $auth;
 
@@ -60,7 +61,7 @@ class IlluminateTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_currently_authenticated_user()
     {
-        $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
+        $this->authManager->shouldReceive('user')->once()->andReturn((object)['id' => 1]);
         $this->assertSame($this->auth->user()->id, 1);
     }
 }

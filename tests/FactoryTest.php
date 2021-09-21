@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Custom;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -28,17 +29,17 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 class FactoryTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Claims\Factory
+     * @var MockInterface|ClaimFactory
      */
     protected $claimFactory;
 
     /**
-     * @var \Mockery\MockInterface|\PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
+     * @var MockInterface|PayloadValidator
      */
     protected $validator;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Factory
+     * @var Factory
      */
     protected $factory;
 

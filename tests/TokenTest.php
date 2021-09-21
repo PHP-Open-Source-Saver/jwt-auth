@@ -16,7 +16,7 @@ use PHPOpenSourceSaver\JWTAuth\Token;
 class TokenTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Token
+     * @var Token
      */
     protected $token;
 
@@ -30,7 +30,7 @@ class TokenTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_token_when_casting_to_a_string()
     {
-        $this->assertEquals((string) $this->token, $this->token);
+        $this->assertEquals((string)$this->token, $this->token);
     }
 
     /** @test */

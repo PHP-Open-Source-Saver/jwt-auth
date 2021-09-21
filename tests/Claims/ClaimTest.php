@@ -19,7 +19,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 class ClaimTest extends AbstractTestCase
 {
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Expiration
+     * @var Expiration
      */
     protected $claim;
 
@@ -48,7 +48,7 @@ class ClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_get_the_claim_as_a_string()
     {
-        $this->assertJsonStringEqualsJsonString((string) $this->claim, $this->claim->toJson());
+        $this->assertJsonStringEqualsJsonString((string)$this->claim, $this->claim->toJson());
     }
 
     /** @test */

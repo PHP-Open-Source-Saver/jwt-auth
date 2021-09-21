@@ -17,25 +17,27 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Lcobucci;
+use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Namshi;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class LcobucciTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var MockInterface
      */
     protected $parser;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var MockInterface
      */
     protected $builder;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Providers\JWT\Namshi
+     * @var Namshi
      */
     protected $provider;
 
@@ -60,6 +62,11 @@ class LcobucciTest extends AbstractTestCase
         $token = $this->getProvider('secret', 'HS256')->encode($payload);
 
         $this->assertSame('foo.bar.baz', $token);
+    }
+
+    public function getProvider($secret, $algo, array $keys = [])
+    {
+        return new Lcobucci($this->builder, $this->parser, $secret, $algo, $keys);
     }
 
     /** @test */
@@ -136,6 +143,16 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
+    public function getDummyPrivateKey()
+    {
+        return file_get_contents(__DIR__ . '/../Keys/id_rsa');
+    }
+
+    public function getDummyPublicKey()
+    {
+        return file_get_contents(__DIR__ . '/../Keys/id_rsa.pub');
+    }
+
     /** @test */
     public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
     {
@@ -170,20 +187,5 @@ class LcobucciTest extends AbstractTestCase
         );
 
         $this->assertSame($keys, $provider->getKeys());
-    }
-
-    public function getProvider($secret, $algo, array $keys = [])
-    {
-        return new Lcobucci($this->builder, $this->parser, $secret, $algo, $keys);
-    }
-
-    public function getDummyPrivateKey()
-    {
-        return file_get_contents(__DIR__.'/../Keys/id_rsa');
-    }
-
-    public function getDummyPublicKey()
-    {
-        return file_get_contents(__DIR__.'/../Keys/id_rsa.pub');
     }
 }

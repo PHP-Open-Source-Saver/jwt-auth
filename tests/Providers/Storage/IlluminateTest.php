@@ -13,6 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\Storage;
 
 use Illuminate\Contracts\Cache\Repository;
 use Mockery;
+use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate as Storage;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 use PHPOpenSourceSaver\JWTAuth\Test\Stubs\TaggedStorage;
@@ -20,12 +21,12 @@ use PHPOpenSourceSaver\JWTAuth\Test\Stubs\TaggedStorage;
 class IlluminateTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface|\Illuminate\Contracts\Cache\Repository
+     * @var MockInterface|Repository
      */
     protected $cache;
 
     /**
-     * @var \PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate
+     * @var Storage
      */
     protected $storage;
 
@@ -79,6 +80,15 @@ class IlluminateTest extends AbstractTestCase
 
     // Duplicate tests for tagged storage --------------------
 
+    /** @test */
+    public function it_should_add_the_item_to_tagged_storage()
+    {
+        $this->emulateTags();
+        $this->cache->shouldReceive('put')->with('foo', 'bar', 10)->once();
+
+        $this->storage->add('foo', 'bar', 10);
+    }
+
     /**
      * Replace the storage with our one above that overrides the tag flag, and
      * define expectations for tags() method.
@@ -90,15 +100,6 @@ class IlluminateTest extends AbstractTestCase
         $this->storage = new TaggedStorage($this->cache);
 
         $this->cache->shouldReceive('tags')->with('tymon.jwt')->once()->andReturn(Mockery::self());
-    }
-
-    /** @test */
-    public function it_should_add_the_item_to_tagged_storage()
-    {
-        $this->emulateTags();
-        $this->cache->shouldReceive('put')->with('foo', 'bar', 10)->once();
-
-        $this->storage->add('foo', 'bar', 10);
     }
 
     /** @test */
