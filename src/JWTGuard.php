@@ -12,9 +12,13 @@
 namespace PHPOpenSourceSaver\JWTAuth;
 
 use BadMethodCallException;
+use Illuminate\Auth\Events\Attempting;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Traits\Macroable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
@@ -49,6 +53,20 @@ class JWTGuard implements Guard
     protected $request;
 
     /**
+     * The event dispatcher instance.
+     *
+     * @var \Illuminate\Contracts\Events\Dispatcher
+     */
+    protected $events;
+
+    /**
+     * The name of the Guard.
+     *
+     * @var string
+     */
+    protected $name = 'tymon.jwt';
+
+    /**
      * Instantiate the class.
      *
      * @param  \PHPOpenSourceSaver\JWTAuth\JWT  $jwt
@@ -57,11 +75,12 @@ class JWTGuard implements Guard
      *
      * @return void
      */
-    public function __construct(JWT $jwt, UserProvider $provider, Request $request)
+    public function __construct(JWT $jwt, UserProvider $provider, Request $request, Dispatcher $eventDispatcher)
     {
         $this->jwt = $jwt;
         $this->provider = $provider;
         $this->request = $request;
+        $this->events = $eventDispatcher;
     }
 
     /**
@@ -75,7 +94,8 @@ class JWTGuard implements Guard
             return $this->user;
         }
 
-        if ($this->jwt->setRequest($this->request)->getToken() &&
+        if (
+            $this->jwt->setRequest($this->request)->getToken() &&
             ($payload = $this->jwt->check(true)) &&
             $this->validateSubject()
         ) {
@@ -92,7 +112,7 @@ class JWTGuard implements Guard
      */
     public function userOrFail()
     {
-        if (! $user = $this->user()) {
+        if (!$user = $this->user()) {
             throw new UserNotDefinedException;
         }
 
@@ -123,9 +143,13 @@ class JWTGuard implements Guard
     {
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
 
+        $this->fireAttemptEvent($credentials);
+
         if ($this->hasValidCredentials($user, $credentials)) {
             return $login ? $this->login($user) : true;
         }
+
+        $this->fireFailedEvent($user, $credentials);
 
         return false;
     }
@@ -387,7 +411,13 @@ class JWTGuard implements Guard
      */
     protected function hasValidCredentials($user, $credentials)
     {
-        return $user !== null && $this->provider->validateCredentials($user, $credentials);
+        $validated = $user !== null && $this->provider->validateCredentials($user, $credentials);
+
+        if ($validated) {
+            $this->fireValidatedEvent($user);
+        }
+
+        return $validated;
     }
 
     /**
@@ -399,7 +429,7 @@ class JWTGuard implements Guard
     {
         // If the provider doesn't have the necessary method
         // to get the underlying model name then allow.
-        if (! method_exists($this->provider, 'getModel')) {
+        if (!method_exists($this->provider, 'getModel')) {
             return true;
         }
 
@@ -415,11 +445,59 @@ class JWTGuard implements Guard
      */
     protected function requireToken()
     {
-        if (! $this->jwt->setRequest($this->getRequest())->getToken()) {
+        if (!$this->jwt->setRequest($this->getRequest())->getToken()) {
             throw new JWTException('Token could not be parsed from the request.');
         }
 
         return $this->jwt;
+    }
+
+    /**
+     * Fire the attempt event.
+     *
+     * @param  array  $credentials
+     *
+     * @return void
+     */
+    protected function fireAttemptEvent(array $credentials)
+    {
+        $this->events->dispatch(new Attempting(
+            $this->name,
+            $credentials,
+            false
+        ));
+    }
+
+    /**
+     * Fires the validated event.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     *
+     * @return void
+     */
+    protected function fireValidatedEvent($user)
+    {
+        $this->events->dispatch(new Validated(
+            $this->name,
+            $user
+        ));
+    }
+
+    /**
+     * Fire the failed authentication attempt event.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
+     * @param  array  $credentials
+     *
+     * @return void
+     */
+    protected function fireFailedEvent($user, array $credentials)
+    {
+        $this->events->dispatch(new Failed(
+            $this->name,
+            $user,
+            $credentials
+        ));
     }
 
     /**
