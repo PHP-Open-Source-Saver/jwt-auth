@@ -283,7 +283,7 @@ class ManagerTest extends AbstractTestCase
      {
          $this->manager->setBlackListExceptionEnabled(true);
  
-         $this->assertIsBool($this->manager->gettBlackListExceptionEnabled());
+         $this->assertIsBool($this->manager->getBlackListExceptionEnabled());
      }
  
      /** @test */
@@ -291,7 +291,7 @@ class ManagerTest extends AbstractTestCase
      {
          $this->manager->setBlackListExceptionEnabled(true);
  
-         $this->assertTrue($this->manager->gettBlackListExceptionEnabled());
+         $this->assertTrue($this->manager->getBlackListExceptionEnabled());
      }
  
      /** @test */
@@ -299,6 +299,6 @@ class ManagerTest extends AbstractTestCase
      {
          $this->manager->setBlackListExceptionEnabled(false);
  
-         $this->assertFalse($this->manager->gettBlackListExceptionEnabled());
+         $this->assertFalse($this->manager->getBlackListExceptionEnabled());
      }
 }
