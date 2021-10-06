@@ -3,6 +3,8 @@ name: PHPUnit tests
 on:
   push:
   pull_request:
+    branches:
+      - develop
   release:
     types:
       - published
