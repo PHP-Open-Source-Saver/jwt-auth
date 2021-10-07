@@ -3,6 +3,8 @@ name: PHPUnit tests
 on:
   push:
   pull_request:
+    branches:
+      - develop
   release:
     types:
       - published
@@ -14,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0]
+        php: [7.4, 8.0]
         laravel: [6.*, 7.*, 8.*]
         os: [ubuntu-latest]
         coverage: [none]
