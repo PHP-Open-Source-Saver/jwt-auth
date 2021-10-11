@@ -31,7 +31,7 @@
         "php": "^7.2|^8.0",
         "illuminate/auth": "^5.2|^6|^7|^8",
         "illuminate/contracts": "^5.2|^6|^7|^8",
-        "illuminate/database": "^5.2|^6|^7|^8",
+        "illuminate/database": "^5.2|^6.20.26|^7.30.4|^8.40.0",
         "illuminate/http": "^5.2|^6|^7|^8",
         "illuminate/support": "^5.2|^6|^7|^8",
         "lcobucci/jwt": "^4.0",
