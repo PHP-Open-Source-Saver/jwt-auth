@@ -78,7 +78,7 @@ class Factory
      *
      * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
-    public function make($resetClaims = true)
+    public function make($resetClaims = false)
     {
         if ($resetClaims) {
             $this->emptyClaims();
