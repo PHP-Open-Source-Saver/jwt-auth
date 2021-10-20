@@ -230,7 +230,13 @@ class Lcobucci extends Provider implements JWT
             throw new JWTException('The given algorithm could not be found');
         }
 
-        return new $this->signers[$this->algo];
+        $signer = $this->signers[$this->algo];
+
+        if (is_subclass_of($signer, 'Lcobucci\JWT\Signer\Ecdsa')) {
+            return $signer::create();
+        }
+
+        return new $signer;
     }
 
     /**
