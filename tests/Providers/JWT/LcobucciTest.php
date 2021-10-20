@@ -222,6 +222,18 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($keys, $provider->getKeys());
     }
 
+    /** @test */
+    public function it_should_correctly_instantiate_an_ecdsa_signer()
+    {
+        $provider = new Lcobucci(
+            'does_not_matter',
+            'ES256',
+            ['private' => 'dummy', 'public' => 'dummy']
+        );
+
+        $this->assertSame('ES256', $provider->getConfig()->signer()->algorithmId());
+    }
+
     public function getProvider($secret, $algo, array $keys = [])
     {
         $provider = new Lcobucci($secret, $algo, $keys);
