@@ -19,11 +19,16 @@
             "name": "Sean Tymon",
             "email": "tymon148@gmail.com",
             "homepage": "https://tymon.xyz",
-            "role": "Developer"
+            "role": "Forked package creator | Developer"
         },
         {
             "name": "Eric Schricker",
             "email": "eric.schricker@adiutabyte.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Fabio William Conceição",
+            "email": "messhias@gmail.com",
             "role": "Developer"
         }
     ],
