@@ -9,33 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Commands\Providers\JWT;
 
 use Mockery;
-use Tymon\JWTAuth\Token;
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\JWTManager;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\JWTManager;
+use PHPUnit\Framework\TestCase;
 
-class JWTManagerTest extends \PHPUnit_Framework_TestCase
+class JWTManagerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
-        $this->jwt = Mockery::mock('Tymon\JWTAuth\Providers\JWT\JWTInterface');
-        $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
-        $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
+        $this->jwt = Mockery::mock('PHPOpenSourceSaver\JWTAuth\Providers\JWT\JWTInterface');
+        $this->blacklist = Mockery::mock('PHPOpenSourceSaver\JWTAuth\Blacklist');
+        $this->factory = Mockery::mock('PHPOpenSourceSaver\JWTAuth\PayloadFactory');
         $this->manager = new JWTManager($this->jwt, $this->blacklist, $this->factory);
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock('PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator');
         $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }

@@ -9,15 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Commands\Providers\JWT;
 
-use Mockery;
 use Carbon\Carbon;
-use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
+use Exception;
+use Mockery;
+use PHPOpenSourceSaver\JWTAuth\Providers\JWT\NamshiAdapter;
+use PHPUnit\Framework\TestCase;
 
-class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
+class NamshiAdapterTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
@@ -25,7 +27,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
         $this->provider = new NamshiAdapter('secret', 'HS256', $this->jws);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }
@@ -49,7 +51,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
 
-        $this->jws->shouldReceive('sign')->andThrow(new \Exception);
+        $this->jws->shouldReceive('sign')->andThrow(new Exception);
 
         $payload = ['sub' => 1, 'exp' => 123, 'iat' => 123, 'iss' => '/foo'];
         $this->provider->encode($payload);
