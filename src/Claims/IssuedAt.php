@@ -9,25 +9,54 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Claims;
+
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
 class IssuedAt extends Claim
 {
+    use DatetimeTrait {
+        validateCreate as commonValidateCreate;
+    }
+
     /**
-     * The claim name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $name = 'iat';
 
     /**
-     * Validate the issued at claim.
-     *
-     * @param  mixed  $value
-     * @return bool
+     * {@inheritdoc}
      */
-    protected function validate($value)
+    public function validateCreate($value)
     {
-        return is_numeric($value);
+        $this->commonValidateCreate($value);
+
+        if ($this->isFuture($value)) {
+            throw new InvalidClaimException($this);
+        }
+
+        return $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validatePayload()
+    {
+        if ($this->isFuture($this->getValue())) {
+            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateRefresh($refreshTTL)
+    {
+        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
+            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
+        }
     }
 }

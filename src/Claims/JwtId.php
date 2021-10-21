@@ -9,14 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 class JwtId extends Claim
 {
     /**
-     * The claim name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $name = 'jti';
 }

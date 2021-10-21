@@ -9,25 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace PHPOpenSourceSaver\JWTAuth\Claims;
+
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
 class NotBefore extends Claim
 {
+    use DatetimeTrait;
+
     /**
-     * The claim name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $name = 'nbf';
 
     /**
-     * Validate the not before claim.
-     *
-     * @param  mixed  $value
-     * @return bool
+     * {@inheritdoc}
      */
-    protected function validate($value)
+    public function validatePayload()
     {
-        return is_numeric($value);
+        if ($this->isFuture($this->getValue())) {
+            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
+        }
     }
 }

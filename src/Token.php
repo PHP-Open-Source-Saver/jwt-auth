@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
-use Tymon\JWTAuth\Validators\TokenValidator;
+use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 
 class Token
 {
@@ -23,13 +23,13 @@ class Token
     /**
      * Create a new JSON Web Token.
      *
-     * @param string  $value
+     * @param  string  $value
+     *
+     * @return void
      */
     public function __construct($value)
     {
-        with(new TokenValidator)->check($value);
-
-        $this->value = $value;
+        $this->value = (string) (new TokenValidator)->check($value);
     }
 
     /**
@@ -49,6 +49,6 @@ class Token
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return $this->get();
     }
 }

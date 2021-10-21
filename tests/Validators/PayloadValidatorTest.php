@@ -9,134 +9,216 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Validators;
 
-use Carbon\Carbon;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
+use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
+use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
+use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
-class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
+class PayloadValidatorTest extends AbstractTestCase
 {
-    public function setUp()
+    /**
+     * @var PayloadValidator
+     */
+    protected $validator;
+
+    public function setUp(): void
     {
-        Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
-        $this->validator = new PayloadValidator();
+        parent::setUp();
+
+        $this->validator = new PayloadValidator;
     }
 
     /** @test */
     public function it_should_return_true_when_providing_a_valid_payload()
     {
-        $payload = [
-            'iss' => 'http://example.com',
-            'iat' => 100,
-            'nbf' => 100,
-            'exp' => 100 + 3600,
-            'sub' => 1,
-            'jti' => 'foo',
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
         ];
 
-        $this->assertTrue($this->validator->isValid($payload));
+        $collection = Collection::make($claims);
+
+        $this->assertTrue($this->validator->isValid($collection));
     }
 
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_expired_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenExpiredException');
+        $this->expectException(TokenExpiredException::class);
+        $this->expectExceptionMessage('Token has expired');
 
-        $payload = [
-            'iss' => 'http://example.com',
-            'iat' => 20,
-            'nbf' => 20,
-            'exp' => 120,
-            'sub' => 1,
-            'jti' => 'foo',
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 1440),
+            new NotBefore($this->testNowTimestamp - 3660),
+            new IssuedAt($this->testNowTimestamp - 3660),
+            new JwtId('foo'),
         ];
 
-        $this->validator->check($payload);
+        $collection = Collection::make($claims);
+
+        $this->validator->check($collection);
     }
 
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Not Before (nbf) timestamp cannot be in the future');
 
-        $payload = [
-            'iss' => 'http://example.com',
-            'iat' => 100,
-            'nbf' => 150,
-            'exp' => 150 + 3600,
-            'sub' => 1,
-            'jti' => 'foo',
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 1440),
+            new NotBefore($this->testNowTimestamp + 3660),
+            new IssuedAt($this->testNowTimestamp - 3660),
+            new JwtId('foo'),
         ];
 
-        $this->validator->check($payload);
+        $collection = Collection::make($claims);
+
+        $this->validator->check($collection);
     }
 
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_iat_claim()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [iat]');
 
-        $payload = [
-            'iss' => 'http://example.com',
-            'iat' => 150,
-            'nbf' => 100,
-            'exp' => 150 + 3600,
-            'sub' => 1,
-            'jti' => 'foo',
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 1440),
+            new NotBefore($this->testNowTimestamp - 3660),
+            new IssuedAt($this->testNowTimestamp + 3660),
+            new JwtId('foo'),
         ];
 
-        $this->validator->check($payload);
+        $collection = Collection::make($claims);
+
+        $this->validator->check($collection);
     }
 
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('JWT payload does not contain the required claims');
 
-        $payload = [
-            'iss' => 'http://example.com',
-            'sub' => 1,
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
         ];
 
-        $this->validator->check($payload);
+        $collection = Collection::make($claims);
+
+        $this->validator->check($collection);
     }
 
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_expiry()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [exp]');
 
-        $payload = [
-            'iss' => 'http://example.com',
-            'iat' => 100,
-            'exp' => 'foo',
-            'sub' => 1,
-            'jti' => 'foo',
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration('foo'),
+            new NotBefore($this->testNowTimestamp - 3660),
+            new IssuedAt($this->testNowTimestamp + 3660),
+            new JwtId('foo'),
         ];
 
-        $this->validator->check($payload);
+        $collection = Collection::make($claims);
+
+        $this->validator->check($collection);
     }
 
-    /** @test **/
-    public function it_should_throw_an_exception_when_required_claims_are_missing()
+    /** @test */
+    public function it_should_set_the_required_claims()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
-
-        $payload = [
-            'iss' => 'http://example.com',
-            'foo' => 'bar',
-            // these are inserted to check for regression to a previous bug
-            // where the check would only compare keys of autoindexed name arrays
-            // (There are enough to account for all of the required claims' indices)
-            'autoindexed',
-            'autoindexed',
-            'autoindexed',
-            'autoindexed',
-            'autoindexed',
-            'autoindexed',
-            'autoindexed',
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
         ];
 
-        $this->validator->check($payload);
+        $collection = Collection::make($claims);
+
+        $this->assertTrue($this->validator->setRequiredClaims(['iss', 'sub'])->isValid($collection));
+    }
+
+    /** @test */
+    public function it_should_check_the_token_in_the_refresh_context()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 1000),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp - 2600), // this is LESS than the refresh ttl at 1 hour
+            new JwtId('foo'),
+        ];
+
+        $collection = Collection::make($claims);
+
+        $this->assertTrue(
+            $this->validator->setRefreshFlow()->setRefreshTTL(60)->isValid($collection)
+        );
+    }
+
+    /** @test */
+    public function it_should_return_true_if_the_refresh_ttl_is_null()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 1000),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp - 2600), // this is LESS than the refresh ttl at 1 hour
+            new JwtId('foo'),
+        ];
+
+        $collection = Collection::make($claims);
+
+        $this->assertTrue(
+            $this->validator->setRefreshFlow()->setRefreshTTL(null)->isValid($collection)
+        );
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_if_the_token_cannot_be_refreshed()
+    {
+        $this->expectException(TokenExpiredException::class);
+        $this->expectExceptionMessage('Token has expired and can no longer be refreshed');
+
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp - 5000), // this is MORE than the refresh ttl at 1 hour, so is invalid
+            new JwtId('foo'),
+        ];
+
+        $collection = Collection::make($claims);
+
+        $this->validator->setRefreshFlow()->setRefreshTTL(60)->check($collection);
     }
 }

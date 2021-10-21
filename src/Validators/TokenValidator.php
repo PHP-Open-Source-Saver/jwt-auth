@@ -9,34 +9,45 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Validators;
+namespace PHPOpenSourceSaver\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
-class TokenValidator extends AbstractValidator
+class TokenValidator extends Validator
 {
     /**
      * Check the structure of the token.
      *
-     * @param string  $value
-     * @return void
+     * @param  string  $value
+     *
+     * @return string
      */
     public function check($value)
     {
-        $this->validateStructure($value);
+        return $this->validateStructure($value);
     }
 
     /**
      * @param  string  $token
-     * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return bool
+     *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     *
+     * @return string
      */
     protected function validateStructure($token)
     {
-        if (count(explode('.', $token)) !== 3) {
+        $parts = explode('.', $token);
+
+        if (count($parts) !== 3) {
             throw new TokenInvalidException('Wrong number of segments');
         }
 
-        return true;
+        $parts = array_filter(array_map('trim', $parts));
+
+        if (count($parts) !== 3 || implode('.', $parts) !== $token) {
+            throw new TokenInvalidException('Malformed token');
+        }
+
+        return $token;
     }
 }

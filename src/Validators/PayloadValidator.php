@@ -9,20 +9,30 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Validators;
+namespace PHPOpenSourceSaver\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Utils;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
-class PayloadValidator extends AbstractValidator
+class PayloadValidator extends Validator
 {
     /**
+     * The required claims.
+     *
      * @var array
      */
-    protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
+    protected $requiredClaims = [
+        'iss',
+        'iat',
+        'exp',
+        'nbf',
+        'sub',
+        'jti',
+    ];
 
     /**
+     * The refresh TTL.
+     *
      * @var int
      */
     protected $refreshTTL = 20160;
@@ -30,81 +40,69 @@ class PayloadValidator extends AbstractValidator
     /**
      * Run the validations on the payload array.
      *
-     * @param  array  $value
-     * @return void
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $value
+     *
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     public function check($value)
     {
         $this->validateStructure($value);
 
-        if (! $this->refreshFlow) {
-            $this->validateTimestamps($value);
-        } else {
-            $this->validateRefresh($value);
-        }
+        return $this->refreshFlow ? $this->validateRefresh($value) : $this->validatePayload($value);
     }
 
     /**
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param array  $payload
-     * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return bool
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     *
+     * @return void
      */
-    protected function validateStructure(array $payload)
+    protected function validateStructure(Collection $claims)
     {
-        if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
+        if ($this->requiredClaims && ! $claims->hasAllClaims($this->requiredClaims)) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
-
-        return true;
     }
 
     /**
      * Validate the payload timestamps.
      *
-     * @param  array  $payload
-     * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return bool
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     *
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
-    protected function validateTimestamps(array $payload)
+    protected function validatePayload(Collection $claims)
     {
-        if (isset($payload['nbf']) && Utils::timestamp($payload['nbf'])->isFuture()) {
-            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future', 400);
-        }
-
-        if (isset($payload['iat']) && Utils::timestamp($payload['iat'])->isFuture()) {
-            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future', 400);
-        }
-
-        if (Utils::timestamp($payload['exp'])->isPast()) {
-            throw new TokenExpiredException('Token has expired');
-        }
-
-        return true;
+        return $claims->validate('payload');
     }
 
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  $payload
-     * @return bool
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
+     *
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
-    protected function validateRefresh(array $payload)
+    protected function validateRefresh(Collection $claims)
     {
-        if (isset($payload['iat']) && Utils::timestamp($payload['iat'])->addMinutes($this->refreshTTL)->isPast()) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed', 400);
-        }
-
-        return true;
+        return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
 
     /**
      * Set the required claims.
      *
-     * @param array  $claims
+     * @param  array  $claims
+     *
+     * @return $this
      */
     public function setRequiredClaims(array $claims)
     {
@@ -116,7 +114,9 @@ class PayloadValidator extends AbstractValidator
     /**
      * Set the refresh ttl.
      *
-     * @param int  $ttl
+     * @param  int  $ttl
+     *
+     * @return $this
      */
     public function setRefreshTTL($ttl)
     {

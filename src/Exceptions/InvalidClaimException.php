@@ -9,12 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Exceptions;
+namespace PHPOpenSourceSaver\JWTAuth\Exceptions;
+
+use Exception;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
 
 class InvalidClaimException extends JWTException
 {
     /**
-     * @var int
+     * Constructor.
+     *
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Claim  $claim
+     * @param  int  $code
+     * @param  \Exception|null  $previous
+     *
+     * @return void
      */
-    protected $statusCode = 400;
+    public function __construct(Claim $claim, $code = 0, Exception $previous = null)
+    {
+        parent::__construct('Invalid value provided for claim ['.$claim->getName().']', $code, $previous);
+    }
 }

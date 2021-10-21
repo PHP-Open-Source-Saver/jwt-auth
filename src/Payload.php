@@ -9,43 +9,147 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth;
+namespace PHPOpenSourceSaver\JWTAuth;
 
-use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use ArrayAccess;
+use BadMethodCallException;
+use Countable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use JsonSerializable;
+use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException;
+use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements \ArrayAccess
+class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {
     /**
-     * The array of claims.
+     * The collection of claims.
      *
-     * @var \Tymon\JWTAuth\Claims\Claim[]
+     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
-    private $claims = [];
+    private $claims;
 
     /**
      * Build the Payload.
      *
-     * @param array  $claims
-     * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
-     * @param bool   $refreshFlow
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     * @param  \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator  $validator
+     * @param  bool  $refreshFlow
+     *
+     * @return void
      */
-    public function __construct(array $claims, PayloadValidator $validator, $refreshFlow = false)
+    public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
-        $this->claims = $claims;
-
-        $validator->setRefreshFlow($refreshFlow)->check($this->toArray());
+        $this->claims = $validator->setRefreshFlow($refreshFlow)->check($claims);
     }
 
     /**
      * Get the array of claim instances.
      *
-     * @return \Tymon\JWTAuth\Claims\Claim[]
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     public function getClaims()
     {
         return $this->claims;
+    }
+
+    /**
+     * Checks if a payload matches some expected values.
+     *
+     * @param  array  $values
+     * @param  bool  $strict
+     *
+     * @return bool
+     */
+    public function matches(array $values, $strict = false)
+    {
+        if (empty($values)) {
+            return false;
+        }
+
+        $claims = $this->getClaims();
+
+        foreach ($values as $key => $value) {
+            if (! $claims->has($key) || ! $claims->get($key)->matches($value, $strict)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if a payload strictly matches some expected values.
+     *
+     * @param  array  $values
+     *
+     * @return bool
+     */
+    public function matchesStrict(array $values)
+    {
+        return $this->matches($values, true);
+    }
+
+    /**
+     * Get the payload.
+     *
+     * @param  mixed  $claim
+     *
+     * @return mixed
+     */
+    public function get($claim = null)
+    {
+        $claim = value($claim);
+
+        if ($claim !== null) {
+            if (is_array($claim)) {
+                return array_map([$this, 'get'], $claim);
+            }
+
+            return Arr::get($this->toArray(), $claim);
+        }
+
+        return $this->toArray();
+    }
+
+    /**
+     * Get the underlying Claim instance.
+     *
+     * @param  string  $claim
+     *
+     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Claim
+     */
+    public function getInternal($claim)
+    {
+        return $this->claims->getByClaimName($claim);
+    }
+
+    /**
+     * Determine whether the payload has the claim (by instance).
+     *
+     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Claim  $claim
+     *
+     * @return bool
+     */
+    public function has(Claim $claim)
+    {
+        return $this->claims->has($claim->getName());
+    }
+
+    /**
+     * Determine whether the payload has the claim (by key).
+     *
+     * @param  string  $claim
+     *
+     * @return bool
+     */
+    public function hasKey($claim)
+    {
+        return $this->offsetExists($claim);
     }
 
     /**
@@ -55,42 +159,29 @@ class Payload implements \ArrayAccess
      */
     public function toArray()
     {
-        $results = [];
-        foreach ($this->claims as $claim) {
-            $results[$claim->getName()] = $claim->getValue();
-        }
-
-        return $results;
+        return $this->claims->toPlainArray();
     }
 
     /**
-     * Get the payload.
+     * Convert the object into something JSON serializable.
      *
-     * @param  string  $claim
-     * @return mixed
+     * @return array
      */
-    public function get($claim = null)
+    public function jsonSerialize()
     {
-        if (! is_null($claim)) {
-            if (is_array($claim)) {
-                return array_map([$this, 'get'], $claim);
-            }
-
-            return array_get($this->toArray(), $claim, false);
-        }
-
         return $this->toArray();
     }
 
     /**
-     * Determine whether the payload has the claim.
+     * Get the payload as JSON.
      *
-     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
-     * @return bool
+     * @param  int  $options
+     *
+     * @return string
      */
-    public function has(Claim $claim)
+    public function toJson($options = JSON_UNESCAPED_SLASHES)
     {
-        return in_array($claim, $this->claims);
+        return json_encode($this->toArray(), $options);
     }
 
     /**
@@ -100,38 +191,40 @@ class Payload implements \ArrayAccess
      */
     public function __toString()
     {
-        return json_encode($this->toArray());
+        return $this->toJson();
     }
 
     /**
      * Determine if an item exists at an offset.
      *
      * @param  mixed  $key
+     *
      * @return bool
      */
     public function offsetExists($key)
     {
-        return array_key_exists($key, $this->toArray());
+        return Arr::has($this->toArray(), $key);
     }
 
     /**
      * Get an item at a given offset.
      *
      * @param  mixed  $key
+     *
      * @return mixed
      */
     public function offsetGet($key)
     {
-        return array_get($this->toArray(), $key, []);
+        return Arr::get($this->toArray(), $key);
     }
 
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  mixed $key
-     * @param  mixed $value
-     * @throws Exceptions\PayloadException
-     * @return void
+     * @param  mixed  $key
+     * @param  mixed  $value
+     *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException
      */
     public function offsetSet($key, $value)
     {
@@ -141,8 +234,10 @@ class Payload implements \ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  string $key
-     * @throws Exceptions\PayloadException
+     * @param  string  $key
+     *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException
+     *
      * @return void
      */
     public function offsetUnset($key)
@@ -151,25 +246,47 @@ class Payload implements \ArrayAccess
     }
 
     /**
+     * Count the number of claims.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->toArray());
+    }
+
+    /**
+     * Invoke the Payload as a callable function.
+     *
+     * @param  mixed  $claim
+     *
+     * @return mixed
+     */
+    public function __invoke($claim = null)
+    {
+        return $this->get($claim);
+    }
+
+    /**
      * Magically get a claim value.
      *
      * @param  string  $method
-     * @param  array   $parameters
-     * @return mixed
+     * @param  array  $parameters
+     *
      * @throws \BadMethodCallException
+     *
+     * @return mixed
      */
     public function __call($method, $parameters)
     {
-        if (! method_exists($this, $method) && starts_with($method, 'get')) {
-            $class = sprintf('Tymon\\JWTAuth\\Claims\\%s', substr($method, 3));
-
+        if (preg_match('/get(.+)\b/i', $method, $matches)) {
             foreach ($this->claims as $claim) {
-                if (get_class($claim) === $class) {
+                if (get_class($claim) === 'PHPOpenSourceSaver\\JWTAuth\\Claims\\'.$matches[1]) {
                     return $claim->getValue();
                 }
             }
         }
 
-        throw new \BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', $method));
+        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', Str::after($method, 'get')));
     }
 }

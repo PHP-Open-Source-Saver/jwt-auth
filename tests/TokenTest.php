@@ -9,26 +9,33 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Providers\JWT;
+namespace PHPOpenSourceSaver\JWTAuth\Test;
 
-use Tymon\JWTAuth\Token;
+use PHPOpenSourceSaver\JWTAuth\Token;
 
-class TokenTest extends \PHPUnit_Framework_TestCase
+class TokenTest extends AbstractTestCase
 {
-    public function setUp()
+    /**
+     * @var Token
+     */
+    protected $token;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $this->token = new Token('foo.bar.baz');
     }
 
     /** @test */
     public function it_should_return_the_token_when_casting_to_a_string()
     {
-        $this->assertEquals((string) $this->token, $this->token);
+        $this->assertEquals((string)$this->token, $this->token);
     }
 
     /** @test */
     public function it_should_return_the_token_when_calling_get_method()
     {
-        $this->assertInternalType('string', $this->token->get());
+        $this->assertIsString($this->token->get());
     }
 }

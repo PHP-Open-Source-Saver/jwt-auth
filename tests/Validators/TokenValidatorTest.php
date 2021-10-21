@@ -9,15 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace PHPOpenSourceSaver\JWTAuth\Test\Validators;
 
-use Tymon\JWTAuth\Validators\TokenValidator;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
+use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 
-class TokenValidatorTest extends \PHPUnit_Framework_TestCase
+class TokenValidatorTest extends AbstractTestCase
 {
-    public function setUp()
+    /**
+     * @var TokenValidator
+     */
+    protected $validator;
+
+    public function setUp(): void
     {
-        $this->validator = new TokenValidator();
+        parent::setUp();
+
+        $this->validator = new TokenValidator;
     }
 
     /** @test */
@@ -26,17 +35,69 @@ class TokenValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->validator->isValid('one.two.three'));
     }
 
-    /** @test */
-    public function it_should_return_false_when_providing_a_malformed_token()
+    /**
+     * @test
+     * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
+     *
+     * @param string $token
+     */
+    public function it_should_return_false_when_providing_a_malformed_token($token)
     {
-        $this->assertFalse($this->validator->isValid('one.two.three.four.five'));
+        $this->assertFalse($this->validator->isValid($token));
     }
 
-    /** @test */
-    public function it_should_throw_an_axception_when_providing_a_malformed_token()
+    /**
+     * @test
+     * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
+     */
+    public function it_should_throw_an_exception_when_providing_a_malformed_token($token)
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Malformed token');
 
-        $this->validator->check('one.two.three.four.five');
+        $this->validator->check($token);
+    }
+
+    /**
+     * @test
+     * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
+     */
+    public function it_should_return_false_when_providing_a_token_with_wrong_segments_number($token)
+    {
+        $this->assertFalse($this->validator->isValid($token));
+    }
+
+    /**
+     * @test
+     * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
+     */
+    public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number($token)
+    {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Wrong number of segments');
+
+        $this->validator->check($token);
+    }
+
+    public function dataProviderMalformedTokens()
+    {
+        return [
+            ['one.two.'],
+            ['.two.'],
+            ['.two.three'],
+            ['one..three'],
+            ['..'],
+            [' . . '],
+            [' one . two . three '],
+        ];
+    }
+
+    public function dataProviderTokensWithWrongSegmentsNumber()
+    {
+        return [
+            ['one.two'],
+            ['one.two.three.four'],
+            ['one.two.three.four.five'],
+        ];
     }
 }

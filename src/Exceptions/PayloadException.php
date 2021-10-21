@@ -9,12 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Exceptions;
+namespace PHPOpenSourceSaver\JWTAuth\Exceptions;
 
 class PayloadException extends JWTException
 {
-    /**
-     * @var int
-     */
-    protected $statusCode = 500;
+    //
 }
