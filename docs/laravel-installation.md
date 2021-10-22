@@ -3,7 +3,7 @@
 Run the following command to pull in the latest version:
 
 ```bash
-composer require tymon/jwt-auth
+composer require php-open-source-saver/jwt-auth
 ```
 
 -------------------------------------------------------------------------------
