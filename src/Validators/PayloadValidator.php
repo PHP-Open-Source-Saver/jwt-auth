@@ -40,9 +40,9 @@ class PayloadValidator extends Validator
     /**
      * Run the validations on the payload array.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $value
+     * @param Collection $value
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @return Collection
      */
     public function check($value)
     {
@@ -55,15 +55,15 @@ class PayloadValidator extends Validator
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
-     *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     * @param Collection $claims
      *
      * @return void
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     *
      */
     protected function validateStructure(Collection $claims)
     {
-        if ($this->requiredClaims && ! $claims->hasAllClaims($this->requiredClaims)) {
+        if ($this->requiredClaims && !$claims->hasAllClaims($this->requiredClaims)) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
     }
@@ -71,12 +71,12 @@ class PayloadValidator extends Validator
     /**
      * Validate the payload timestamps.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     * @param Collection $claims
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
+     * @return Collection
      * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
      */
     protected function validatePayload(Collection $claims)
     {
@@ -86,11 +86,11 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     * @param Collection $claims
      *
+     * @return Collection
      * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
      */
     protected function validateRefresh(Collection $claims)
     {
@@ -100,7 +100,7 @@ class PayloadValidator extends Validator
     /**
      * Set the required claims.
      *
-     * @param  array  $claims
+     * @param array $claims
      *
      * @return $this
      */
@@ -114,7 +114,7 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl.
      *
-     * @param  int  $ttl
+     * @param int $ttl
      *
      * @return $this
      */
