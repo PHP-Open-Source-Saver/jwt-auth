@@ -30,7 +30,7 @@ trait DatetimeTrait
      *
      * @param  mixed  $value
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException
+     * @throws InvalidClaimException
      *
      * @return $this
      */
