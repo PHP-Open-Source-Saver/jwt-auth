@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
 use Illuminate\Support\Arr;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
 abstract class Provider
 {
@@ -39,9 +40,9 @@ abstract class Provider
     /**
      * Constructor.
      *
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
+     * @param string $secret
+     * @param string $algo
+     * @param array $keys
      *
      * @return void
      */
@@ -55,7 +56,7 @@ abstract class Provider
     /**
      * Set the algorithm used to sign the token.
      *
-     * @param  string  $algo
+     * @param string $algo
      *
      * @return $this
      */
@@ -79,7 +80,7 @@ abstract class Provider
     /**
      * Set the secret used to sign the token.
      *
-     * @param  string  $secret
+     * @param string $secret
      *
      * @return $this
      */
@@ -103,7 +104,7 @@ abstract class Provider
     /**
      * Set the keys used to sign the token.
      *
-     * @param  array  $keys
+     * @param array $keys
      *
      * @return $this
      */
@@ -182,9 +183,9 @@ abstract class Provider
      * Determine if the algorithm is asymmetric, and thus
      * requires a public/private key combo.
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
-     *
      * @return bool
+     * @throws JWTException
+     *
      */
     abstract protected function isAsymmetric();
 }
