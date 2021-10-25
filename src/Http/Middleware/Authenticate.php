@@ -12,6 +12,8 @@
 namespace PHPOpenSourceSaver\JWTAuth\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /** @deprecated */
 class Authenticate extends BaseMiddleware
@@ -19,12 +21,12 @@ class Authenticate extends BaseMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+     * @param Request $request
+     * @param Closure $next
      *
      * @return mixed
+     * @throws UnauthorizedHttpException
+     *
      */
     public function handle($request, Closure $next)
     {
