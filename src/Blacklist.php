@@ -19,7 +19,7 @@ class Blacklist
     /**
      * The storage.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage
+     * @var Storage
      */
     protected $storage;
 
@@ -47,7 +47,7 @@ class Blacklist
     /**
      * Constructor.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage  $storage
+     * @param Storage $storage
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return bool
      */
@@ -67,12 +67,12 @@ class Blacklist
     {
         // if there is no exp claim then add the jwt to
         // the blacklist indefinitely
-        if (! $payload->hasKey('exp')) {
+        if (!$payload->hasKey('exp')) {
             return $this->addForever($payload);
         }
 
         // if we have already added this token to the blacklist
-        if (! empty($this->storage->get($this->getKey($payload)))) {
+        if (!empty($this->storage->get($this->getKey($payload)))) {
             return true;
         }
 
@@ -88,7 +88,7 @@ class Blacklist
     /**
      * Get the number of minutes until the token expiry.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return int
      */
@@ -106,7 +106,7 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist indefinitely.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return bool
      */
@@ -120,7 +120,7 @@ class Blacklist
     /**
      * Determine whether the token has been blacklisted.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return bool
      */
@@ -134,13 +134,13 @@ class Blacklist
         }
 
         // check whether the expiry + grace has past
-        return ! empty($val) && ! Utils::isFuture($val['valid_until']);
+        return !empty($val) && !Utils::isFuture($val['valid_until']);
     }
 
     /**
      * Remove the token (jti claim) from the blacklist.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return bool
      */
@@ -175,13 +175,13 @@ class Blacklist
     /**
      * Set the grace period.
      *
-     * @param  int  $gracePeriod
+     * @param int $gracePeriod
      *
      * @return $this
      */
     public function setGracePeriod($gracePeriod)
     {
-        $this->gracePeriod = (int) $gracePeriod;
+        $this->gracePeriod = (int)$gracePeriod;
 
         return $this;
     }
@@ -199,7 +199,7 @@ class Blacklist
     /**
      * Get the unique key held within the blacklist.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return mixed
      */
@@ -211,7 +211,7 @@ class Blacklist
     /**
      * Set the unique key held within the blacklist.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return $this
      */
@@ -225,13 +225,13 @@ class Blacklist
     /**
      * Set the refresh time limit.
      *
-     * @param  int  $ttl
+     * @param int $ttl
      *
      * @return $this
      */
     public function setRefreshTTL($ttl)
     {
-        $this->refreshTTL = (int) $ttl;
+        $this->refreshTTL = (int)$ttl;
 
         return $this;
     }

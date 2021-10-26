@@ -11,13 +11,16 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
+
 class Custom extends Claim
 {
     /**
-     * @param  string  $name
-     * @param  mixed  $value
+     * @param string $name
+     * @param mixed $value
      *
      * @return void
+     * @throws InvalidClaimException
      */
     public function __construct($name, $value)
     {

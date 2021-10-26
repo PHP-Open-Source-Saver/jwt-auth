@@ -12,8 +12,9 @@
 namespace PHPOpenSourceSaver\JWTAuth\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /** @deprecated */
 class RefreshToken extends BaseMiddleware
@@ -21,12 +22,11 @@ class RefreshToken extends BaseMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+     * @param Request $request
+     * @param Closure $next
      *
      * @return mixed
+     * @throws UnauthorizedHttpException
      */
     public function handle($request, Closure $next)
     {

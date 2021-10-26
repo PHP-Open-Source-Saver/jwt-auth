@@ -13,6 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Http\Middleware;
 
 use Closure;
 use Exception;
+use Illuminate\Http\Request;
 
 /** @deprecated */
 class Check extends BaseMiddleware
@@ -20,8 +21,8 @@ class Check extends BaseMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      *
      * @return mixed
      */

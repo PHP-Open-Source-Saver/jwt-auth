@@ -29,16 +29,16 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * The collection of claims.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @var Collection
      */
     private $claims;
 
     /**
      * Build the Payload.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
-     * @param  \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator  $validator
-     * @param  bool  $refreshFlow
+     * @param Collection $claims
+     * @param PayloadValidator $validator
+     * @param bool $refreshFlow
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the array of claim instances.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @return Collection
      */
     public function getClaims()
     {
@@ -60,8 +60,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Checks if a payload matches some expected values.
      *
-     * @param  array  $values
-     * @param  bool  $strict
+     * @param array $values
+     * @param bool $strict
      *
      * @return bool
      */
@@ -74,7 +74,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
         $claims = $this->getClaims();
 
         foreach ($values as $key => $value) {
-            if (! $claims->has($key) || ! $claims->get($key)->matches($value, $strict)) {
+            if (!$claims->has($key) || !$claims->get($key)->matches($value, $strict)) {
                 return false;
             }
         }
@@ -85,7 +85,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Checks if a payload strictly matches some expected values.
      *
-     * @param  array  $values
+     * @param array $values
      *
      * @return bool
      */
@@ -97,7 +97,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the payload.
      *
-     * @param  mixed  $claim
+     * @param mixed $claim
      *
      * @return mixed
      */
@@ -119,9 +119,9 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the underlying Claim instance.
      *
-     * @param  string  $claim
+     * @param string $claim
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Claim
+     * @return Claim
      */
     public function getInternal($claim)
     {
@@ -131,7 +131,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine whether the payload has the claim (by instance).
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Claim  $claim
+     * @param Claim $claim
      *
      * @return bool
      */
@@ -143,7 +143,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine whether the payload has the claim (by key).
      *
-     * @param  string  $claim
+     * @param string $claim
      *
      * @return bool
      */
@@ -175,7 +175,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the payload as JSON.
      *
-     * @param  int  $options
+     * @param int $options
      *
      * @return string
      */
@@ -197,7 +197,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine if an item exists at an offset.
      *
-     * @param  mixed  $key
+     * @param mixed $key
      *
      * @return bool
      */
@@ -209,7 +209,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get an item at a given offset.
      *
-     * @param  mixed  $key
+     * @param mixed $key
      *
      * @return mixed
      */
@@ -221,10 +221,10 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param mixed $key
+     * @param mixed $value
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException
+     * @throws PayloadException
      */
     public function offsetSet($key, $value)
     {
@@ -234,11 +234,11 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  string  $key
-     *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException
+     * @param string $key
      *
      * @return void
+     * @throws PayloadException
+     *
      */
     public function offsetUnset($key)
     {
@@ -258,7 +258,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Invoke the Payload as a callable function.
      *
-     * @param  mixed  $claim
+     * @param mixed $claim
      *
      * @return mixed
      */
@@ -270,18 +270,18 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Magically get a claim value.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     *
-     * @throws \BadMethodCallException
+     * @param string $method
+     * @param array $parameters
      *
      * @return mixed
+     * @throws BadMethodCallException
+     *
      */
     public function __call($method, $parameters)
     {
         if (preg_match('/get(.+)\b/i', $method, $matches)) {
             foreach ($this->claims as $claim) {
-                if (get_class($claim) === 'PHPOpenSourceSaver\\JWTAuth\\Claims\\'.$matches[1]) {
+                if (get_class($claim) === 'PHPOpenSourceSaver\\JWTAuth\\Claims\\' . $matches[1]) {
                     return $claim->getValue();
                 }
             }

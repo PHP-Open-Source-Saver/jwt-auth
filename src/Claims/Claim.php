@@ -15,6 +15,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Claim as ClaimContract;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 
 abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
 {
@@ -33,9 +34,10 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     private $value;
 
     /**
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return void
+     * @throws InvalidClaimException
      */
     public function __construct($value)
     {
@@ -47,7 +49,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @param  mixed  $value
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException
+     * @throws InvalidClaimException
      *
      * @return $this
      */

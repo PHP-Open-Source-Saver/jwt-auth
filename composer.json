@@ -41,7 +41,8 @@
         "illuminate/support": "^5.2|^6|^7|^8",
         "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
-        "nesbot/carbon": "^1.0|^2.0"
+        "nesbot/carbon": "^1.0|^2.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "illuminate/console": "^5.2|^6|^7|^8",

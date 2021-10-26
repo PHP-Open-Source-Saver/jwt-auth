@@ -11,10 +11,12 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
+use DateTimeImmutable;
 use Exception;
 use Illuminate\Support\Collection;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256 as ES256;
 use Lcobucci\JWT\Signer\Ecdsa\Sha384 as ES384;
@@ -22,19 +24,18 @@ use Lcobucci\JWT\Signer\Ecdsa\Sha512 as ES512;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as HS256;
 use Lcobucci\JWT\Signer\Hmac\Sha384 as HS384;
 use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
-use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
 use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
 use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use ReflectionClass;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use ReflectionClass;
 
 class Lcobucci extends Provider implements JWT
 {
@@ -62,10 +63,10 @@ class Lcobucci extends Provider implements JWT
     /**
      * Create the Lcobucci provider.
      *
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
-     * @param  Configuration $config Optional, to pass an existing configuration to be used.
+     * @param string $secret
+     * @param string $algo
+     * @param array $keys
+     * @param Configuration $config Optional, to pass an existing configuration to be used.
      *
      * @return void
      */
@@ -74,7 +75,8 @@ class Lcobucci extends Provider implements JWT
         $algo,
         array $keys,
         $config = null
-    ) {
+    )
+    {
         parent::__construct($secret, $algo, $keys);
 
         $this->signer = $this->getSigner();
@@ -123,11 +125,11 @@ class Lcobucci extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param  array  $payload
-     *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
+     * @param array $payload
      *
      * @return string
+     * @throws JWTException
+     *
      */
     public function encode(array $payload)
     {
@@ -148,11 +150,11 @@ class Lcobucci extends Provider implements JWT
     /**
      * Decode a JSON Web Token.
      *
-     * @param  string  $token
-     *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
+     * @param string $token
      *
      * @return array
+     * @throws JWTException
+     *
      */
     public function decode($token)
     {
@@ -167,7 +169,7 @@ class Lcobucci extends Provider implements JWT
         }
 
         return (new Collection($jwt->claims()->all()))->map(function ($claim) {
-            if (is_a($claim, \DateTimeImmutable::class)) {
+            if (is_a($claim, DateTimeImmutable::class)) {
                 return $claim->getTimestamp();
             }
             if (is_object($claim) && method_exists($claim, 'getValue')) {
@@ -182,7 +184,7 @@ class Lcobucci extends Provider implements JWT
      * Adds a claim to the {@see $config}.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     protected function addClaim($key, $value)
     {
@@ -195,13 +197,13 @@ class Lcobucci extends Provider implements JWT
                 $this->builder->identifiedBy($value);
                 break;
             case RegisteredClaims::EXPIRATION_TIME:
-                $this->builder->expiresAt(\DateTimeImmutable::createFromFormat('U', $value));
+                $this->builder->expiresAt(DateTimeImmutable::createFromFormat('U', $value));
                 break;
             case RegisteredClaims::NOT_BEFORE:
-                $this->builder->canOnlyBeUsedAfter(\DateTimeImmutable::createFromFormat('U', $value));
+                $this->builder->canOnlyBeUsedAfter(DateTimeImmutable::createFromFormat('U', $value));
                 break;
             case RegisteredClaims::ISSUED_AT:
-                $this->builder->issuedAt(\DateTimeImmutable::createFromFormat('U', $value));
+                $this->builder->issuedAt(DateTimeImmutable::createFromFormat('U', $value));
                 break;
             case RegisteredClaims::ISSUER:
                 $this->builder->issuedBy($value);
@@ -220,9 +222,9 @@ class Lcobucci extends Provider implements JWT
     /**
      * Get the signer instance.
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
+     * @return Signer
+     * @throws JWTException
      *
-     * @return \Lcobucci\JWT\Signer
      */
     protected function getSigner()
     {
