@@ -15,5 +15,3 @@ If you discover any security related issues, please email tymon148@gmail.com ins
 ## License
 
 The MIT License (MIT)
-
-[![SensioLabs Insight](https://insight.sensiolabs.com/projects/ba600082-7869-4ea8-b877-0bf6a86d4988/big.svg)](https://insight.sensiolabs.com/projects/ba600082-7869-4ea8-b877-0bf6a86d4988)
