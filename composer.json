@@ -30,8 +30,8 @@
     "require": {
         "php": "^7.2|^8.0",
         "illuminate/auth": "^7|^8",
-        "illuminate/contracts": "^6|^7|^8",
-        "illuminate/database": "^6.19.1|^7",
+        "illuminate/contracts": "^7|^8",
+        "illuminate/database": "^7|^8",
         "illuminate/http": "^7|^8",
         "illuminate/support": "^7|^8",
         "lcobucci/jwt": "^4.0",
