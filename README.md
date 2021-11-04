@@ -10,7 +10,7 @@ Work in progress.
 
 ## Security
 
-If you discover any security related issues, please email tymon148@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email messhias@gmail.com or eric.schricker@adiutabyte.de instead of using the issue tracker.
 
 ## License
 
