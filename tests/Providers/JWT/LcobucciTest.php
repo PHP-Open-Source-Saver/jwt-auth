@@ -100,7 +100,7 @@ class LcobucciTest extends AbstractTestCase
             ->shouldReceive('getToken')
             ->once()
             ->with(\Mockery::type(Signer::class), \Mockery::type(Key::class))
-            ->andThrow(new Exception);
+            ->andThrow(new Exception());
 
         $this->getProvider('secret', 'HS256')->encode($payload);
     }
@@ -148,7 +148,7 @@ class LcobucciTest extends AbstractTestCase
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Could not decode token:');
 
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andThrow(new InvalidArgumentException);
+        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andThrow(new InvalidArgumentException());
         $this->parser->shouldReceive('verify')->never();
         $this->parser->shouldReceive('getClaims')->never();
 

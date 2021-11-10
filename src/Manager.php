@@ -19,7 +19,8 @@ use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
 
 class Manager
 {
-    use CustomClaims, RefreshFlow;
+    use CustomClaims;
+    use RefreshFlow;
 
     /**
      * The provider.

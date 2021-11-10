@@ -20,7 +20,8 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class Factory
 {
-    use CustomClaims, RefreshFlow;
+    use CustomClaims;
+    use RefreshFlow;
 
     /**
      * The claim factory.
@@ -68,7 +69,7 @@ class Factory
     {
         $this->claimFactory = $claimFactory;
         $this->validator = $validator;
-        $this->claims = new Collection;
+        $this->claims = new Collection();
     }
 
     /**
@@ -94,7 +95,7 @@ class Factory
      */
     public function emptyClaims()
     {
-        $this->claims = new Collection;
+        $this->claims = new Collection();
 
         return $this;
     }
