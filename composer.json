@@ -83,6 +83,7 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "scripts": {
+        "php-cs-fixer": "php-cs-fixer fix --diff",
         "test": "phpunit --colors=always",
         "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
     }
