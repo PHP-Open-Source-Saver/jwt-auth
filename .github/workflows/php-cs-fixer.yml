@@ -1,0 +1,33 @@
+name: PHP-CS-Fixer
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  php-cs-fixer:
+    name: Fix Code Style
+    timeout-minutes: 5
+    runs-on: ubuntu-20.04
+    env:
+      COMPOSER_NO_INTERACTION: 1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-progress --no-plugins --no-scripts
+
+      - run: composer php-cs-fixer
+        continue-on-error: true
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: composer php-cs-fixer
