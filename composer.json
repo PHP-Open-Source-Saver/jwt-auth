@@ -45,6 +45,7 @@
         "ext-json": "*"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3",
         "illuminate/console": "^5.2|^6|^7|^8",
         "illuminate/routing": "^5.2|^6|^7|^8",
         "mockery/mockery": ">=0.9.9",
@@ -82,6 +83,7 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "scripts": {
+        "php-cs-fixer": "php-cs-fixer fix --diff",
         "test": "phpunit --colors=always",
         "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
     }

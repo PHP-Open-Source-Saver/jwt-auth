@@ -75,8 +75,7 @@ class Lcobucci extends Provider implements JWT
         $algo,
         array $keys,
         $config = null
-    )
-    {
+    ) {
         parent::__construct($secret, $algo, $keys);
 
         $this->signer = $this->getSigner();
@@ -238,7 +237,7 @@ class Lcobucci extends Provider implements JWT
             return $signer::create();
         }
 
-        return new $signer;
+        return new $signer();
     }
 
     /**

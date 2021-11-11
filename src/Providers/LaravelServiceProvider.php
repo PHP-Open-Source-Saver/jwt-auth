@@ -31,7 +31,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
         $this->extendAuthGuard();
 
         $this->app['tymon.jwt.parser']->addParser([
-            new RouteParams,
+            new RouteParams(),
             new Cookies($this->config('decrypt_cookies')),
         ]);
     }
