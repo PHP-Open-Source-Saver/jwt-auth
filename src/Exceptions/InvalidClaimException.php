@@ -19,9 +19,9 @@ class InvalidClaimException extends JWTException
     /**
      * Constructor.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Claim  $claim
+     * @param Claim $claim
      * @param  int  $code
-     * @param  \Exception|null  $previous
+     * @param Exception|null  $previous
      *
      * @return void
      */

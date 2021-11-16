@@ -228,9 +228,9 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $parser = new Parser(
                 $app['request'],
                 [
-                    new AuthHeaders,
-                    new QueryString,
-                    new InputSource,
+                    new AuthHeaders(),
+                    new QueryString(),
+                    new InputSource(),
                 ]
             );
 
@@ -294,7 +294,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerPayloadValidator()
     {
         $this->app->singleton('tymon.jwt.validators.payload', function () {
-            return (new PayloadValidator)
+            return (new PayloadValidator())
                 ->setRefreshTTL($this->config('refresh_ttl'))
                 ->setRequiredClaims($this->config('required_claims'));
         });
@@ -339,7 +339,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerJWTCommand()
     {
         $this->app->singleton('tymon.jwt.secret', function () {
-            return new JWTGenerateSecretCommand;
+            return new JWTGenerateSecretCommand();
         });
     }
 

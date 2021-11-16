@@ -13,6 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Support\Utils;
 
 class Factory
@@ -20,7 +21,7 @@ class Factory
     /**
      * The request.
      *
-     * @var \Illuminate\Http\Request
+     * @var Request
      */
     protected $request;
 
@@ -56,7 +57,7 @@ class Factory
     /**
      * Constructor.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      *
      * @return void
      */
@@ -68,10 +69,11 @@ class Factory
     /**
      * Get the instance of the claim when passing the name and value.
      *
-     * @param  string  $name
-     * @param  mixed  $value
+     * @param string $name
+     * @param mixed $value
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Claim
+     * @return Claim
+     * @throws InvalidClaimException
      */
     public function get($name, $value)
     {
@@ -101,9 +103,10 @@ class Factory
     /**
      * Generate the initial value and return the Claim instance.
      *
-     * @param  string  $name
+     * @param string $name
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Claim
+     * @return Claim
+     * @throws InvalidClaimException
      */
     public function make($name)
     {
@@ -178,7 +181,7 @@ class Factory
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      *
      * @return $this
      */

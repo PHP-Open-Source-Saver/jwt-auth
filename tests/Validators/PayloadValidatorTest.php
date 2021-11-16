@@ -35,7 +35,7 @@ class PayloadValidatorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->validator = new PayloadValidator;
+        $this->validator = new PayloadValidator();
     }
 
     /** @test */

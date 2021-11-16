@@ -11,6 +11,8 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Contracts;
 
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
+
 interface Claim
 {
     /**
@@ -18,7 +20,7 @@ interface Claim
      *
      * @param  mixed  $value
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException
+     * @throws InvalidClaimException
      *
      * @return $this
      */

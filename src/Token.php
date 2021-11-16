@@ -23,13 +23,14 @@ class Token
     /**
      * Create a new JSON Web Token.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
+     * @throws Exceptions\TokenInvalidException
      */
     public function __construct($value)
     {
-        $this->value = (string) (new TokenValidator)->check($value);
+        $this->value = (string)(new TokenValidator())->check($value);
     }
 
     /**

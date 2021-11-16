@@ -38,10 +38,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            new AuthHeaders,
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            new AuthHeaders(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -57,10 +57,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            (new AuthHeaders)->setHeaderPrefix('Custom'),
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            (new AuthHeaders())->setHeaderPrefix('Custom'),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -76,10 +76,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            (new AuthHeaders)->setHeaderName('custom_authorization'),
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            (new AuthHeaders())->setHeaderName('custom_authorization'),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -96,10 +96,10 @@ class ParserTest extends AbstractTestCase
         $request2->server->set('REDIRECT_HTTP_AUTHORIZATION', 'Bearer foobarbaz');
 
         $parser = new Parser($request1, [
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -119,10 +119,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            new AuthHeaders,
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            new AuthHeaders(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar--');
@@ -141,10 +141,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            new AuthHeaders,
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            new AuthHeaders(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -173,10 +173,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -190,10 +190,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            (new QueryString)->setKey('custom_token_key'),
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            (new QueryString())->setKey('custom_token_key'),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -207,10 +207,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -224,10 +224,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            (new QueryString)->setKey('custom_token_key'),
-            (new InputSource)->setKey('custom_token_key'),
-            new RouteParams,
+            new AuthHeaders(),
+            (new QueryString())->setKey('custom_token_key'),
+            (new InputSource())->setKey('custom_token_key'),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -242,10 +242,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -260,10 +260,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            (new InputSource)->setKey('custom_token_key'),
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            (new InputSource())->setKey('custom_token_key'),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -277,10 +277,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
             new Cookies(false),
         ]);
 
@@ -300,10 +300,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
             new Cookies(true),
         ]);
 
@@ -323,10 +323,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
             new Cookies(true),
         ]);
 
@@ -349,10 +349,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -378,10 +378,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            (new RouteParams)->setKey('custom_route_param'),
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            (new RouteParams())->setKey('custom_route_param'),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -398,10 +398,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -418,10 +418,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -438,10 +438,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new LumenRouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new LumenRouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foo.bar.baz');
@@ -458,10 +458,10 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
         $parser->setChain([
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -472,10 +472,10 @@ class ParserTest extends AbstractTestCase
     public function it_should_retrieve_the_chain()
     {
         $chain = [
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ];
 
         $parser = new Parser(Mockery::mock(Request::class));
@@ -488,10 +488,10 @@ class ParserTest extends AbstractTestCase
     public function it_should_retrieve_the_chain_with_alias()
     {
         $chain = [
-            new AuthHeaders,
-            new QueryString,
-            new InputSource,
-            new RouteParams,
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
         ];
 
         /* @var Request $request */
@@ -506,7 +506,7 @@ class ParserTest extends AbstractTestCase
     /** @test */
     public function it_should_set_the_cookie_key()
     {
-        $cookies = (new Cookies)->setKey('test');
+        $cookies = (new Cookies())->setKey('test');
         $this->assertInstanceOf(Cookies::class, $cookies);
     }
 

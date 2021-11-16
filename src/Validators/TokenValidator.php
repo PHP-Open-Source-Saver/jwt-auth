@@ -18,9 +18,10 @@ class TokenValidator extends Validator
     /**
      * Check the structure of the token.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return string
+     * @throws TokenInvalidException
      */
     public function check($value)
     {
@@ -28,11 +29,11 @@ class TokenValidator extends Validator
     }
 
     /**
-     * @param  string  $token
-     *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     * @param string $token
      *
      * @return string
+     * @throws TokenInvalidException
+     *
      */
     protected function validateStructure($token)
     {
