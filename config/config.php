@@ -296,9 +296,9 @@ return [
         | Specify the provider that is used to store tokens in the blacklist.
         |
         */
-      
+
       'storage' => PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate::class,
-        
+
         /*
         |--------------------------------------------------------------------------
         | Show blacklisted token option
@@ -308,7 +308,7 @@ return [
         |
         */
 
-      'show_black_list_exception' => env('JWT_SHOW_BLACKLIST_EXCEPTION', true),
+      'show_black_list_exception' => env('JWT_SHOW_BLACKLIST_EXCEPTION', 0),
     ],
 
 ];
