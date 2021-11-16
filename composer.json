@@ -29,18 +29,18 @@
     ],
     "require": {
         "php": "^7.2|^8.0",
-        "illuminate/auth": "^7|^8",
-        "illuminate/contracts": "^7|^8",
-        "illuminate/database": "^7|^8",
-        "illuminate/http": "^7|^8",
-        "illuminate/support": "^7|^8",
+        "illuminate/auth": "^6|^7|^8",
+        "illuminate/contracts": "^6|^7|^8",
+        "illuminate/database": "^6.20.26|^7.30.4|^8.40.0",
+        "illuminate/http": "^6|^7|^8",
+        "illuminate/support": "^6|^7|^8",
         "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
         "nesbot/carbon": "^1.0|^2.0"
     },
     "require-dev": {
-        "illuminate/console": "^7|^8",
-        "illuminate/routing": "^7|^8",
+        "illuminate/console": "^6|^7|^8",
+        "illuminate/routing": "^6|^7|^8",
         "mockery/mockery": ">=0.9.9",
         "phpunit/phpunit": "^8.5|^9.4",
         "yoast/phpunit-polyfills": "^1.0.2"
