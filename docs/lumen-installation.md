@@ -3,14 +3,14 @@
 Run the following command to pull in the latest version:
 
 ```bash
-composer require tymon/jwt-auth
+composer require php-open-source-saver/jwt-auth
 ```
 
 -------------------------------------------------------------------------------
 
 ### Copy the config
 
-Copy the `config` file from `vendor/tymon/jwt-auth/config/config.php` to `config` folder of your Lumen application and rename it to `jwt.php`
+Copy the `config` file from `vendor/php-open-source-saver/jwt-auth/config/config.php` to `config` folder of your Lumen application and rename it to `jwt.php`
 
 Register your config by adding the following in the `bootstrap/app.php` before middleware declaration.
 

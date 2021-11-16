@@ -19,26 +19,27 @@ use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
 
 class Manager
 {
-    use CustomClaims, RefreshFlow;
+    use CustomClaims;
+    use RefreshFlow;
 
     /**
      * The provider.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT
+     * @var JWTContract
      */
     protected $provider;
 
     /**
      * The blacklist.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Blacklist
+     * @var Blacklist
      */
     protected $blacklist;
 
     /**
      * the payload factory.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Factory
+     * @var Factory
      */
     protected $payloadFactory;
 
@@ -61,9 +62,9 @@ class Manager
     /**
      * Constructor.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT  $provider
-     * @param  \PHPOpenSourceSaver\JWTAuth\Blacklist  $blacklist
-     * @param  \PHPOpenSourceSaver\JWTAuth\Factory  $payloadFactory
+     * @param JWTContract $provider
+     * @param Blacklist $blacklist
+     * @param Factory $payloadFactory
      *
      * @return void
      */
@@ -77,9 +78,9 @@ class Manager
     /**
      * Encode a Payload and return the Token.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Token
+     * @return Token
      */
     public function encode(Payload $payload)
     {
@@ -91,21 +92,21 @@ class Manager
     /**
      * Decode a Token and return the Payload.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Token  $token
-     * @param  bool  $checkBlacklist
+     * @param Token $token
+     * @param bool $checkBlacklist
      *
+     * @return Payload
      * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function decode(Token $token, $checkBlacklist = true)
     {
         $payloadArray = $this->provider->decode($token->get());
 
         $payload = $this->payloadFactory
-                        ->setRefreshFlow($this->refreshFlow)
-                        ->customClaims($payloadArray)
-                        ->make();
+            ->setRefreshFlow($this->refreshFlow)
+            ->customClaims($payloadArray)
+            ->make();
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             if (
@@ -124,11 +125,11 @@ class Manager
     /**
      * Refresh a Token and return a new Token.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Token  $token
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
+     * @param Token $token
+     * @param bool $forceForever
+     * @param bool $resetClaims
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Token
+     * @return Token
      */
     public function refresh(Token $token, $forceForever = false, $resetClaims = false)
     {
@@ -150,16 +151,16 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Token  $token
-     * @param  bool  $forceForever
-     *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
+     * @param Token $token
+     * @param bool $forceForever
      *
      * @return bool
+     * @throws JWTException
+     *
      */
     public function invalidate(Token $token, $forceForever = false)
     {
-        if (! $this->blacklistEnabled) {
+        if (!$this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
         }
 
@@ -172,7 +173,7 @@ class Manager
     /**
      * Build the claims to go into the refreshed token.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Payload  $payload
+     * @param Payload $payload
      *
      * @return array
      */
@@ -197,7 +198,7 @@ class Manager
     /**
      * Get the Payload Factory instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Factory
+     * @return Factory
      */
     public function getPayloadFactory()
     {
@@ -207,7 +208,7 @@ class Manager
     /**
      * Get the JWTProvider instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT
+     * @return JWTContract
      */
     public function getJWTProvider()
     {
@@ -217,7 +218,7 @@ class Manager
     /**
      * Get the Blacklist instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Blacklist
+     * @return Blacklist
      */
     public function getBlacklist()
     {
@@ -227,7 +228,7 @@ class Manager
     /**
      * Set whether the blacklist is enabled.
      *
-     * @param  bool  $enabled
+     * @param bool $enabled
      *
      * @return $this
      */
@@ -266,7 +267,7 @@ class Manager
     /**
      * Set the claims to be persisted when refreshing a token.
      *
-     * @param  array  $claims
+     * @param array $claims
      *
      * @return $this
      */

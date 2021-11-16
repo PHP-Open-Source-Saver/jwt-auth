@@ -19,14 +19,14 @@ class Illuminate implements Auth
     /**
      * The authentication guard.
      *
-     * @var \Illuminate\Contracts\Auth\Guard
+     * @var GuardContract
      */
     protected $auth;
 
     /**
      * Constructor.
      *
-     * @param  \Illuminate\Contracts\Auth\Guard  $auth
+     * @param GuardContract $auth
      *
      * @return void
      */
@@ -38,7 +38,7 @@ class Illuminate implements Auth
     /**
      * Check a user's credentials.
      *
-     * @param  array  $credentials
+     * @param array $credentials
      *
      * @return bool
      */
@@ -50,7 +50,7 @@ class Illuminate implements Auth
     /**
      * Authenticate a user via the id.
      *
-     * @param  mixed  $id
+     * @param mixed $id
      *
      * @return bool
      */

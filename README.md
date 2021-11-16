@@ -10,10 +10,8 @@ Work in progress.
 
 ## Security
 
-If you discover any security related issues, please email tymon148@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email messhias@gmail.com or eric.schricker@adiutabyte.de instead of using the issue tracker.
 
 ## License
 
 The MIT License (MIT)
-
-[![SensioLabs Insight](https://insight.sensiolabs.com/projects/ba600082-7869-4ea8-b877-0bf6a86d4988/big.svg)](https://insight.sensiolabs.com/projects/ba600082-7869-4ea8-b877-0bf6a86d4988)

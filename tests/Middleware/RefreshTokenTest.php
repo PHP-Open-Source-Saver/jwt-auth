@@ -44,7 +44,7 @@ class RefreshTokenTest extends AbstractMiddlewareTest
         $this->auth->shouldReceive('parseToken->refresh')->once()->andReturn('foo.bar.baz');
 
         $response = $this->middleware->handle($this->request, function () {
-            return new Response;
+            return new Response();
         });
 
         $this->assertSame($response->headers->get('authorization'), 'Bearer foo.bar.baz');
@@ -77,7 +77,7 @@ class RefreshTokenTest extends AbstractMiddlewareTest
         $this->auth->shouldReceive('parser')->andReturn($parser);
 
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
-        $this->auth->shouldReceive('parseToken->refresh')->once()->andThrow(new TokenInvalidException);
+        $this->auth->shouldReceive('parseToken->refresh')->once()->andThrow(new TokenInvalidException());
 
         $this->middleware->handle($this->request, function () {
             //

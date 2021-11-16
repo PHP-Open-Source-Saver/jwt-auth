@@ -19,11 +19,16 @@
             "name": "Sean Tymon",
             "email": "tymon148@gmail.com",
             "homepage": "https://tymon.xyz",
-            "role": "Developer"
+            "role": "Forked package creator | Developer"
         },
         {
             "name": "Eric Schricker",
             "email": "eric.schricker@adiutabyte.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Fabio William Conceição",
+            "email": "messhias@gmail.com",
             "role": "Developer"
         }
     ],
@@ -36,9 +41,11 @@
         "illuminate/support": "^6|^7|^8",
         "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
-        "nesbot/carbon": "^1.0|^2.0"
+        "nesbot/carbon": "^1.0|^2.0",
+        "ext-json": "*"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3",
         "illuminate/console": "^6|^7|^8",
         "illuminate/routing": "^6|^7|^8",
         "mockery/mockery": ">=0.9.9",
@@ -76,6 +83,7 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "scripts": {
+        "php-cs-fixer": "php-cs-fixer fix --diff",
         "test": "phpunit --colors=always",
         "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
     }

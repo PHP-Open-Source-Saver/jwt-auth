@@ -25,21 +25,21 @@ class JWT
     /**
      * The authentication manager.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Manager
+     * @var Manager
      */
     protected $manager;
 
     /**
      * The HTTP parser.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser
+     * @var Parser
      */
     protected $parser;
 
     /**
      * The token.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Token|null
+     * @var Token|null
      */
     protected $token;
 
@@ -53,8 +53,8 @@ class JWT
     /**
      * JWT constructor.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Manager  $manager
-     * @param  \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser  $parser
+     * @param Manager $manager
+     * @param Parser $parser
      *
      * @return void
      */
@@ -67,7 +67,7 @@ class JWT
     /**
      * Generate a token for a given subject.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
+     * @param JWTSubject $subject
      *
      * @return string
      */
@@ -81,7 +81,7 @@ class JWT
     /**
      * Alias to generate a token for a given user.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $user
+     * @param JWTSubject $user
      *
      * @return string
      */
@@ -93,8 +93,8 @@ class JWT
     /**
      * Refresh an expired token.
      *
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
+     * @param bool $forceForever
+     * @param bool $resetClaims
      *
      * @return string
      */
@@ -103,14 +103,14 @@ class JWT
         $this->requireToken();
 
         return $this->manager->customClaims($this->getCustomClaims())
-                             ->refresh($this->token, $forceForever, $resetClaims)
-                             ->get();
+            ->refresh($this->token, $forceForever, $resetClaims)
+            ->get();
     }
 
     /**
      * Invalidate a token (add it to the blacklist).
      *
-     * @param  bool  $forceForever
+     * @param bool $forceForever
      *
      * @return $this
      */
@@ -127,9 +127,9 @@ class JWT
      * Alias to get the payload, and as a result checks that
      * the token is valid i.e. not expired or blacklisted.
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
+     * @return Payload
+     * @throws JWTException
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
      */
     public function checkOrFail()
     {
@@ -139,9 +139,9 @@ class JWT
     /**
      * Check that the token is valid.
      *
-     * @param  bool  $getPayload
+     * @param bool $getPayload
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload|bool
+     * @return Payload|bool
      */
     public function check($getPayload = false)
     {
@@ -157,7 +157,7 @@ class JWT
     /**
      * Get the token.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Token|null
+     * @return Token|null
      */
     public function getToken()
     {
@@ -175,13 +175,13 @@ class JWT
     /**
      * Parse the token from the request.
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
-     *
      * @return $this
+     * @throws JWTException
+     *
      */
     public function parseToken()
     {
-        if (! $token = $this->parser->parseToken()) {
+        if (!$token = $this->parser->parseToken()) {
             throw new JWTException('The token could not be parsed from the request');
         }
 
@@ -191,7 +191,7 @@ class JWT
     /**
      * Get the raw Payload instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
+     * @return Payload
      */
     public function getPayload()
     {
@@ -203,7 +203,7 @@ class JWT
     /**
      * Alias for getPayload().
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
+     * @return Payload
      */
     public function payload()
     {
@@ -213,7 +213,7 @@ class JWT
     /**
      * Convenience method to get a claim value.
      *
-     * @param  string  $claim
+     * @param string $claim
      *
      * @return mixed
      */
@@ -225,9 +225,9 @@ class JWT
     /**
      * Create a Payload instance.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
+     * @param JWTSubject $subject
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
+     * @return Payload
      */
     public function makePayload(JWTSubject $subject)
     {
@@ -237,7 +237,7 @@ class JWT
     /**
      * Build the claims array and return it.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
+     * @param JWTSubject $subject
      *
      * @return array
      */
@@ -253,7 +253,7 @@ class JWT
     /**
      * Get the claims associated with a given subject.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject  $subject
+     * @param JWTSubject $subject
      *
      * @return array
      */
@@ -267,7 +267,7 @@ class JWT
     /**
      * Hash the subject model and return it.
      *
-     * @param  string|object  $model
+     * @param string|object $model
      *
      * @return string
      */
@@ -279,7 +279,7 @@ class JWT
     /**
      * Check if the subject model matches the one saved in the token.
      *
-     * @param  string|object  $model
+     * @param string|object $model
      *
      * @return bool
      */
@@ -295,7 +295,7 @@ class JWT
     /**
      * Set the token.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Token|string  $token
+     * @param Token|string $token
      *
      * @return $this
      */
@@ -321,13 +321,13 @@ class JWT
     /**
      * Ensure that a token is available.
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
-     *
      * @return void
+     * @throws JWTException
+     *
      */
     protected function requireToken()
     {
-        if (! $this->token) {
+        if (!$this->token) {
             throw new JWTException('A token is required');
         }
     }
@@ -335,7 +335,7 @@ class JWT
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      *
      * @return $this
      */
@@ -349,7 +349,7 @@ class JWT
     /**
      * Set whether the subject should be "locked".
      *
-     * @param  bool  $lock
+     * @param bool $lock
      *
      * @return $this
      */
@@ -363,7 +363,7 @@ class JWT
     /**
      * Get the Manager instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Manager
+     * @return Manager
      */
     public function manager()
     {
@@ -373,7 +373,7 @@ class JWT
     /**
      * Get the Parser instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser
+     * @return Parser
      */
     public function parser()
     {
@@ -383,7 +383,7 @@ class JWT
     /**
      * Get the Payload Factory.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Factory
+     * @return Factory
      */
     public function factory()
     {
@@ -393,7 +393,7 @@ class JWT
     /**
      * Get the Blacklist.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Blacklist
+     * @return Blacklist
      */
     public function blacklist()
     {
@@ -403,12 +403,12 @@ class JWT
     /**
      * Magically call the JWT Manager.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     *
-     * @throws \BadMethodCallException
+     * @param string $method
+     * @param array $parameters
      *
      * @return mixed
+     * @throws BadMethodCallException
+     *
      */
     public function __call($method, $parameters)
     {

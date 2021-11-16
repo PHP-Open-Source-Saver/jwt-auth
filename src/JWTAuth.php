@@ -11,6 +11,7 @@
 
 namespace PHPOpenSourceSaver\JWTAuth;
 
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 
@@ -20,16 +21,16 @@ class JWTAuth extends JWT
     /**
      * The authentication provider.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth
+     * @var Auth
      */
     protected $auth;
 
     /**
      * Constructor.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Manager  $manager
-     * @param  \PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth  $auth
-     * @param  \PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser  $parser
+     * @param Manager $manager
+     * @param Auth $auth
+     * @param Parser $parser
      *
      * @return void
      */
@@ -42,13 +43,13 @@ class JWTAuth extends JWT
     /**
      * Attempt to authenticate the user and return the token.
      *
-     * @param  array  $credentials
+     * @param array $credentials
      *
      * @return false|string
      */
     public function attempt(array $credentials)
     {
-        if (! $this->auth->byCredentials($credentials)) {
+        if (!$this->auth->byCredentials($credentials)) {
             return false;
         }
 
@@ -58,13 +59,13 @@ class JWTAuth extends JWT
     /**
      * Authenticate a user via a token.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject|false
+     * @return JWTSubject|false
      */
     public function authenticate()
     {
         $id = $this->getPayload()->get('sub');
 
-        if (! $this->auth->byId($id)) {
+        if (!$this->auth->byId($id)) {
             return false;
         }
 
@@ -74,7 +75,7 @@ class JWTAuth extends JWT
     /**
      * Alias for authenticate().
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject|false
+     * @return JWTSubject|false
      */
     public function toUser()
     {
@@ -84,7 +85,7 @@ class JWTAuth extends JWT
     /**
      * Get the authenticated user.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject
+     * @return JWTSubject
      */
     public function user()
     {

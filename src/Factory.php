@@ -20,19 +20,20 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class Factory
 {
-    use CustomClaims, RefreshFlow;
+    use CustomClaims;
+    use RefreshFlow;
 
     /**
      * The claim factory.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Factory
+     * @var ClaimFactory
      */
     protected $claimFactory;
 
     /**
      * The validator.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
+     * @var PayloadValidator
      */
     protected $validator;
 
@@ -52,15 +53,15 @@ class Factory
     /**
      * The claims collection.
      *
-     * @var \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @var Collection
      */
     protected $claims;
 
     /**
      * Constructor.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Factory  $claimFactory
-     * @param  \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator  $validator
+     * @param ClaimFactory $claimFactory
+     * @param PayloadValidator $validator
      *
      * @return void
      */
@@ -68,15 +69,15 @@ class Factory
     {
         $this->claimFactory = $claimFactory;
         $this->validator = $validator;
-        $this->claims = new Collection;
+        $this->claims = new Collection();
     }
 
     /**
      * Create the Payload instance.
      *
-     * @param  bool  $resetClaims
+     * @param bool $resetClaims
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
+     * @return Payload
      */
     public function make($resetClaims = false)
     {
@@ -94,7 +95,7 @@ class Factory
      */
     public function emptyClaims()
     {
-        $this->claims = new Collection;
+        $this->claims = new Collection();
 
         return $this;
     }
@@ -102,7 +103,7 @@ class Factory
     /**
      * Add an array of claims to the Payload.
      *
-     * @param  array  $claims
+     * @param array $claims
      *
      * @return $this
      */
@@ -118,8 +119,8 @@ class Factory
     /**
      * Add a claim to the Payload.
      *
-     * @param  string  $name
-     * @param  mixed  $value
+     * @param string $name
+     * @param mixed $value
      *
      * @return $this
      */
@@ -154,7 +155,7 @@ class Factory
     /**
      * Build out the Claim DTO's.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @return Collection
      */
     protected function resolveClaims()
     {
@@ -166,7 +167,7 @@ class Factory
     /**
      * Build and get the Claims Collection.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Claims\Collection
+     * @return Collection
      */
     public function buildClaimsCollection()
     {
@@ -176,9 +177,9 @@ class Factory
     /**
      * Get a Payload instance with a claims collection.
      *
-     * @param  \PHPOpenSourceSaver\JWTAuth\Claims\Collection  $claims
+     * @param Collection $claims
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Payload
+     * @return Payload
      */
     public function withClaims(Collection $claims)
     {
@@ -188,7 +189,7 @@ class Factory
     /**
      * Set the default claims to be added to the Payload.
      *
-     * @param  array  $claims
+     * @param array $claims
      *
      * @return $this
      */
@@ -202,7 +203,7 @@ class Factory
     /**
      * Helper to set the ttl.
      *
-     * @param  int  $ttl
+     * @param int $ttl
      *
      * @return $this
      */
@@ -236,7 +237,7 @@ class Factory
     /**
      * Get the PayloadValidator instance.
      *
-     * @return \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator
+     * @return PayloadValidator
      */
     public function validator()
     {
@@ -246,8 +247,8 @@ class Factory
     /**
      * Magically add a claim.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      *
      * @return $this
      */
