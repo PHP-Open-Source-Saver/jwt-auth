@@ -25,9 +25,15 @@ jobs:
             laravel: 8.*
             os: ubuntu-latest
             coverage: xdebug
+          - laravel: 6.*
+            dotenv: ^3.3
+          - laravel: 7.*
+            dotenv: ^4.0
+          - laravel: 8.*
+            dotenv: ^5.2
         exclude:
           - php: 7.2
-            laravel: 8.*
+            laravel: 8.*          
 
     name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
 
@@ -57,6 +63,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
+          composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update
           composer update --no-progress --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
