@@ -120,5 +120,4 @@ class DefaultConfigValuesTest extends AbstractTestCase
         $this->assertEquals(AuthIlluminate::class, $this->configuration['providers']['auth']);
         $this->assertEquals(StorageIlluminate::class, $this->configuration['providers']['storage']);
     }
-    
 }
