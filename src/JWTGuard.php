@@ -13,7 +13,10 @@ namespace PHPOpenSourceSaver\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Auth\Events\Attempting;
+use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -28,7 +31,10 @@ use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard
 {
-    use GuardHelpers, Macroable {
+    use GuardHelpers {
+        setUser as guardHelperSetUser;
+    }
+    use Macroable {
         __call as macroCall;
     }
 
@@ -167,6 +173,8 @@ class JWTGuard implements Guard
         $token = $this->jwt->fromUser($user);
         $this->setToken($token)->setUser($user);
 
+        $this->fireLoginEvent($user);
+
         return $token;
     }
 
@@ -180,6 +188,8 @@ class JWTGuard implements Guard
     public function logout($forceForever = false)
     {
         $this->requireToken()->invalidate($forceForever);
+
+        $this->fireLogoutEvent($this->user);
 
         $this->user = null;
         $this->jwt->unsetToken();
@@ -369,6 +379,21 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Set the current user.
+     *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @return $this
+     */
+    public function setUser(Authenticatable $user)
+    {
+        $result = $this->guardHelperSetUser($user);
+
+        $this->fireAuthenticatedEvent($user);
+
+        return $result;
+    }
+
+    /**
      * Get the current request instance.
      *
      * @return Request
@@ -500,6 +525,52 @@ class JWTGuard implements Guard
             $credentials
         ));
     }
+
+    /**
+     * Fire the authenticated event.
+     *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @return void
+     */
+    protected function fireAuthenticatedEvent($user)
+    {
+        $this->events->dispatch(new Authenticated(
+            $this->name,
+            $user
+        ));
+    }
+
+    /**
+     * Fire the login event.
+     *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param bool $remember
+     * @return void
+     */
+    protected function fireLoginEvent($user, $remember = false)
+    {
+        $this->events->dispatch(new Login(
+            $this->name,
+            $user,
+            $remember
+        ));
+    }
+
+    /**
+     * Fire the logout event.
+     *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param bool $remember
+     * @return void
+     */
+    protected function fireLogoutEvent($user, $remember = false)
+    {
+        $this->events->dispatch(new Logout(
+            $this->name,
+            $user
+        ));
+    }
+
 
     /**
      * Magically call the JWT instance.
