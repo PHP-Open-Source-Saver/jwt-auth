@@ -13,7 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use BadMethodCallException;
 use Mockery;
-use Mockery\MockInterface;
+use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Audience;
 use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -23,13 +23,14 @@ use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
 use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
 use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
 use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException;
 use PHPOpenSourceSaver\JWTAuth\Payload;
 use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
 {
-    protected ?\Mockery\LegacyMockInterface $validator = null;
+    protected ?LegacyMockInterface $validator = null;
 
     /**
      * @var Payload
@@ -47,6 +48,7 @@ class PayloadTest extends AbstractTestCase
      * @param array $extraClaims
      *
      * @return Payload
+     * @throws InvalidClaimException
      */
     private function getTestPayload(array $extraClaims = [])
     {
@@ -111,7 +113,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame($this->payload->get('sub'), 1);
 
         $this->assertSame(
-            $this->payload->get(fn() => 'jti'),
+            $this->payload->get(fn () => 'jti'),
             'foo'
         );
     }

@@ -22,6 +22,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
@@ -33,13 +34,13 @@ use PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase
 {
-    protected \Mockery\LegacyMockInterface $jwt;
+    protected LegacyMockInterface $jwt;
 
-    protected \Mockery\LegacyMockInterface $provider;
+    protected LegacyMockInterface $provider;
 
-    protected \PHPOpenSourceSaver\JWTAuth\JWTGuard $guard;
+    protected JWTGuard $guard;
 
-    protected \Mockery\LegacyMockInterface $eventDispatcher;
+    protected LegacyMockInterface $eventDispatcher;
 
     public function setUp(): void
     {

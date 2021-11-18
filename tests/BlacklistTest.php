@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -28,11 +29,11 @@ use PHPOpenSourceSaver\JWTAuth\Validators\Validator;
 
 class BlacklistTest extends AbstractTestCase
 {
-    protected \Mockery\LegacyMockInterface $storage;
+    protected LegacyMockInterface $storage;
 
-    protected \PHPOpenSourceSaver\JWTAuth\Blacklist $blacklist;
+    protected Blacklist $blacklist;
 
-    protected \Mockery\LegacyMockInterface $validator;
+    protected LegacyMockInterface $validator;
 
     public function setUp(): void
     {

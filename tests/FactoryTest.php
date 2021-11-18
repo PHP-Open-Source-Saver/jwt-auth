@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Custom;
@@ -22,17 +23,18 @@ use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
 use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
 use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
 use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Factory;
 use PHPOpenSourceSaver\JWTAuth\Payload;
 use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class FactoryTest extends AbstractTestCase
 {
-    protected \Mockery\LegacyMockInterface $claimFactory;
+    protected LegacyMockInterface $claimFactory;
 
-    protected \Mockery\LegacyMockInterface $validator;
+    protected LegacyMockInterface $validator;
 
-    protected \PHPOpenSourceSaver\JWTAuth\Factory $factory;
+    protected Factory $factory;
 
     public function setUp(): void
     {
@@ -84,7 +86,9 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_return_a_payload_when_chaining_claim_methods()
     {
         $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
@@ -113,7 +117,9 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_return_a_payload_when_passing_miltidimensional_array_as_custom_claim_to_make_method()
     {
         // these are added from default claims
@@ -145,7 +151,9 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_exclude_the_exp_claim_when_setting_ttl_to_null()
     {
         // these are added from default claims
@@ -210,7 +218,9 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($this->factory->getDefaultClaims(), ['sub', 'iat']);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_get_payload_with_a_predefined_collection_of_claims()
     {
         $claims = [

@@ -23,7 +23,7 @@ class Parser
     /**
      * The request.
      */
-    protected \Illuminate\Http\Request $request;
+    protected Request $request;
 
     /**
      * Constructor.

@@ -26,7 +26,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class PayloadValidatorTest extends AbstractTestCase
 {
-    protected \PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator $validator;
+    protected PayloadValidator $validator;
 
     public function setUp(): void
     {
@@ -35,7 +35,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator = new PayloadValidator();
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_return_true_when_providing_a_valid_payload()
     {
         $claims = [
@@ -52,7 +54,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->isValid($collection));
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_throw_an_exception_when_providing_an_expired_payload()
     {
         $this->expectException(TokenExpiredException::class);
@@ -72,7 +76,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
     {
         $this->expectException(TokenInvalidException::class);
@@ -112,7 +118,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
         $this->expectException(TokenInvalidException::class);
@@ -148,7 +156,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_set_the_required_claims()
     {
         $claims = [
@@ -161,7 +171,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->setRequiredClaims(['iss', 'sub'])->isValid($collection));
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_check_the_token_in_the_refresh_context()
     {
         $claims = [
@@ -180,7 +192,9 @@ class PayloadValidatorTest extends AbstractTestCase
         );
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_return_true_if_the_refresh_ttl_is_null()
     {
         $claims = [
@@ -199,7 +213,9 @@ class PayloadValidatorTest extends AbstractTestCase
         );
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_throw_an_exception_if_the_token_cannot_be_refreshed()
     {
         $this->expectException(TokenExpiredException::class);

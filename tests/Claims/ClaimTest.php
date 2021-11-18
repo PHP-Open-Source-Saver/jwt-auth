@@ -18,8 +18,11 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class ClaimTest extends AbstractTestCase
 {
-    protected \PHPOpenSourceSaver\JWTAuth\Claims\Expiration $claim;
+    protected Expiration $claim;
 
+    /**
+     * @throws InvalidClaimException
+     */
     public function setUp(): void
     {
         parent::setUp();

@@ -12,6 +12,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -22,6 +23,7 @@ use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
 use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
 use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException;
 use PHPOpenSourceSaver\JWTAuth\Factory;
@@ -32,15 +34,15 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class ManagerTest extends AbstractTestCase
 {
-    protected \Mockery\LegacyMockInterface $jwt;
+    protected LegacyMockInterface $jwt;
 
-    protected \Mockery\LegacyMockInterface $blacklist;
+    protected LegacyMockInterface $blacklist;
 
-    protected \Mockery\LegacyMockInterface $factory;
+    protected LegacyMockInterface $factory;
 
-    protected \PHPOpenSourceSaver\JWTAuth\Manager $manager;
+    protected Manager $manager;
 
-    protected \Mockery\LegacyMockInterface $validator;
+    protected LegacyMockInterface $validator;
 
     public function setUp(): void
     {
@@ -53,7 +55,9 @@ class ManagerTest extends AbstractTestCase
         $this->validator = Mockery::mock(PayloadValidator::class);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_encode_a_payload()
     {
         $claims = [
@@ -77,7 +81,9 @@ class ManagerTest extends AbstractTestCase
         $this->assertEquals($token, 'foo.bar.baz');
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException|TokenBlacklistedException
+     */
     public function it_should_decode_a_token()
     {
         $claims = [
@@ -109,7 +115,9 @@ class ManagerTest extends AbstractTestCase
         $this->assertSame($payload->count(), 6);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_throw_exception_when_token_is_blacklisted()
     {
         $this->expectException(TokenBlacklistedException::class);
@@ -140,7 +148,9 @@ class ManagerTest extends AbstractTestCase
         $this->manager->decode($token);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_refresh_a_token()
     {
         $claims = [
@@ -174,7 +184,9 @@ class ManagerTest extends AbstractTestCase
         $this->assertEquals('baz.bar.foo', $token);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_invalidate_a_token()
     {
         $claims = [
@@ -204,7 +216,9 @@ class ManagerTest extends AbstractTestCase
         $this->manager->invalidate($token);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_force_invalidate_a_token_forever()
     {
         $claims = [
