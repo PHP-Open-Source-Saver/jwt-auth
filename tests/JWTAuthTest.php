@@ -28,25 +28,13 @@ use stdClass;
 
 class JWTAuthTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|Manager
-     */
-    protected $manager;
+    protected \Mockery\LegacyMockInterface $manager;
 
-    /**
-     * @var MockInterface|Auth
-     */
-    protected $auth;
+    protected \Mockery\LegacyMockInterface $auth;
 
-    /**
-     * @var MockInterface|Parser
-     */
-    protected $parser;
+    protected \Mockery\LegacyMockInterface $parser;
 
-    /**
-     * @var JWTAuth
-     */
-    protected $jwtAuth;
+    protected \PHPOpenSourceSaver\JWTAuth\JWTAuth $jwtAuth;
 
     public function setUp(): void
     {

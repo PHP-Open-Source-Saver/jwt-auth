@@ -31,15 +31,9 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class DatetimeClaimTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|PayloadValidator
-     */
-    protected $validator;
+    protected \Mockery\LegacyMockInterface $validator;
 
-    /**
-     * @var array
-     */
-    protected $claimsTimestamp;
+    protected array $claimsTimestamp;
 
     public function setUp(): void
     {

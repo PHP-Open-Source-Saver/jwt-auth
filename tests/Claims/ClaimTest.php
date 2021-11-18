@@ -18,10 +18,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class ClaimTest extends AbstractTestCase
 {
-    /**
-     * @var Expiration
-     */
-    protected $claim;
+    protected \PHPOpenSourceSaver\JWTAuth\Claims\Expiration $claim;
 
     public function setUp(): void
     {

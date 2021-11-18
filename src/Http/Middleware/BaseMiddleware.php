@@ -24,10 +24,8 @@ abstract class BaseMiddleware
 {
     /**
      * The JWT Authenticator.
-     *
-     * @var JWTAuth
      */
-    protected $auth;
+    protected \PHPOpenSourceSaver\JWTAuth\JWTAuth $auth;
 
     /**
      * Create a new BaseMiddleware instance.

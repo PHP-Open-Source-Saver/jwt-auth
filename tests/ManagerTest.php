@@ -32,30 +32,15 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class ManagerTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|JWT
-     */
-    protected $jwt;
+    protected \Mockery\LegacyMockInterface $jwt;
 
-    /**
-     * @var MockInterface|Blacklist
-     */
-    protected $blacklist;
+    protected \Mockery\LegacyMockInterface $blacklist;
 
-    /**
-     * @var MockInterface|Factory
-     */
-    protected $factory;
+    protected \Mockery\LegacyMockInterface $factory;
 
-    /**
-     * @var Manager
-     */
-    protected $manager;
+    protected \PHPOpenSourceSaver\JWTAuth\Manager $manager;
 
-    /**
-     * @var MockInterface
-     */
-    protected $validator;
+    protected \Mockery\LegacyMockInterface $validator;
 
     public function setUp(): void
     {

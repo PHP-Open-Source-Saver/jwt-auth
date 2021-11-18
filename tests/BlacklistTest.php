@@ -28,20 +28,11 @@ use PHPOpenSourceSaver\JWTAuth\Validators\Validator;
 
 class BlacklistTest extends AbstractTestCase
 {
-    /**
-     * @var Storage|MockInterface
-     */
-    protected $storage;
+    protected \Mockery\LegacyMockInterface $storage;
 
-    /**
-     * @var Blacklist
-     */
-    protected $blacklist;
+    protected \PHPOpenSourceSaver\JWTAuth\Blacklist $blacklist;
 
-    /**
-     * @var MockInterface|Validator
-     */
-    protected $validator;
+    protected \Mockery\LegacyMockInterface $validator;
 
     public function setUp(): void
     {

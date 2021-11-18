@@ -28,20 +28,11 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class FactoryTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|ClaimFactory
-     */
-    protected $claimFactory;
+    protected \Mockery\LegacyMockInterface $claimFactory;
 
-    /**
-     * @var MockInterface|PayloadValidator
-     */
-    protected $validator;
+    protected \Mockery\LegacyMockInterface $validator;
 
-    /**
-     * @var Factory
-     */
-    protected $factory;
+    protected \PHPOpenSourceSaver\JWTAuth\Factory $factory;
 
     public function setUp(): void
     {

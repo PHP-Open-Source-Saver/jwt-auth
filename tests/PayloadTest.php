@@ -29,10 +29,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|PayloadValidator
-     */
-    protected $validator;
+    protected ?\Mockery\LegacyMockInterface $validator = null;
 
     /**
      * @var Payload
@@ -114,9 +111,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame($this->payload->get('sub'), 1);
 
         $this->assertSame(
-            $this->payload->get(function () {
-                return 'jti';
-            }),
+            $this->payload->get(fn() => 'jti'),
             'foo'
         );
     }

@@ -15,10 +15,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 
 class Token
 {
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     /**
      * Create a new JSON Web Token.

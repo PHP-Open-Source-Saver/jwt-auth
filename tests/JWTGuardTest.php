@@ -33,25 +33,13 @@ use PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase
 {
-    /**
-     * @var JWT|MockInterface
-     */
-    protected $jwt;
+    protected \Mockery\LegacyMockInterface $jwt;
 
-    /**
-     * @var UserProvider|MockInterface
-     */
-    protected $provider;
+    protected \Mockery\LegacyMockInterface $provider;
 
-    /**
-     * @var JWTGuard|MockInterface
-     */
-    protected $guard;
+    protected \PHPOpenSourceSaver\JWTAuth\JWTGuard $guard;
 
-    /**
-     * @var \lluminate\Contracts\Events\Dispatcher|\Mockery\MockInterface
-     */
-    protected $eventDispatcher;
+    protected \Mockery\LegacyMockInterface $eventDispatcher;
 
     public function setUp(): void
     {
@@ -546,9 +534,7 @@ class JWTGuardTest extends AbstractTestCase
     /** @test */
     public function it_should_be_macroable()
     {
-        $this->guard->macro('foo', function () {
-            return 'bar';
-        });
+        $this->guard->macro('foo', fn() => 'bar');
 
         $this->assertEquals('bar', $this->guard->foo());
     }
