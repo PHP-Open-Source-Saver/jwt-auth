@@ -22,6 +22,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
@@ -33,25 +34,13 @@ use PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase
 {
-    /**
-     * @var JWT|MockInterface
-     */
-    protected $jwt;
+    protected LegacyMockInterface $jwt;
 
-    /**
-     * @var UserProvider|MockInterface
-     */
-    protected $provider;
+    protected LegacyMockInterface $provider;
 
-    /**
-     * @var JWTGuard|MockInterface
-     */
-    protected $guard;
+    protected JWTGuard $guard;
 
-    /**
-     * @var \lluminate\Contracts\Events\Dispatcher|\Mockery\MockInterface
-     */
-    protected $eventDispatcher;
+    protected LegacyMockInterface $eventDispatcher;
 
     public function setUp(): void
     {
@@ -546,9 +535,7 @@ class JWTGuardTest extends AbstractTestCase
     /** @test */
     public function it_should_be_macroable()
     {
-        $this->guard->macro('foo', function () {
-            return 'bar';
-        });
+        $this->guard->macro('foo', fn() => 'bar');
 
         $this->assertEquals('bar', $this->guard->foo());
     }

@@ -13,6 +13,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Illuminate\Http\Request;
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
@@ -28,25 +29,13 @@ use stdClass;
 
 class JWTAuthTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|Manager
-     */
-    protected $manager;
+    protected LegacyMockInterface $manager;
 
-    /**
-     * @var MockInterface|Auth
-     */
-    protected $auth;
+    protected LegacyMockInterface $auth;
 
-    /**
-     * @var MockInterface|Parser
-     */
-    protected $parser;
+    protected LegacyMockInterface $parser;
 
-    /**
-     * @var JWTAuth
-     */
-    protected $jwtAuth;
+    protected JWTAuth $jwtAuth;
 
     public function setUp(): void
     {

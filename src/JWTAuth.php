@@ -15,7 +15,6 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 
-/** @deprecated */
 class JWTAuth extends JWT
 {
     /**

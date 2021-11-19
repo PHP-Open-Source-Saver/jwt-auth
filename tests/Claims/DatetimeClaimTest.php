@@ -17,6 +17,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Mockery;
+use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -25,22 +26,20 @@ use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
 use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
 use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
 use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Payload;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class DatetimeClaimTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|PayloadValidator
-     */
-    protected $validator;
+    protected LegacyMockInterface $validator;
+
+    protected array $claimsTimestamp;
 
     /**
-     * @var array
+     * @throws InvalidClaimException
      */
-    protected $claimsTimestamp;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -58,7 +57,9 @@ class DatetimeClaimTest extends AbstractTestCase
         ];
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_handle_carbon_claims()
     {
         $testCarbon = Carbon::createFromTimestampUTC($this->testNowTimestamp);
@@ -130,7 +131,9 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
 
-    /** @test */
+    /** @test
+     * @throws InvalidClaimException
+     */
     public function it_should_handle_datetinterval_claims()
     {
         $testDateInterval = new DateInterval('PT1H');

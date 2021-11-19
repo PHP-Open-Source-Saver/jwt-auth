@@ -17,17 +17,13 @@ class Parser
 {
     /**
      * The chain.
-     *
-     * @var array
      */
-    private $chain;
+    private array $chain;
 
     /**
      * The request.
-     *
-     * @var Request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * Constructor.

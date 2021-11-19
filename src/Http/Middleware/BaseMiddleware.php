@@ -24,10 +24,8 @@ abstract class BaseMiddleware
 {
     /**
      * The JWT Authenticator.
-     *
-     * @var JWTAuth
      */
-    protected $auth;
+    protected JWTAuth $auth;
 
     /**
      * Create a new BaseMiddleware instance.

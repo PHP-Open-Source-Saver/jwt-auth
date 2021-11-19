@@ -18,24 +18,18 @@ abstract class Provider
 {
     /**
      * The secret.
-     *
-     * @var string
      */
-    protected $secret;
+    protected string $secret;
 
     /**
      * The array of keys.
-     *
-     * @var array
      */
-    protected $keys;
+    protected array $keys;
 
     /**
      * The used algorithm.
-     *
-     * @var string
      */
-    protected $algo;
+    protected string $algo;
 
     /**
      * Constructor.
