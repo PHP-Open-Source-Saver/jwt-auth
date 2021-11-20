@@ -37,7 +37,6 @@
         "ext-json": "*",
         "illuminate/auth": "^6|^7|^8",
         "illuminate/contracts": "^6|^7|^8",
-        "illuminate/database": "^6.20.26|^7.30.4|^8.40.0",
         "illuminate/http": "^6|^7|^8",
         "illuminate/support": "^6|^7|^8",
         "lcobucci/jwt": "^4.0",
