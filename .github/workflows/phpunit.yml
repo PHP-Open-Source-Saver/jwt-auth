@@ -18,6 +18,7 @@ jobs:
       matrix:
         php: [7.4, 8.0, 8.1]
         laravel: [6.*, 7.*, 8.*]
+        stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         coverage: [none]
         include:
@@ -36,7 +37,7 @@ jobs:
             coverage: xdebug
             dotenv: ^5.2
 
-    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
+    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }} (${{ matrix.stability }})] [${{ matrix.coverage }}]'
 
     steps:
       - name: Checkout code
@@ -65,7 +66,7 @@ jobs:
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
           composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update
-          composer update --no-progress --prefer-dist --no-interaction --no-suggest
+          composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: composer test:ci
