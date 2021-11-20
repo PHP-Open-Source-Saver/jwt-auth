@@ -24,11 +24,12 @@ class Token
      * @param string $value
      *
      * @return void
+     *
      * @throws Exceptions\TokenInvalidException
      */
     public function __construct($value)
     {
-        $this->value = (string)(new TokenValidator())->check($value);
+        $this->value = (string) (new TokenValidator())->check($value);
     }
 
     /**

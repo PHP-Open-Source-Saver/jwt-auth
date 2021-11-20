@@ -18,9 +18,10 @@ class Custom extends Claim
 {
     /**
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return void
+     *
      * @throws InvalidClaimException
      */
     public function __construct($name, $value)

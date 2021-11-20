@@ -14,5 +14,4 @@ namespace PHPOpenSourceSaver\JWTAuth\Exceptions;
 
 class TokenInvalidException extends JWTException
 {
-    //
 }

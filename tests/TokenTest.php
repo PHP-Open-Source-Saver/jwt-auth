@@ -29,13 +29,13 @@ class TokenTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_token_when_casting_to_a_string()
+    public function itShouldReturnTheTokenWhenCastingToAString()
     {
-        $this->assertEquals((string)$this->token, $this->token);
+        $this->assertEquals((string) $this->token, $this->token);
     }
 
     /** @test */
-    public function it_should_return_the_token_when_calling_get_method()
+    public function itShouldReturnTheTokenWhenCallingGetMethod()
     {
         $this->assertIsString($this->token->get());
     }

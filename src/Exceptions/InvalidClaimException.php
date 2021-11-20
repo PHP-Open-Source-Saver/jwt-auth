@@ -20,9 +20,7 @@ class InvalidClaimException extends JWTException
     /**
      * Constructor.
      *
-     * @param Claim $claim
-     * @param  int  $code
-     * @param Exception|null  $previous
+     * @param int $code
      *
      * @return void
      */

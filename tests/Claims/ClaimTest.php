@@ -32,7 +32,7 @@ class ClaimTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_throw_an_exception_when_passing_an_invalid_value()
+    public function itShouldThrowAnExceptionWhenPassingAnInvalidValue()
     {
         $this->expectException(InvalidClaimException::class);
         $this->expectExceptionMessage('Invalid value provided for claim [exp]');
@@ -41,25 +41,25 @@ class ClaimTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_convert_the_claim_to_an_array()
+    public function itShouldConvertTheClaimToAnArray()
     {
         $this->assertSame(['exp' => $this->testNowTimestamp], $this->claim->toArray());
     }
 
     /** @test */
-    public function it_should_get_the_claim_as_a_string()
+    public function itShouldGetTheClaimAsAString()
     {
-        $this->assertJsonStringEqualsJsonString((string)$this->claim, $this->claim->toJson());
+        $this->assertJsonStringEqualsJsonString((string) $this->claim, $this->claim->toJson());
     }
 
     /** @test */
-    public function it_should_get_the_object_as_json()
+    public function itShouldGetTheObjectAsJson()
     {
         $this->assertJsonStringEqualsJsonString(json_encode($this->claim), $this->claim->toJson());
     }
 
     /** @test */
-    public function it_should_implement_arrayable()
+    public function itShouldImplementArrayable()
     {
         $this->assertInstanceOf(Arrayable::class, $this->claim);
     }

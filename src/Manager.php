@@ -63,10 +63,6 @@ class Manager
     /**
      * Constructor.
      *
-     * @param JWTContract $provider
-     * @param Blacklist $blacklist
-     * @param Factory $payloadFactory
-     *
      * @return void
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
@@ -78,8 +74,6 @@ class Manager
 
     /**
      * Encode a Payload and return the Token.
-     *
-     * @param Payload $payload
      *
      * @return Token
      */
@@ -93,12 +87,11 @@ class Manager
     /**
      * Decode a Token and return the Payload.
      *
-     * @param Token $token
      * @param bool $checkBlacklist
      *
      * @return Payload
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException
      *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException
      */
     public function decode(Token $token, $checkBlacklist = true)
     {
@@ -126,7 +119,6 @@ class Manager
     /**
      * Refresh a Token and return a new Token.
      *
-     * @param Token $token
      * @param bool $forceForever
      * @param bool $resetClaims
      *
@@ -152,12 +144,11 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
-     * @param Token $token
      * @param bool $forceForever
      *
      * @return bool
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function invalidate(Token $token, $forceForever = false)
     {
@@ -173,8 +164,6 @@ class Manager
 
     /**
      * Build the claims to go into the refreshed token.
-     *
-     * @param Payload $payload
      *
      * @return array
      */
@@ -267,8 +256,6 @@ class Manager
 
     /**
      * Set the claims to be persisted when refreshing a token.
-     *
-     * @param array $claims
      *
      * @return $this
      */

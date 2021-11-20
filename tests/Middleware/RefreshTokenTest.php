@@ -34,7 +34,7 @@ class RefreshTokenTest extends AbstractMiddlewareTest
     }
 
     /** @test */
-    public function it_should_refresh_a_token()
+    public function itShouldRefreshAToken()
     {
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
@@ -52,7 +52,7 @@ class RefreshTokenTest extends AbstractMiddlewareTest
     }
 
     /** @test */
-    public function it_should_throw_an_unauthorized_exception_if_token_not_provided()
+    public function itShouldThrowAnUnauthorizedExceptionIfTokenNotProvided()
     {
         $this->expectException(UnauthorizedHttpException::class);
 
@@ -63,12 +63,11 @@ class RefreshTokenTest extends AbstractMiddlewareTest
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
 
         $this->middleware->handle($this->request, function () {
-            //
         });
     }
 
     /** @test */
-    public function it_should_throw_an_unauthorized_exception_if_token_invalid()
+    public function itShouldThrowAnUnauthorizedExceptionIfTokenInvalid()
     {
         $this->expectException(UnauthorizedHttpException::class);
 
@@ -81,7 +80,6 @@ class RefreshTokenTest extends AbstractMiddlewareTest
         $this->auth->shouldReceive('parseToken->refresh')->once()->andThrow(new TokenInvalidException());
 
         $this->middleware->handle($this->request, function () {
-            //
         });
     }
 }

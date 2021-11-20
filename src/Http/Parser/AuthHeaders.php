@@ -34,9 +34,7 @@ class AuthHeaders implements ParserContract
     /**
      * Attempt to parse the token from some other possible headers.
      *
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      */
     protected function fromAltHeaders(Request $request)
     {
@@ -46,9 +44,7 @@ class AuthHeaders implements ParserContract
     /**
      * Try to parse the token from the request header.
      *
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      */
     public function parse(Request $request)
     {

@@ -22,6 +22,7 @@ class TokenValidator extends Validator
      * @param string $value
      *
      * @return string
+     *
      * @throws TokenInvalidException
      */
     public function check($value)
@@ -33,20 +34,20 @@ class TokenValidator extends Validator
      * @param string $token
      *
      * @return string
-     * @throws TokenInvalidException
      *
+     * @throws TokenInvalidException
      */
     protected function validateStructure($token)
     {
         $parts = explode('.', $token);
 
-        if (count($parts) !== 3) {
+        if (3 !== count($parts)) {
             throw new TokenInvalidException('Wrong number of segments');
         }
 
         $parts = array_filter(array_map('trim', $parts));
 
-        if (count($parts) !== 3 || implode('.', $parts) !== $token) {
+        if (3 !== count($parts) || implode('.', $parts) !== $token) {
             throw new TokenInvalidException('Malformed token');
         }
 

@@ -37,7 +37,6 @@ abstract class Provider
      *
      * @param string $secret
      * @param string $algo
-     * @param array $keys
      *
      * @return void
      */
@@ -98,8 +97,6 @@ abstract class Provider
 
     /**
      * Set the keys used to sign the token.
-     *
-     * @param array $keys
      *
      * @return $this
      */
@@ -179,8 +176,8 @@ abstract class Provider
      * requires a public/private key combo.
      *
      * @return bool
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     abstract protected function isAsymmetric();
 }

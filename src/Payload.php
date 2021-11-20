@@ -37,8 +37,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Build the Payload.
      *
-     * @param Collection $claims
-     * @param PayloadValidator $validator
      * @param bool $refreshFlow
      *
      * @return void
@@ -61,7 +59,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Checks if a payload matches some expected values.
      *
-     * @param array $values
      * @param bool $strict
      *
      * @return bool
@@ -86,8 +83,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Checks if a payload strictly matches some expected values.
      *
-     * @param array $values
-     *
      * @return bool
      */
     public function matchesStrict(array $values)
@@ -106,7 +101,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     {
         $claim = value($claim);
 
-        if ($claim !== null) {
+        if (null !== $claim) {
             if (is_array($claim)) {
                 return array_map([$this, 'get'], $claim);
             }
@@ -131,8 +126,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Determine whether the payload has the claim (by instance).
-     *
-     * @param Claim $claim
      *
      * @return bool
      */
@@ -240,8 +233,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * @param string $key
      *
      * @return void
-     * @throws PayloadException
      *
+     * @throws PayloadException
      */
     #[\ReturnTypeWillChange]
     public function offsetUnset($key)
@@ -276,17 +269,17 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * Magically get a claim value.
      *
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return mixed
-     * @throws BadMethodCallException
      *
+     * @throws BadMethodCallException
      */
     public function __call($method, $parameters)
     {
         if (preg_match('/get(.+)\b/i', $method, $matches)) {
             foreach ($this->claims as $claim) {
-                if (get_class($claim) === 'PHPOpenSourceSaver\\JWTAuth\\Claims\\' . $matches[1]) {
+                if (get_class($claim) === 'PHPOpenSourceSaver\\JWTAuth\\Claims\\'.$matches[1]) {
                     return $claim->getValue();
                 }
             }

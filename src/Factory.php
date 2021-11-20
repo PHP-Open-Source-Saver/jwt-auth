@@ -61,9 +61,6 @@ class Factory
     /**
      * Constructor.
      *
-     * @param ClaimFactory $claimFactory
-     * @param PayloadValidator $validator
-     *
      * @return void
      */
     public function __construct(ClaimFactory $claimFactory, PayloadValidator $validator)
@@ -104,8 +101,6 @@ class Factory
     /**
      * Add an array of claims to the Payload.
      *
-     * @param array $claims
-     *
      * @return $this
      */
     protected function addClaims(array $claims)
@@ -121,7 +116,7 @@ class Factory
      * Add a claim to the Payload.
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return $this
      */
@@ -140,7 +135,7 @@ class Factory
     protected function buildClaims()
     {
         // remove the exp claim if it exists and the ttl is null
-        if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $this->defaultClaims)) {
+        if (null === $this->claimFactory->getTTL() && $key = array_search('exp', $this->defaultClaims)) {
             unset($this->defaultClaims[$key]);
         }
 
@@ -178,8 +173,6 @@ class Factory
     /**
      * Get a Payload instance with a claims collection.
      *
-     * @param Collection $claims
-     *
      * @return Payload
      */
     public function withClaims(Collection $claims)
@@ -189,8 +182,6 @@ class Factory
 
     /**
      * Set the default claims to be added to the Payload.
-     *
-     * @param array $claims
      *
      * @return $this
      */
@@ -249,7 +240,7 @@ class Factory
      * Magically add a claim.
      *
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return $this
      */

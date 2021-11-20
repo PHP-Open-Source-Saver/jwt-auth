@@ -14,7 +14,6 @@ namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
 use Mockery\LegacyMockInterface;
-use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -59,7 +58,7 @@ class ManagerTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_encode_a_payload()
+    public function itShouldEncodeAPayload()
     {
         $claims = [
             new Subject(1),
@@ -85,7 +84,7 @@ class ManagerTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException|TokenBlacklistedException
      */
-    public function it_should_decode_a_token()
+    public function itShouldDecodeAToken()
     {
         $claims = [
             new Subject(1),
@@ -119,7 +118,7 @@ class ManagerTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_throw_exception_when_token_is_blacklisted()
+    public function itShouldThrowExceptionWhenTokenIsBlacklisted()
     {
         $this->expectException(TokenBlacklistedException::class);
         $this->expectExceptionMessage('The token has been blacklisted');
@@ -152,7 +151,7 @@ class ManagerTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_refresh_a_token()
+    public function itShouldRefreshAToken()
     {
         $claims = [
             new Subject(1),
@@ -188,7 +187,7 @@ class ManagerTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_invalidate_a_token()
+    public function itShouldInvalidateAToken()
     {
         $claims = [
             new Subject(1),
@@ -220,7 +219,7 @@ class ManagerTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_force_invalidate_a_token_forever()
+    public function itShouldForceInvalidateATokenForever()
     {
         $claims = [
             new Subject(1),
@@ -250,7 +249,7 @@ class ManagerTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
+    public function itShouldThrowAnExceptionWhenEnableBlacklistIsSetToFalse()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('You must have the blacklist enabled to invalidate a token.');
@@ -261,25 +260,25 @@ class ManagerTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_the_payload_factory()
+    public function itShouldGetThePayloadFactory()
     {
         $this->assertInstanceOf(Factory::class, $this->manager->getPayloadFactory());
     }
 
     /** @test */
-    public function it_should_get_the_jwt_provider()
+    public function itShouldGetTheJwtProvider()
     {
         $this->assertInstanceOf(JWT::class, $this->manager->getJWTProvider());
     }
 
     /** @test */
-    public function it_should_get_the_blacklist()
+    public function itShouldGetTheBlacklist()
     {
         $this->assertInstanceOf(Blacklist::class, $this->manager->getBlacklist());
     }
 
     /** @test */
-    public function test_if_show_blacklisted_exception_configuration_is_enabled()
+    public function testIfShowBlacklistedExceptionConfigurationIsEnabled()
     {
         $this->manager->setBlackListExceptionEnabled(true);
 
@@ -287,7 +286,7 @@ class ManagerTest extends AbstractTestCase
     }
 
     /** @test */
-    public function test_if_black_listed_exception_is_set_to_true()
+    public function testIfBlackListedExceptionIsSetToTrue()
     {
         $this->manager->setBlackListExceptionEnabled(true);
 
@@ -295,7 +294,7 @@ class ManagerTest extends AbstractTestCase
     }
 
     /** @test */
-    public function test_if_black_listed_exception_is_set_to_false()
+    public function testIfBlackListedExceptionIsSetToFalse()
     {
         $this->manager->setBlackListExceptionEnabled(false);
 

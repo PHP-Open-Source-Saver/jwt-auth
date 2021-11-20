@@ -25,6 +25,7 @@ class NotBefore extends Claim
 
     /**
      * {@inheritdoc}
+     *
      * @throws TokenInvalidException
      */
     public function validatePayload()

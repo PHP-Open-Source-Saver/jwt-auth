@@ -31,7 +31,7 @@ class TokenValidatorTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_true_when_providing_a_well_formed_token()
+    public function itShouldReturnTrueWhenProvidingAWellFormedToken()
     {
         $this->assertTrue($this->validator->isValid('one.two.three'));
     }
@@ -42,7 +42,7 @@ class TokenValidatorTest extends AbstractTestCase
      *
      * @param string $token
      */
-    public function it_should_return_false_when_providing_a_malformed_token($token)
+    public function itShouldReturnFalseWhenProvidingAMalformedToken($token)
     {
         $this->assertFalse($this->validator->isValid($token));
     }
@@ -51,7 +51,7 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
      */
-    public function it_should_throw_an_exception_when_providing_a_malformed_token($token)
+    public function itShouldThrowAnExceptionWhenProvidingAMalformedToken($token)
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Malformed token');
@@ -63,7 +63,7 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
      */
-    public function it_should_return_false_when_providing_a_token_with_wrong_segments_number($token)
+    public function itShouldReturnFalseWhenProvidingATokenWithWrongSegmentsNumber($token)
     {
         $this->assertFalse($this->validator->isValid($token));
     }
@@ -72,7 +72,7 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
      */
-    public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number($token)
+    public function itShouldThrowAnExceptionWhenProvidingAMalformedTokenWithWrongSegmentsNumber($token)
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Wrong number of segments');

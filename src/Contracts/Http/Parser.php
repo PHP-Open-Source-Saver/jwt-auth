@@ -19,9 +19,7 @@ interface Parser
     /**
      * Parse the request.
      *
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      */
     public function parse(Request $request);
 }

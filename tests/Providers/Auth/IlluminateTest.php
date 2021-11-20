@@ -39,30 +39,30 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_true_if_credentials_are_valid()
+    public function itShouldReturnTrueIfCredentialsAreValid()
     {
         $this->authManager->shouldReceive('once')->once()->with(['email' => 'foo@bar.com', 'password' => 'foobar'])->andReturn(true);
         $this->assertTrue($this->auth->byCredentials(['email' => 'foo@bar.com', 'password' => 'foobar']));
     }
 
     /** @test */
-    public function it_should_return_true_if_user_is_found()
+    public function itShouldReturnTrueIfUserIsFound()
     {
         $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andReturn(true);
         $this->assertTrue($this->auth->byId(123));
     }
 
     /** @test */
-    public function it_should_return_false_if_user_is_not_found()
+    public function itShouldReturnFalseIfUserIsNotFound()
     {
         $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andReturn(false);
         $this->assertFalse($this->auth->byId(123));
     }
 
     /** @test */
-    public function it_should_return_the_currently_authenticated_user()
+    public function itShouldReturnTheCurrentlyAuthenticatedUser()
     {
-        $this->authManager->shouldReceive('user')->once()->andReturn((object)['id' => 1]);
+        $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
         $this->assertSame($this->auth->user()->id, 1);
     }
 }

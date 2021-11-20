@@ -17,7 +17,7 @@ interface Validator
     /**
      * Perform some checks on the value.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return void
      */
@@ -26,7 +26,7 @@ interface Validator
     /**
      * Helper function to return a boolean.
      *
-     * @param  array  $value
+     * @param array $value
      *
      * @return bool
      */

@@ -58,8 +58,6 @@ class Factory
     /**
      * Constructor.
      *
-     * @param Request $request
-     *
      * @return void
      */
     public function __construct(Request $request)
@@ -71,9 +69,10 @@ class Factory
      * Get the instance of the claim when passing the name and value.
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return Claim
+     *
      * @throws InvalidClaimException
      */
     public function get($name, $value)
@@ -92,7 +91,7 @@ class Factory
     /**
      * Check whether the claim exists.
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return bool
      */
@@ -107,6 +106,7 @@ class Factory
      * @param string $name
      *
      * @return Claim
+     *
      * @throws InvalidClaimException
      */
     public function make($name)
@@ -167,8 +167,8 @@ class Factory
     /**
      * Add a new claim mapping.
      *
-     * @param  string  $name
-     * @param  string  $classPath
+     * @param string $name
+     * @param string $classPath
      *
      * @return $this
      */
@@ -182,8 +182,6 @@ class Factory
     /**
      * Set the request instance.
      *
-     * @param Request $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
@@ -196,7 +194,7 @@ class Factory
     /**
      * Set the token ttl (in minutes).
      *
-     * @param  int  $ttl
+     * @param int $ttl
      *
      * @return $this
      */
@@ -220,7 +218,7 @@ class Factory
     /**
      * Set the leeway in seconds.
      *
-     * @param  int  $leeway
+     * @param int $leeway
      *
      * @return $this
      */

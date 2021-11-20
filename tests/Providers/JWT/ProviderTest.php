@@ -30,7 +30,7 @@ class ProviderTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_algo()
+    public function itShouldSetTheAlgo()
     {
         $this->provider->setAlgo('HS512');
 
@@ -38,7 +38,7 @@ class ProviderTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_secret()
+    public function itShouldSetTheSecret()
     {
         $this->provider->setSecret('foo');
 
