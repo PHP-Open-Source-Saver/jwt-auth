@@ -217,9 +217,11 @@ class JWTGuardTest extends AbstractTestCase
             ->once()
             ->with(Mockery::type(Attempting::class));
 
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->once()
-            ->with(Mockery::type(Validated::class));
+        if (class_exists('Illuminate\Auth\Events\Validated')) {
+            $this->eventDispatcher->shouldReceive('dispatch')
+                ->once()
+                ->with(Mockery::type('Illuminate\Auth\Events\Validated'));
+        }
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->once()
@@ -255,9 +257,11 @@ class JWTGuardTest extends AbstractTestCase
             ->twice()
             ->with(Mockery::type(Attempting::class));
 
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->twice()
-            ->with(Mockery::type(Validated::class));
+        if (class_exists('Illuminate\Auth\Events\Validated')) {
+            $this->eventDispatcher->shouldReceive('dispatch')
+                ->twice()
+                ->with(Mockery::type('Illuminate\Auth\Events\Validated'));
+        }
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->never()
@@ -423,9 +427,11 @@ class JWTGuardTest extends AbstractTestCase
             ->once()
             ->with(Mockery::type(Attempting::class));
 
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->once()
-            ->with(Mockery::type(Validated::class));
+        if (class_exists('Illuminate\Auth\Events\Validated')) {
+            $this->eventDispatcher->shouldReceive('dispatch')
+                ->once()
+                ->with(Mockery::type('Illuminate\Auth\Events\Validated'));
+        }
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->once()
