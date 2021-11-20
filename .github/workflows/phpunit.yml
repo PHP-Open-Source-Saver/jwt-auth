@@ -22,6 +22,12 @@ jobs:
         os: [ubuntu-latest]
         coverage: [none]
         include:
+          - php: 8.0
+            laravel: 8.*
+            stability: prefer-stable
+            os: ubuntu-latest
+            coverage: xdebug
+            dotenv: ^5.2
           - laravel: 6.*
             dotenv: ^3.3
 
