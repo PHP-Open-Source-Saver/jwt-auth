@@ -62,7 +62,7 @@ jobs:
 
       - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
         run: |
-          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update --dev
+          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
           composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update --dev
 
       - name: Cache dependencies
