@@ -17,7 +17,6 @@ use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
@@ -503,10 +502,14 @@ class JWTGuard implements Guard
      */
     protected function fireValidatedEvent($user)
     {
-        $this->events->dispatch(new Validated(
-            $this->name,
-            $user
-        ));
+        if (class_exists('Illuminate\Auth\Events\Validated')) {
+            $this->events->dispatch(
+                new \Illuminate\Auth\Events\Validated(
+                    $this->name,
+                    $user
+                )
+            );
+        }
     }
 
     /**

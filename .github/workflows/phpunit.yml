@@ -18,6 +18,7 @@ jobs:
       matrix:
         php: [7.4, 8.0, 8.1]
         laravel: [6.*, 7.*, 8.*]
+        stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         coverage: [none]
         include:
@@ -32,11 +33,12 @@ jobs:
 
           - php: 8.0
             laravel: 8.*
+            stability: prefer-stable
             os: ubuntu-latest
             coverage: xdebug
             dotenv: ^5.2
 
-    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
+    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }} (${{ matrix.stability }})] [${{ matrix.coverage }}]'
 
     steps:
       - name: Checkout code
@@ -54,6 +56,15 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
+      - name: Set Minimum PHP 8.0 Versions
+        run: composer require phpunit/phpunit:^9.4 --no-interaction --no-progress --no-update
+        if: matrix.php >= 8
+
+      - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
+        run: |
+          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
+          composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update --dev
+
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
@@ -62,10 +73,7 @@ jobs:
           restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
-        run: |
-          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
-          composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update
-          composer update --no-progress --prefer-dist --no-interaction --no-suggest
+        run: composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: composer test:ci
