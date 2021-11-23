@@ -5,10 +5,17 @@
 
 This uses different namespace, then `tymondesigns/jwt-auth`, but overall, provides the same API, that makes migration to this repository pretty easy:
 
-1) Replace `"tymon/jwt-auth": "^1.0"` with `"php-open-source-saver/jwt-auth": "^1.2"` in your `composer.json` 
-2) Run `composer update`
-3) Replace all the occurrences of `Tymon\JWTAuth` with `PHPOpenSourceSaver\JWTAuth`.
+1) Run `composer require php-open-source-saver/jwt-auth`
+2) Replace all the occurrences of `Tymon\JWTAuth` with `PHPOpenSourceSaver\JWTAuth`.
    > **Tip**: You can use *Find and Replace* feature of your IDE. Try it with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>
+3) Run `composer remove tymon/jwt-auth`
+
+### Notes
+
+Due to new features, added in our library, there are some incompatibilities. _This won't hurt you in most cases_, unless you have [implicitly disabled autodiscovery](https://laravel.com/docs/8.x/packages#opting-out-of-package-discovery) for original Tymon's package.
+
+Current compatability breaks:
+- [`JWTGuard`](src/JWTGuard.php) have new required constructor parameter [`$eventDispatcher`](src/JWTGuard.php#L97) 
 
 ## Documentation
 
