@@ -5,3 +5,4 @@ coverage.xml
 .phpunit.result.cache
 .idea
 /.php-cs-fixer.cache
+/site
