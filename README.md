@@ -25,7 +25,7 @@ Work in progress.
 
 ## Security
 
-If you discover any security related issues, please email messhias@gmail.com or eric.schricker@adiutabyte.de instead of using the issue tracker.
+If you want to disclose a security related issue, please follow our [security policy](https://github.com/PHP-Open-Source-Saver/jwt-auth/security/policy)
 
 ## License
 
