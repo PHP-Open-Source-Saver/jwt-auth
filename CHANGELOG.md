@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 You can find and compare releases at the GitHub release page.
 
-## [Unreleased changes]
+## [Unreleased]
 
 
 ## [1.2.0] - 2021-11-16
@@ -31,3 +31,8 @@ You can find and compare releases at the GitHub release page.
 
 ### Fixed
 - Typo in tests by @eschricker in #23
+
+[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.1...1.2.0
+[1.1.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.0.2...1.1.0
