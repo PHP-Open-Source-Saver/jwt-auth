@@ -1,13 +1,12 @@
-name: PHPUnit tests
+name: Tests / PHPUnit
 
 on:
-  push:
   pull_request:
+  push:
     branches:
+      - main
       - develop
-  release:
-    types:
-      - published
+      - release/**
 
 jobs:
   php-tests:
@@ -38,7 +37,7 @@ jobs:
             coverage: xdebug
             dotenv: ^5.2
 
-    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }} (${{ matrix.stability }})] [${{ matrix.coverage }}]'
+    name: '[PHP ${{ matrix.php }}] [Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}] [${{ matrix.coverage }} coverage]'
 
     steps:
       - name: Checkout code
@@ -51,6 +50,11 @@ jobs:
           extensions: mbstring json openssl
           coverage: ${{ matrix.coverage }}
           ini-values: memory_limit=-1
+
+      - name: Setup Problem Matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Get composer cache directory
         id: composer-cache
@@ -69,8 +73,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
+          key: composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.laravel }}
+            composer-${{ runner.os }}-${{ matrix.php }}-
+            composer-${{ runner.os }}-
+            composer-
 
       - name: Install dependencies
         run: composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
