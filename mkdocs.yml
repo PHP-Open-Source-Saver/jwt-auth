@@ -1,11 +1,13 @@
-site_name: jwt-auth
-pages:
-    - Home: index.md
-    - Laravel Installation: laravel-installation.md
-    - Lumen Installation (incomplete): lumen-installation.md
-    - Quick start: quick-start.md
-    - Auth guard: auth-guard.md
-    - Configuration: configuration.md
-    - Exception Handling: exception-handling.md
-    - Resources: resources.md
+site_name: Laravel JWT Auth
+repo_name: GitHub
+repo_url: https://github.com/PHP-Open-Source-Saver/jwt-auth
+nav:
+  - Home: index.md
+  - Laravel Installation: laravel-installation.md
+  - Lumen Installation (incomplete): lumen-installation.md
+  - Quick start: quick-start.md
+  - Auth guard: auth-guard.md
+  - Configuration: configuration.md
+  - Exception Handling: exception-handling.md
+  - Resources: resources.md
 theme: readthedocs

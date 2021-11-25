@@ -19,7 +19,7 @@ Current compatability breaks:
 
 ## Documentation
 
-Work in progress.
+Full documentation is available at [laravel-jwt-auth.readthedocs.io](https://laravel-jwt-auth.readthedocs.io/)
 
 -----------------------------------
 
