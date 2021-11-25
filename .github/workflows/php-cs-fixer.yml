@@ -1,4 +1,4 @@
-name: PHP-CS-Fixer
+name: Coding Standards
 
 on:
   push:
@@ -22,6 +22,19 @@ jobs:
           php-version: 7.4
           coverage: none
 
+      - name: Determine composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=directory::$(composer config cache-dir)"
+
+      - name: Cache dependencies installed with composer
+        uses: actions/cache@v2.1.6
+        with:
+          path: ${{ steps.composer-cache.outputs.directory }}
+          key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            composer-${{ runner.os }}-
+            composer-
+
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress --no-plugins --no-scripts
 
@@ -30,4 +43,4 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: composer php-cs-fixer
+          commit_message: 'style: php-cs-fixer'
