@@ -1,7 +1,13 @@
+---
+name: "🐛 Bug Report"
+about: 'Report a general bug.'
+labels: bug
+
+---
 ### Subject of the issue
 Describe your issue here.
 
-### Your environment
+### Your environment:
 | Q                 | A
 | ----------------- | ---
 | Bug?              | no / yes
