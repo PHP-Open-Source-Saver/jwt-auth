@@ -48,6 +48,7 @@
         "illuminate/console": "^6|^7|^8",
         "illuminate/routing": "^6|^7|^8",
         "mockery/mockery": "^1.4",
+        "phpstan/phpstan": "^1",
         "phpunit/phpunit": "^8.5|^9.4",
         "rector/rector": "^0.12.4",
         "vlucas/phpdotenv": "^5.2.0",
