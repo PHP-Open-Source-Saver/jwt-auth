@@ -48,6 +48,7 @@
         "illuminate/console": "^6|^7|^8",
         "illuminate/routing": "^6|^7|^8",
         "mockery/mockery": "^1.4",
+        "phpstan/phpstan": "^1",
         "phpunit/phpunit": "^8.5|^9.4",
         "rector/rector": "^0.12.4",
         "vlucas/phpdotenv": "^5.2.0",
@@ -86,6 +87,8 @@
     "scripts": {
         "php-cs-fixer": "php-cs-fixer fix --diff",
         "test": "phpunit --colors=always",
-        "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
+        "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml",
+        "phpstan": "phpstan analyse --memory-limit=256M",
+        "phpstan-baseline": "phpstan analyse --generate-baseline --memory-limit=256M"
     }
 }
