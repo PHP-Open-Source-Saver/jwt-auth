@@ -18,7 +18,6 @@ use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Mockery;
