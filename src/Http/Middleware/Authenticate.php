@@ -23,11 +23,10 @@ class Authenticate extends BaseMiddleware
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
-     * @throws UnauthorizedHttpException
      *
+     * @throws UnauthorizedHttpException
      */
     public function handle($request, Closure $next)
     {

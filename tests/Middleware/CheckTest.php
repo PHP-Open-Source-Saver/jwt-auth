@@ -33,7 +33,7 @@ class CheckTest extends AbstractMiddlewareTest
     }
 
     /** @test */
-    public function it_should_authenticate_a_user_if_a_token_is_present()
+    public function itShouldAuthenticateAUserIfATokenIsPresent()
     {
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
@@ -44,12 +44,11 @@ class CheckTest extends AbstractMiddlewareTest
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andReturn(new UserStub());
 
         $this->middleware->handle($this->request, function () {
-            //
         });
     }
 
     /** @test */
-    public function it_should_unset_the_exception_if_a_token_is_present()
+    public function itShouldUnsetTheExceptionIfATokenIsPresent()
     {
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
@@ -60,12 +59,11 @@ class CheckTest extends AbstractMiddlewareTest
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException());
 
         $this->middleware->handle($this->request, function () {
-            //
         });
     }
 
     /** @test */
-    public function it_should_do_nothing_if_a_token_is_not_present()
+    public function itShouldDoNothingIfATokenIsNotPresent()
     {
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
@@ -76,7 +74,6 @@ class CheckTest extends AbstractMiddlewareTest
         $this->auth->shouldReceive('parseToken->authenticate')->never();
 
         $this->middleware->handle($this->request, function () {
-            //
         });
     }
 }

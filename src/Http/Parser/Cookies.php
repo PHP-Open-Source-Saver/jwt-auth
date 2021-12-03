@@ -37,9 +37,8 @@ class Cookies implements ParserContract
     /**
      * Try to parse the token from the request cookies.
      *
-     * @param Request $request
+     * @return string|null
      *
-     * @return null|string
      * @throws TokenInvalidException
      */
     public function parse(Request $request)

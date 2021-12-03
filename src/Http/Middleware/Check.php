@@ -23,7 +23,6 @@ class Check extends BaseMiddleware
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
      */
@@ -33,7 +32,6 @@ class Check extends BaseMiddleware
             try {
                 $this->auth->parseToken()->authenticate();
             } catch (Exception $e) {
-                //
             }
         }
 

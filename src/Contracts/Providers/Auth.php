@@ -17,8 +17,6 @@ interface Auth
     /**
      * Check a user's credentials.
      *
-     * @param  array  $credentials
-     *
      * @return mixed
      */
     public function byCredentials(array $credentials);
@@ -26,7 +24,7 @@ interface Auth
     /**
      * Authenticate a user via the id.
      *
-     * @param  mixed  $id
+     * @param mixed $id
      *
      * @return mixed
      */

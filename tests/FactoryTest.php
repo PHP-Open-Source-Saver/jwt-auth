@@ -14,7 +14,6 @@ namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Mockery;
 use Mockery\LegacyMockInterface;
-use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Custom;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -47,7 +46,7 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_a_payload_when_passing_an_array_of_claims()
+    public function itShouldReturnAPayloadWhenPassingAnArrayOfClaims()
     {
         $expTime = $this->testNowTimestamp + 3600;
 
@@ -90,7 +89,7 @@ class FactoryTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_return_a_payload_when_chaining_claim_methods()
+    public function itShouldReturnAPayloadWhenChainingClaimMethods()
     {
         $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->twice()->with('foo', 'baz')->andReturn(new Custom('foo', 'baz'));
@@ -121,7 +120,7 @@ class FactoryTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_return_a_payload_when_passing_miltidimensional_array_as_custom_claim_to_make_method()
+    public function itShouldReturnAPayloadWhenPassingMiltidimensionalArrayAsCustomClaimToMakeMethod()
     {
         // these are added from default claims
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
@@ -155,7 +154,7 @@ class FactoryTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_exclude_the_exp_claim_when_setting_ttl_to_null()
+    public function itShouldExcludeTheExpClaimWhenSettingTtlToNull()
     {
         // these are added from default claims
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
@@ -183,7 +182,7 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_exclude_claims_from_previous_payloads()
+    public function itShouldExcludeClaimsFromPreviousPayloads()
     {
         $validator = new PayloadValidator();
         $factory = new Factory($this->claimFactory, $validator);
@@ -212,7 +211,7 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_default_claims()
+    public function itShouldSetTheDefaultClaims()
     {
         $this->factory->setDefaultClaims(['sub', 'iat']);
 
@@ -222,7 +221,7 @@ class FactoryTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_get_payload_with_a_predefined_collection_of_claims()
+    public function itShouldGetPayloadWithAPredefinedCollectionOfClaims()
     {
         $claims = [
             new Subject(1),
@@ -243,7 +242,7 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_the_validator()
+    public function itShouldGetTheValidator()
     {
         $this->assertInstanceOf(PayloadValidator::class, $this->factory->validator());
     }

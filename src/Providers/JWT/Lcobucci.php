@@ -64,10 +64,9 @@ class Lcobucci extends Provider implements JWT
     /**
      * Create the Lcobucci provider.
      *
-     * @param string $secret
-     * @param string $algo
-     * @param array $keys
-     * @param Configuration $config Optional, to pass an existing configuration to be used.
+     * @param string        $secret
+     * @param string        $algo
+     * @param Configuration $config optional, to pass an existing configuration to be used
      *
      * @return void
      */
@@ -125,11 +124,9 @@ class Lcobucci extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param array $payload
-     *
      * @return string
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function encode(array $payload)
     {
@@ -143,7 +140,7 @@ class Lcobucci extends Provider implements JWT
 
             return $this->builder->getToken($this->config->signer(), $this->config->signingKey())->toString();
         } catch (Exception $e) {
-            throw new JWTException('Could not create token: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -153,15 +150,15 @@ class Lcobucci extends Provider implements JWT
      * @param string $token
      *
      * @return array
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function decode($token)
     {
         try {
             $jwt = $this->config->parser()->parse($token);
         } catch (Exception $e) {
-            throw new TokenInvalidException('Could not decode token: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
         if (!$this->config->validator()->validate($jwt, ...$this->config->validationConstraints())) {
@@ -184,7 +181,7 @@ class Lcobucci extends Provider implements JWT
      * Adds a claim to the {@see $config}.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     protected function addClaim($key, $value)
     {
@@ -223,8 +220,8 @@ class Lcobucci extends Provider implements JWT
      * Get the signer instance.
      *
      * @return Signer
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     protected function getSigner()
     {

@@ -325,8 +325,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Helper to get the config values.
      *
-     * @param  string  $key
-     * @param  string  $default
+     * @param string $key
+     * @param string $default
      *
      * @return mixed
      */
@@ -338,7 +338,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Get an instantiable configuration instance.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return mixed
      */

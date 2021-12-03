@@ -31,8 +31,6 @@ abstract class BaseMiddleware
     /**
      * Create a new BaseMiddleware instance.
      *
-     * @param JWTAuth $auth
-     *
      * @return void
      */
     public function __construct(JWTAuth $auth)
@@ -43,11 +41,9 @@ abstract class BaseMiddleware
     /**
      * Check the request for the presence of a token.
      *
-     * @param Request $request
-     *
      * @return void
-     * @throws BadRequestHttpException
      *
+     * @throws BadRequestHttpException
      */
     public function checkForToken(Request $request)
     {
@@ -59,11 +55,9 @@ abstract class BaseMiddleware
     /**
      * Attempt to authenticate a user via the token in the request.
      *
-     * @param Request $request
-     *
      * @return void
-     * @throws UnauthorizedHttpException
      *
+     * @throws UnauthorizedHttpException
      */
     public function authenticate(Request $request)
     {
@@ -82,14 +76,14 @@ abstract class BaseMiddleware
      * Set the authentication header.
      *
      * @param Response|JsonResponse $response
-     * @param string|null $token
+     * @param string|null           $token
      *
      * @return Response|JsonResponse
      */
     protected function setAuthenticationHeader($response, $token = null)
     {
         $token = $token ?: $this->auth->refresh();
-        $response->headers->set('Authorization', 'Bearer ' . $token);
+        $response->headers->set('Authorization', 'Bearer '.$token);
 
         return $response;
     }

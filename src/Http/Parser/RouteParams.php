@@ -22,9 +22,7 @@ class RouteParams implements ParserContract
     /**
      * Try to get the token from the route parameters.
      *
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      */
     public function parse(Request $request)
     {

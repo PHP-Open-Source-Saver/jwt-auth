@@ -27,8 +27,6 @@ class Illuminate implements Auth
     /**
      * Constructor.
      *
-     * @param GuardContract $auth
-     *
      * @return void
      */
     public function __construct(GuardContract $auth)
@@ -38,8 +36,6 @@ class Illuminate implements Auth
 
     /**
      * Check a user's credentials.
-     *
-     * @param array $credentials
      *
      * @return bool
      */

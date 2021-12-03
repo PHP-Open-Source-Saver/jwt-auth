@@ -28,10 +28,6 @@ class JWTAuth extends JWT
     /**
      * Constructor.
      *
-     * @param Manager $manager
-     * @param Auth $auth
-     * @param Parser $parser
-     *
      * @return void
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
@@ -42,8 +38,6 @@ class JWTAuth extends JWT
 
     /**
      * Attempt to authenticate the user and return the token.
-     *
-     * @param array $credentials
      *
      * @return false|string
      */

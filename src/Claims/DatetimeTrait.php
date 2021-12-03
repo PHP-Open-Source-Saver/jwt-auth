@@ -29,7 +29,7 @@ trait DatetimeTrait
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @throws InvalidClaimException
      *
@@ -53,7 +53,7 @@ trait DatetimeTrait
      */
     public function validateCreate($value)
     {
-        if (! is_numeric($value)) {
+        if (!is_numeric($value)) {
             throw new InvalidClaimException($this);
         }
 
@@ -63,7 +63,7 @@ trait DatetimeTrait
     /**
      * Determine whether the value is in the future.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -75,7 +75,7 @@ trait DatetimeTrait
     /**
      * Determine whether the value is in the past.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -87,7 +87,7 @@ trait DatetimeTrait
     /**
      * Set the leeway in seconds.
      *
-     * @param  int  $leeway
+     * @param int $leeway
      *
      * @return $this
      */

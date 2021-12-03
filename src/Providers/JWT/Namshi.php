@@ -34,10 +34,8 @@ class Namshi extends Provider implements JWT
     /**
      * Constructor.
      *
-     * @param JWS $jws
      * @param string $secret
      * @param string $algo
-     * @param array $keys
      *
      * @return void
      */
@@ -51,20 +49,18 @@ class Namshi extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param array $payload
-     *
      * @return string
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function encode(array $payload)
     {
         try {
             $this->jws->setPayload($payload)->sign($this->getSigningKey(), $this->getPassphrase());
 
-            return (string)$this->jws->getTokenString();
+            return (string) $this->jws->getTokenString();
         } catch (Exception $e) {
-            throw new JWTException('Could not create token: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -74,8 +70,8 @@ class Namshi extends Provider implements JWT
      * @param string $token
      *
      * @return array
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function decode($token)
     {
@@ -83,14 +79,14 @@ class Namshi extends Provider implements JWT
             // Let's never allow insecure tokens
             $jws = $this->jws->load($token, false);
         } catch (InvalidArgumentException $e) {
-            throw new TokenInvalidException('Could not decode token: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
         if (!$jws->verify($this->getVerificationKey(), $this->getAlgo())) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return (array)$jws->getPayload();
+        return (array) $jws->getPayload();
     }
 
     /**

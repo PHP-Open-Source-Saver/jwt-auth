@@ -22,9 +22,7 @@ class InputSource implements ParserContract
     /**
      * Try to parse the token from the request input source.
      *
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      */
     public function parse(Request $request)
     {

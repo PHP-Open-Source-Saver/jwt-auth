@@ -76,10 +76,6 @@ class JWTGuard implements Guard
     /**
      * Instantiate the class.
      *
-     * @param JWT $jwt
-     * @param UserProvider $provider
-     * @param Request $request
-     *
      * @return void
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request, Dispatcher $eventDispatcher)
@@ -97,7 +93,7 @@ class JWTGuard implements Guard
      */
     public function user()
     {
-        if ($this->user !== null) {
+        if (null !== $this->user) {
             return $this->user;
         }
 
@@ -114,8 +110,8 @@ class JWTGuard implements Guard
      * Get the currently authenticated user or throws an exception.
      *
      * @return Authenticatable
-     * @throws UserNotDefinedException
      *
+     * @throws UserNotDefinedException
      */
     public function userOrFail()
     {
@@ -129,19 +125,16 @@ class JWTGuard implements Guard
     /**
      * Validate a user's credentials.
      *
-     * @param array $credentials
-     *
      * @return bool
      */
     public function validate(array $credentials = [])
     {
-        return (bool)$this->attempt($credentials, false);
+        return (bool) $this->attempt($credentials, false);
     }
 
     /**
      * Attempt to authenticate the user using the given credentials and return the token.
      *
-     * @param array $credentials
      * @param bool $login
      *
      * @return bool|string
@@ -163,8 +156,6 @@ class JWTGuard implements Guard
 
     /**
      * Create a token for a user.
-     *
-     * @param JWTSubject $user
      *
      * @return string
      */
@@ -237,8 +228,6 @@ class JWTGuard implements Guard
     /**
      * Log a user into the application using their credentials.
      *
-     * @param array $credentials
-     *
      * @return bool
      */
     public function once(array $credentials = [])
@@ -284,8 +273,6 @@ class JWTGuard implements Guard
 
     /**
      * Add any custom claims.
-     *
-     * @param array $claims
      *
      * @return $this
      */
@@ -357,8 +344,6 @@ class JWTGuard implements Guard
     /**
      * Set the user provider used by the guard.
      *
-     * @param UserProvider $provider
-     *
      * @return $this
      */
     public function setProvider(UserProvider $provider)
@@ -381,7 +366,6 @@ class JWTGuard implements Guard
     /**
      * Set the current user.
      *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @return $this
      */
     public function setUser(Authenticatable $user)
@@ -405,8 +389,6 @@ class JWTGuard implements Guard
 
     /**
      * Set the current request instance.
-     *
-     * @param Request $request
      *
      * @return $this
      */
@@ -437,7 +419,7 @@ class JWTGuard implements Guard
      */
     protected function hasValidCredentials($user, $credentials)
     {
-        $validated = $user !== null && $this->provider->validateCredentials($user, $credentials);
+        $validated = null !== $user && $this->provider->validateCredentials($user, $credentials);
 
         if ($validated) {
             $this->fireValidatedEvent($user);
@@ -449,7 +431,7 @@ class JWTGuard implements Guard
     /**
      * Ensure the JWTSubject matches what is in the token.
      *
-     * @return  bool
+     * @return bool
      */
     protected function validateSubject()
     {
@@ -466,8 +448,8 @@ class JWTGuard implements Guard
      * Ensure that a token is available in the request.
      *
      * @return JWT
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException
      */
     protected function requireToken()
     {
@@ -480,8 +462,6 @@ class JWTGuard implements Guard
 
     /**
      * Fire the attempt event.
-     *
-     * @param array $credentials
      *
      * @return void
      */
@@ -517,7 +497,6 @@ class JWTGuard implements Guard
      * Fire the failed authentication attempt event.
      *
      * @param Authenticatable|null $user
-     * @param array $credentials
      *
      * @return void
      */
@@ -534,6 +513,7 @@ class JWTGuard implements Guard
      * Fire the authenticated event.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     *
      * @return void
      */
     protected function fireAuthenticatedEvent($user)
@@ -548,7 +528,8 @@ class JWTGuard implements Guard
      * Fire the login event.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param bool $remember
+     * @param bool                                       $remember
+     *
      * @return void
      */
     protected function fireLoginEvent($user, $remember = false)
@@ -564,7 +545,8 @@ class JWTGuard implements Guard
      * Fire the logout event.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param bool $remember
+     * @param bool                                       $remember
+     *
      * @return void
      */
     protected function fireLogoutEvent($user, $remember = false)
@@ -575,16 +557,15 @@ class JWTGuard implements Guard
         ));
     }
 
-
     /**
      * Magically call the JWT instance.
      *
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return mixed
-     * @throws BadMethodCallException
      *
+     * @throws BadMethodCallException
      */
     public function __call($method, $parameters)
     {

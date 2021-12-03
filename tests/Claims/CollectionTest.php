@@ -24,7 +24,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 class CollectionTest extends AbstractTestCase
 {
     /** @test */
-    public function it_should_sanitize_the_claims_to_associative_array()
+    public function itShouldSanitizeTheClaimsToAssociativeArray()
     {
         $collection = $this->getCollection();
 
@@ -46,7 +46,7 @@ class CollectionTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_determine_if_a_collection_contains_all_the_given_claims()
+    public function itShouldDetermineIfACollectionContainsAllTheGivenClaims()
     {
         $collection = $this->getCollection();
 
@@ -59,7 +59,7 @@ class CollectionTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_a_claim_instance_by_name()
+    public function itShouldGetAClaimInstanceByName()
     {
         $collection = $this->getCollection();
 

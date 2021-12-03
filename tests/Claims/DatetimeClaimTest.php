@@ -19,7 +19,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Mockery;
 use Mockery\LegacyMockInterface;
-use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
 use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
@@ -61,7 +60,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_handle_carbon_claims()
+    public function itShouldHandleCarbonClaims()
     {
         $testCarbon = Carbon::createFromTimestampUTC($this->testNowTimestamp);
         $testCarbonCopy = clone $testCarbon;
@@ -86,7 +85,7 @@ class DatetimeClaimTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_handle_datetime_claims()
+    public function itShouldHandleDatetimeClaims()
     {
         $testDateTime = DateTime::createFromFormat('U', $this->testNowTimestamp);
         $testDateTimeCopy = clone $testDateTime;
@@ -110,9 +109,9 @@ class DatetimeClaimTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_handle_datetime_immutable_claims()
+    public function itShouldHandleDatetimeImmutableClaims()
     {
-        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string)$this->testNowTimestamp);
+        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $testDateTimeImmutable);
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);
@@ -135,7 +134,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test
      * @throws InvalidClaimException
      */
-    public function it_should_handle_datetinterval_claims()
+    public function itShouldHandleDatetintervalClaims()
     {
         $testDateInterval = new DateInterval('PT1H');
 

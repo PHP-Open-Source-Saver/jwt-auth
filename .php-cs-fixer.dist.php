@@ -15,7 +15,7 @@ $finder = PhpCsFixer\Finder::create()
 return (new Config())
     ->setFinder($finder)
     ->setRules([
-                   '@PSR12' => true,
+                   '@Symfony' => true,
                    'header_comment' => [
                        'comment_type' => 'comment',
                        'header' => <<<HEREDOC

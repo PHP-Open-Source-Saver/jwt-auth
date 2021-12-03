@@ -48,8 +48,6 @@ class Blacklist
     /**
      * Constructor.
      *
-     * @param Storage $storage
-     *
      * @return void
      */
     public function __construct(Storage $storage)
@@ -59,8 +57,6 @@ class Blacklist
 
     /**
      * Add the token (jti claim) to the blacklist.
-     *
-     * @param Payload $payload
      *
      * @return bool
      */
@@ -89,8 +85,6 @@ class Blacklist
     /**
      * Get the number of minutes until the token expiry.
      *
-     * @param Payload $payload
-     *
      * @return int
      */
     protected function getMinutesUntilExpired(Payload $payload)
@@ -107,8 +101,6 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist indefinitely.
      *
-     * @param Payload $payload
-     *
      * @return bool
      */
     public function addForever(Payload $payload)
@@ -121,8 +113,6 @@ class Blacklist
     /**
      * Determine whether the token has been blacklisted.
      *
-     * @param Payload $payload
-     *
      * @return bool
      */
     public function has(Payload $payload)
@@ -130,7 +120,7 @@ class Blacklist
         $val = $this->storage->get($this->getKey($payload));
 
         // exit early if the token was blacklisted forever,
-        if ($val === 'forever') {
+        if ('forever' === $val) {
             return true;
         }
 
@@ -140,8 +130,6 @@ class Blacklist
 
     /**
      * Remove the token (jti claim) from the blacklist.
-     *
-     * @param Payload $payload
      *
      * @return bool
      */
@@ -182,7 +170,7 @@ class Blacklist
      */
     public function setGracePeriod($gracePeriod)
     {
-        $this->gracePeriod = (int)$gracePeriod;
+        $this->gracePeriod = (int) $gracePeriod;
 
         return $this;
     }
@@ -199,8 +187,6 @@ class Blacklist
 
     /**
      * Get the unique key held within the blacklist.
-     *
-     * @param Payload $payload
      *
      * @return mixed
      */
@@ -232,7 +218,7 @@ class Blacklist
      */
     public function setRefreshTTL($ttl)
     {
-        $this->refreshTTL = (int)$ttl;
+        $this->refreshTTL = (int) $ttl;
 
         return $this;
     }

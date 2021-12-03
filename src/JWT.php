@@ -54,9 +54,6 @@ class JWT
     /**
      * JWT constructor.
      *
-     * @param Manager $manager
-     * @param Parser $parser
-     *
      * @return void
      */
     public function __construct(Manager $manager, Parser $parser)
@@ -67,8 +64,6 @@ class JWT
 
     /**
      * Generate a token for a given subject.
-     *
-     * @param JWTSubject $subject
      *
      * @return string
      */
@@ -81,8 +76,6 @@ class JWT
 
     /**
      * Alias to generate a token for a given user.
-     *
-     * @param JWTSubject $user
      *
      * @return string
      */
@@ -129,8 +122,8 @@ class JWT
      * the token is valid i.e. not expired or blacklisted.
      *
      * @return Payload
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function checkOrFail()
     {
@@ -162,7 +155,7 @@ class JWT
      */
     public function getToken()
     {
-        if ($this->token === null) {
+        if (null === $this->token) {
             try {
                 $this->parseToken();
             } catch (JWTException $e) {
@@ -177,8 +170,8 @@ class JWT
      * Parse the token from the request.
      *
      * @return $this
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     public function parseToken()
     {
@@ -226,8 +219,6 @@ class JWT
     /**
      * Create a Payload instance.
      *
-     * @param JWTSubject $subject
-     *
      * @return Payload
      */
     public function makePayload(JWTSubject $subject)
@@ -237,8 +228,6 @@ class JWT
 
     /**
      * Build the claims array and return it.
-     *
-     * @param JWTSubject $subject
      *
      * @return array
      */
@@ -253,8 +242,6 @@ class JWT
 
     /**
      * Get the claims associated with a given subject.
-     *
-     * @param JWTSubject $subject
      *
      * @return array
      */
@@ -323,8 +310,8 @@ class JWT
      * Ensure that a token is available.
      *
      * @return void
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     protected function requireToken()
     {
@@ -335,8 +322,6 @@ class JWT
 
     /**
      * Set the request instance.
-     *
-     * @param Request $request
      *
      * @return $this
      */
@@ -405,11 +390,11 @@ class JWT
      * Magically call the JWT Manager.
      *
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return mixed
-     * @throws BadMethodCallException
      *
+     * @throws BadMethodCallException
      */
     public function __call($method, $parameters)
     {

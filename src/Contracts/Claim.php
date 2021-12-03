@@ -19,7 +19,7 @@ interface Claim
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @throws InvalidClaimException
      *
@@ -37,7 +37,7 @@ interface Claim
     /**
      * Set the claim name.
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return $this
      */
@@ -53,7 +53,7 @@ interface Claim
     /**
      * Validate the Claim value.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */

@@ -20,15 +20,13 @@ class LumenRouteParams extends RouteParams
     /**
      * Try to get the token from the route parameters.
      *
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      */
     public function parse(Request $request)
     {
         // WARNING: Only use this parser if you know what you're doing!
         // It will only work with poorly-specified aspects of certain Lumen releases.
         // Route is the expected kind of array, and has a parameter with the key we want.
-        return Arr::get($request->route(), '2.' . $this->key);
+        return Arr::get($request->route(), '2.'.$this->key);
     }
 }
