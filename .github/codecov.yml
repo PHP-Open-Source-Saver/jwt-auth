@@ -1,3 +1,5 @@
 comment:
-  require_changes: false
-  github_checks: true
+  require_changes: true
+
+github_checks:
+  annotations: true
