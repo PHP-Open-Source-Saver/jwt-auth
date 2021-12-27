@@ -19,7 +19,6 @@ jobs:
         laravel: [6.*, 7.*, 8.*]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
-        coverage: [none]
         include:
           - laravel: 6.*
             dotenv: ^3.3
@@ -30,14 +29,13 @@ jobs:
           - laravel: 8.*
             dotenv: ^5.2
 
-          - php: 8.0
+          - php: 8.1
             laravel: 8.*
             stability: prefer-stable
             os: ubuntu-latest
-            coverage: xdebug
             dotenv: ^5.2
 
-    name: '[PHP ${{ matrix.php }}] [Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}] [${{ matrix.coverage }} coverage]'
+    name: '[PHP ${{ matrix.php }}] [Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}]'
 
     steps:
       - name: Checkout code
@@ -48,7 +46,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring json openssl
-          coverage: ${{ matrix.coverage }}
+          coverage: pcov
           ini-values: memory_limit=-1
 
       - name: Setup Problem Matchers
@@ -87,9 +85,6 @@ jobs:
         run: composer test:ci
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
-        if: matrix.coverage == 'xdebug'
+        uses: codecov/codecov-action@v2
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          yml: ./codecov.yml
+          file: ./build/logs/clover.xml
