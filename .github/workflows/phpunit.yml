@@ -79,7 +79,7 @@ jobs:
             composer-
 
       - name: Install dependencies
-        run: composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
+        run: composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: composer test:ci
