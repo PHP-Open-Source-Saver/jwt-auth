@@ -29,7 +29,7 @@ class Factory
     /**
      * The TTL.
      *
-     * @var int
+     * @var int|null
      */
     protected $ttl = 60;
 
@@ -194,7 +194,7 @@ class Factory
     /**
      * Set the token ttl (in minutes).
      *
-     * @param int $ttl
+     * @param int|null $ttl
      *
      * @return $this
      */
@@ -208,7 +208,7 @@ class Factory
     /**
      * Get the token ttl.
      *
-     * @return int
+     * @return int|null
      */
     public function getTTL()
     {

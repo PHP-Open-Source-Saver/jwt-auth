@@ -320,7 +320,7 @@ class JWTGuard implements Guard
     /**
      * Set the token ttl.
      *
-     * @param int $ttl
+     * @param int|null $ttl
      *
      * @return $this
      */

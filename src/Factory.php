@@ -195,7 +195,7 @@ class Factory
     /**
      * Helper to set the ttl.
      *
-     * @param int $ttl
+     * @param int|null $ttl
      *
      * @return $this
      */
