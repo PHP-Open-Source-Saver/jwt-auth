@@ -9,6 +9,12 @@ You can find and compare releases at the GitHub release page.
 ## [Unreleased]
 
 ### Added
+
+### Fixed
+
+## [1.3.0] - 2022-01-13
+
+### Added
 - PHP 8.1 support (#58, #77, #87)
 - Typed variables (#52)
 
@@ -38,7 +44,8 @@ You can find and compare releases at the GitHub release page.
 ### Fixed
 - Typo in tests by @eschricker in #23
 
-[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...1.2.0
 [1.2.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.0.2...1.1.0
