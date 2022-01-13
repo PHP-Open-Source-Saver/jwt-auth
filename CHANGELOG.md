@@ -8,6 +8,12 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+### Added
+- PHP 8.1 support (#58, #77, #87)
+- Typed variables (#52)
+
+### Fixed
+- Compatability with Laravel 6 versions below 6.15
 
 ## [1.2.0] - 2021-11-16
 
