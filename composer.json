@@ -33,25 +33,26 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^7.4|^8.0",
+        "ext-json": "*",
         "illuminate/auth": "^6|^7|^8",
         "illuminate/contracts": "^6|^7|^8",
-        "illuminate/database": "^6.20.26|^7.30.4|^8.40.0",
         "illuminate/http": "^6|^7|^8",
         "illuminate/support": "^6|^7|^8",
         "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
-        "nesbot/carbon": "^1.0|^2.0",
-        "ext-json": "*"
+        "nesbot/carbon": "^1.0|^2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3",
         "illuminate/console": "^6|^7|^8",
         "illuminate/routing": "^6|^7|^8",
-        "mockery/mockery": ">=0.9.9",
+        "mockery/mockery": "^1.4",
+        "phpstan/phpstan": "^1",
         "phpunit/phpunit": "^8.5|^9.4",
-        "yoast/phpunit-polyfills": "^1.0.2",
-        "vlucas/phpdotenv": "^5.2.0"
+        "rector/rector": "^0.12.4",
+        "vlucas/phpdotenv": "^5.2.0",
+        "yoast/phpunit-polyfills": "^1.0.2"
     },
     "autoload": {
         "psr-4": {
@@ -86,6 +87,8 @@
     "scripts": {
         "php-cs-fixer": "php-cs-fixer fix --diff",
         "test": "phpunit --colors=always",
-        "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
+        "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml",
+        "phpstan": "phpstan analyse --memory-limit=256M",
+        "phpstan-baseline": "phpstan analyse --generate-baseline --memory-limit=256M"
     }
 }

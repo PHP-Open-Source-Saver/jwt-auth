@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,31 +19,24 @@ abstract class Provider
 {
     /**
      * The secret.
-     *
-     * @var string
      */
-    protected $secret;
+    protected string $secret;
 
     /**
      * The array of keys.
-     *
-     * @var array
      */
-    protected $keys;
+    protected array $keys;
 
     /**
      * The used algorithm.
-     *
-     * @var string
      */
-    protected $algo;
+    protected string $algo;
 
     /**
      * Constructor.
      *
      * @param string $secret
      * @param string $algo
-     * @param array $keys
      *
      * @return void
      */
@@ -103,8 +97,6 @@ abstract class Provider
 
     /**
      * Set the keys used to sign the token.
-     *
-     * @param array $keys
      *
      * @return $this
      */
@@ -184,8 +176,8 @@ abstract class Provider
      * requires a public/private key combo.
      *
      * @return bool
-     * @throws JWTException
      *
+     * @throws JWTException
      */
     abstract protected function isAsymmetric();
 }

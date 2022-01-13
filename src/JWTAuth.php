@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +16,6 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 
-/** @deprecated */
 class JWTAuth extends JWT
 {
     /**
@@ -28,10 +28,6 @@ class JWTAuth extends JWT
     /**
      * Constructor.
      *
-     * @param Manager $manager
-     * @param Auth $auth
-     * @param Parser $parser
-     *
      * @return void
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
@@ -42,8 +38,6 @@ class JWTAuth extends JWT
 
     /**
      * Attempt to authenticate the user and return the token.
-     *
-     * @param array $credentials
      *
      * @return false|string
      */

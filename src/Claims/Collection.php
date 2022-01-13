@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +20,7 @@ class Collection extends IlluminateCollection
     /**
      * Create a new collection.
      *
-     * @param  mixed  $items
+     * @param mixed $items
      *
      * @return void
      */
@@ -32,8 +33,7 @@ class Collection extends IlluminateCollection
      * Get a Claim instance by it's unique name.
      *
      * @param string $name
-     * @param callable|null $callback
-     * @param mixed $default
+     * @param mixed  $default
      *
      * @return Claim
      */
@@ -47,7 +47,7 @@ class Collection extends IlluminateCollection
     /**
      * Validate each claim under a given context.
      *
-     * @param  string  $context
+     * @param string $context
      *
      * @return $this
      */
@@ -69,7 +69,7 @@ class Collection extends IlluminateCollection
     /**
      * Determine if the Collection contains all of the given keys.
      *
-     * @param  mixed  $claims
+     * @param mixed $claims
      *
      * @return bool
      */
@@ -101,7 +101,7 @@ class Collection extends IlluminateCollection
     /**
      * Ensure that the given claims array is keyed by the claim name.
      *
-     * @param  mixed  $items
+     * @param mixed $items
      *
      * @return array
      */
@@ -109,7 +109,7 @@ class Collection extends IlluminateCollection
     {
         $claims = [];
         foreach ($items as $key => $value) {
-            if (! is_string($key) && $value instanceof Claim) {
+            if (!is_string($key) && $value instanceof Claim) {
                 $key = $value->getName();
             }
 

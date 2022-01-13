@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -55,11 +56,9 @@ class PayloadValidator extends Validator
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param Collection $claims
-     *
      * @return void
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      */
     protected function validateStructure(Collection $claims)
     {
@@ -71,11 +70,9 @@ class PayloadValidator extends Validator
     /**
      * Validate the payload timestamps.
      *
-     * @param Collection $claims
-     *
      * @return Collection
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
      */
     protected function validatePayload(Collection $claims)
@@ -86,21 +83,17 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param Collection $claims
-     *
      * @return Collection
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
      *
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
      */
     protected function validateRefresh(Collection $claims)
     {
-        return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
+        return null === $this->refreshTTL ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
 
     /**
      * Set the required claims.
-     *
-     * @param array $claims
      *
      * @return $this
      */

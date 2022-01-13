@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -48,11 +49,11 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        if (file_exists($path = $this->envPath()) === false) {
+        if (false === file_exists($path = $this->envPath())) {
             return $this->displayKey($key);
         }
 
-        if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
+        if (false === Str::contains(file_get_contents($path), 'JWT_SECRET')) {
             // create new entry
             file_put_contents($path, PHP_EOL."JWT_SECRET=$key".PHP_EOL, FILE_APPEND);
         } else {
@@ -62,7 +63,7 @@ class JWTGenerateSecretCommand extends Command
                 return;
             }
 
-            if ($this->isConfirmed() === false) {
+            if (false === $this->isConfirmed()) {
                 $this->comment('Phew... No changes were made to your secret key.');
 
                 return;
@@ -82,7 +83,7 @@ class JWTGenerateSecretCommand extends Command
     /**
      * Display the key.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return void
      */

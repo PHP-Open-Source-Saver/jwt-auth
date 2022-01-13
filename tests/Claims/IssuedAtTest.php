@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +19,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 class IssuedAtTest extends AbstractTestCase
 {
     /** @test */
-    public function it_should_throw_an_exception_when_passing_a_future_timestamp()
+    public function itShouldThrowAnExceptionWhenPassingAFutureTimestamp()
     {
         $this->expectException(InvalidClaimException::class);
         $this->expectExceptionMessage('Invalid value provided for claim [iat]');

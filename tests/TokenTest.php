@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -28,13 +29,13 @@ class TokenTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_token_when_casting_to_a_string()
+    public function itShouldReturnTheTokenWhenCastingToAString()
     {
-        $this->assertEquals((string)$this->token, $this->token);
+        $this->assertEquals((string) $this->token, $this->token);
     }
 
     /** @test */
-    public function it_should_return_the_token_when_calling_get_method()
+    public function itShouldReturnTheTokenWhenCallingGetMethod()
     {
         $this->assertIsString($this->token->get());
     }

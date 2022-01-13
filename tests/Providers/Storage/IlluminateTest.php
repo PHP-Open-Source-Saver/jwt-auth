@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -39,7 +40,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_add_the_item_to_storage()
+    public function itShouldAddTheItemToStorage()
     {
         $this->cache->shouldReceive('put')->with('foo', 'bar', 10)->once();
 
@@ -47,7 +48,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_add_the_item_to_storage_forever()
+    public function itShouldAddTheItemToStorageForever()
     {
         $this->cache->shouldReceive('forever')->with('foo', 'bar')->once();
 
@@ -55,7 +56,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_an_item_from_storage()
+    public function itShouldGetAnItemFromStorage()
     {
         $this->cache->shouldReceive('get')->with('foo')->once()->andReturn(['foo' => 'bar']);
 
@@ -63,7 +64,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_remove_the_item_from_storage()
+    public function itShouldRemoveTheItemFromStorage()
     {
         $this->cache->shouldReceive('forget')->with('foo')->once()->andReturn(true);
 
@@ -71,7 +72,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_remove_all_items_from_storage()
+    public function itShouldRemoveAllItemsFromStorage()
     {
         $this->cache->shouldReceive('flush')->withNoArgs()->once();
 
@@ -81,7 +82,7 @@ class IlluminateTest extends AbstractTestCase
     // Duplicate tests for tagged storage --------------------
 
     /** @test */
-    public function it_should_add_the_item_to_tagged_storage()
+    public function itShouldAddTheItemToTaggedStorage()
     {
         $this->emulateTags();
         $this->cache->shouldReceive('put')->with('foo', 'bar', 10)->once();
@@ -103,7 +104,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_add_the_item_to_tagged_storage_forever()
+    public function itShouldAddTheItemToTaggedStorageForever()
     {
         $this->emulateTags();
         $this->cache->shouldReceive('forever')->with('foo', 'bar')->once();
@@ -112,7 +113,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_an_item_from_tagged_storage()
+    public function itShouldGetAnItemFromTaggedStorage()
     {
         $this->emulateTags();
         $this->cache->shouldReceive('get')->with('foo')->once()->andReturn(['foo' => 'bar']);
@@ -121,7 +122,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_remove_the_item_from_tagged_storage()
+    public function itShouldRemoveTheItemFromTaggedStorage()
     {
         $this->emulateTags();
         $this->cache->shouldReceive('forget')->with('foo')->once()->andReturn(true);
@@ -130,7 +131,7 @@ class IlluminateTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_remove_all_tagged_items_from_storage()
+    public function itShouldRemoveAllTaggedItemsFromStorage()
     {
         $this->emulateTags();
         $this->cache->shouldReceive('flush')->withNoArgs()->once();

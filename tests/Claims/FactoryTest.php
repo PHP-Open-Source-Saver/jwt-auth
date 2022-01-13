@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -25,10 +26,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\Fixtures\Foo;
 
 class FactoryTest extends AbstractTestCase
 {
-    /**
-     * @var Factory
-     */
-    protected $factory;
+    protected Factory $factory;
 
     public function setUp(): void
     {
@@ -38,27 +36,27 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_request()
+    public function itShouldSetTheRequest()
     {
         $factory = $this->factory->setRequest(Request::create('/bar', 'GET'));
         $this->assertInstanceOf(Factory::class, $factory);
     }
 
     /** @test */
-    public function it_should_set_the_ttl()
+    public function itShouldSetTheTtl()
     {
         $this->assertInstanceOf(Factory::class, $this->factory->setTTL(30));
     }
 
     /** @test */
-    public function it_should_get_the_ttl()
+    public function itShouldGetTheTtl()
     {
         $this->factory->setTTL($ttl = 30);
         $this->assertSame($ttl, $this->factory->getTTL());
     }
 
     /** @test */
-    public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
+    public function itShouldGetADefinedClaimInstanceWhenPassingANameAndValue()
     {
         $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));
         $this->assertInstanceOf(Issuer::class, $this->factory->get('iss', 'http://example.com'));
@@ -69,13 +67,13 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value()
+    public function itShouldGetACustomClaimInstanceWhenPassingANonDefinedNameAndValue()
     {
         $this->assertInstanceOf(Custom::class, $this->factory->get('foo', ['bar']));
     }
 
     /** @test */
-    public function it_should_make_a_claim_instance_with_a_value()
+    public function itShouldMakeAClaimInstanceWithAValue()
     {
         $iat = $this->factory->make('iat');
         $this->assertSame($iat->getValue(), $this->testNowTimestamp);
@@ -98,7 +96,7 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_extend_claim_factory_to_add_a_custom_claim()
+    public function itShouldExtendClaimFactoryToAddACustomClaim()
     {
         $this->factory->extend('foo', Foo::class);
 

@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,10 +16,7 @@ use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 
 class Token
 {
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     /**
      * Create a new JSON Web Token.
@@ -26,11 +24,12 @@ class Token
      * @param string $value
      *
      * @return void
+     *
      * @throws Exceptions\TokenInvalidException
      */
     public function __construct($value)
     {
-        $this->value = (string)(new TokenValidator())->check($value);
+        $this->value = (string) (new TokenValidator())->check($value);
     }
 
     /**

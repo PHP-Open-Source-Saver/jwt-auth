@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,7 +18,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Mockery;
-use Mockery\MockInterface;
+use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
 use PHPOpenSourceSaver\JWTAuth\Claims\IssuedAt;
@@ -25,22 +26,20 @@ use PHPOpenSourceSaver\JWTAuth\Claims\Issuer;
 use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
 use PHPOpenSourceSaver\JWTAuth\Claims\NotBefore;
 use PHPOpenSourceSaver\JWTAuth\Claims\Subject;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Payload;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
 class DatetimeClaimTest extends AbstractTestCase
 {
-    /**
-     * @var MockInterface|PayloadValidator
-     */
-    protected $validator;
+    protected LegacyMockInterface $validator;
+
+    protected array $claimsTimestamp;
 
     /**
-     * @var array
+     * @throws InvalidClaimException
      */
-    protected $claimsTimestamp;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -58,8 +57,10 @@ class DatetimeClaimTest extends AbstractTestCase
         ];
     }
 
-    /** @test */
-    public function it_should_handle_carbon_claims()
+    /** @test
+     * @throws InvalidClaimException
+     */
+    public function itShouldHandleCarbonClaims()
     {
         $testCarbon = Carbon::createFromTimestampUTC($this->testNowTimestamp);
         $testCarbonCopy = clone $testCarbon;
@@ -84,7 +85,7 @@ class DatetimeClaimTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_handle_datetime_claims()
+    public function itShouldHandleDatetimeClaims()
     {
         $testDateTime = DateTime::createFromFormat('U', $this->testNowTimestamp);
         $testDateTimeCopy = clone $testDateTime;
@@ -108,9 +109,9 @@ class DatetimeClaimTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_handle_datetime_immutable_claims()
+    public function itShouldHandleDatetimeImmutableClaims()
     {
-        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string)$this->testNowTimestamp);
+        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $testDateTimeImmutable);
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);
@@ -130,8 +131,10 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
 
-    /** @test */
-    public function it_should_handle_datetinterval_claims()
+    /** @test
+     * @throws InvalidClaimException
+     */
+    public function itShouldHandleDatetintervalClaims()
     {
         $testDateInterval = new DateInterval('PT1H');
 

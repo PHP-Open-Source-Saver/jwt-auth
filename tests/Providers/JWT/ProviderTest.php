@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,7 +30,7 @@ class ProviderTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_algo()
+    public function itShouldSetTheAlgo()
     {
         $this->provider->setAlgo('HS512');
 
@@ -37,7 +38,7 @@ class ProviderTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_secret()
+    public function itShouldSetTheSecret()
     {
         $this->provider->setSecret('foo');
 

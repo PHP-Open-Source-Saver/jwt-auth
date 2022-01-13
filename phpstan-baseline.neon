@@ -1,0 +1,62 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: src/Claims/Collection.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\Expiration\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: src/Claims/Expiration.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\IssuedAt\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: src/Claims/IssuedAt.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\IssuedAt\\:\\:validateRefresh\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: src/Claims/IssuedAt.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\NotBefore\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: src/Claims/NotBefore.php
+
+		-
+			message: "#^Result of method PHPOpenSourceSaver\\\\JWTAuth\\\\Console\\\\JWTGenerateSecretCommand\\:\\:displayKey\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Console/JWTGenerateSecretCommand.php
+
+		-
+			message: "#^Function config not found\\.$#"
+			count: 1
+			path: src/Providers/AbstractServiceProvider.php
+
+		-
+			message: "#^Function config_path not found\\.$#"
+			count: 1
+			path: src/Providers/LaravelServiceProvider.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getAuthIdentifierName\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: tests/Stubs/LaravelUserStub.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getAuthPassword\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: tests/Stubs/LaravelUserStub.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getRememberToken\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: tests/Stubs/LaravelUserStub.php
+
+		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getRememberTokenName\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: tests/Stubs/LaravelUserStub.php
+

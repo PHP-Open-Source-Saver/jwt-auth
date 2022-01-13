@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,6 +38,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @param mixed $value
      *
      * @return void
+     *
      * @throws InvalidClaimException
      */
     public function __construct($value)
@@ -47,7 +49,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @throws InvalidClaimException
      *
@@ -73,7 +75,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim name.
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return $this
      */
@@ -97,7 +99,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Validate the claim in a standalone Claim context.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -119,7 +121,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Validate the Claim within a refresh context.
      *
-     * @param  int  $refreshTTL
+     * @param int $refreshTTL
      *
      * @return bool
      */
@@ -131,8 +133,8 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Checks if the value matches the claim.
      *
-     * @param  mixed  $value
-     * @param  bool  $strict
+     * @param mixed $value
+     * @param bool  $strict
      *
      * @return bool
      */
@@ -146,6 +148,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();
@@ -164,7 +167,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Get the claim as JSON.
      *
-     * @param  int  $options
+     * @param int $options
      *
      * @return string
      */

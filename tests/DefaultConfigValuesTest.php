@@ -3,6 +3,9 @@
 /*
  * This file is part of jwt-auth.
  *
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -21,17 +24,17 @@ class DefaultConfigValuesTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->configuration = include __DIR__ . '/../config/config.php';
+        $this->configuration = include __DIR__.'/../config/config.php';
     }
 
     /** @test */
-    public function secret_should_be_null()
+    public function secretShouldBeNull()
     {
         $this->assertNull($this->configuration['secret']);
     }
 
     /** @test */
-    public function keys_should_be_null()
+    public function keysShouldBeNull()
     {
         $this->assertNull($this->configuration['keys']['public']);
         $this->assertNull($this->configuration['keys']['private']);
@@ -39,25 +42,25 @@ class DefaultConfigValuesTest extends AbstractTestCase
     }
 
     /** @test */
-    public function ttl_should_be_set()
+    public function ttlShouldBeSet()
     {
         $this->assertEquals(60, $this->configuration['ttl']);
     }
 
     /** @test */
-    public function refresh_ttl_should_be_set()
+    public function refreshTtlShouldBeSet()
     {
         $this->assertEquals(20160, $this->configuration['refresh_ttl']);
     }
 
     /** @test */
-    public function algo_should_be_hs256()
+    public function algoShouldBeHs256()
     {
         $this->assertEquals('HS256', $this->configuration['algo']);
     }
 
     /** @test */
-    public function required_claims_should_be_set()
+    public function requiredClaimsShouldBeSet()
     {
         $this->assertIsArray($this->configuration['required_claims']);
         $this->assertCount(6, $this->configuration['required_claims']);
@@ -71,50 +74,50 @@ class DefaultConfigValuesTest extends AbstractTestCase
     }
 
     /** @test */
-    public function persisted_claims_should_be_empty()
+    public function persistedClaimsShouldBeEmpty()
     {
         $this->assertIsArray($this->configuration['persistent_claims']);
         $this->assertCount(0, $this->configuration['persistent_claims']);
     }
 
     /** @test */
-    public function subject_should_be_locked()
+    public function subjectShouldBeLocked()
     {
         $this->assertTrue($this->configuration['lock_subject']);
     }
 
     /** @test */
-    public function leeway_should_be_set()
+    public function leewayShouldBeSet()
     {
         $this->assertEquals(0, $this->configuration['leeway']);
     }
 
     /** @test */
-    public function blacklist_should_be_enabled()
+    public function blacklistShouldBeEnabled()
     {
         $this->assertTrue($this->configuration['blacklist_enabled']);
     }
 
     /** @test */
-    public function blacklist_grace_period_should_be_set()
+    public function blacklistGracePeriodShouldBeSet()
     {
         $this->assertEquals(0, $this->configuration['blacklist_grace_period']);
     }
 
     /** @test */
-    public function show_black_list_exception_should_be_disabled()
+    public function showBlackListExceptionShouldBeDisabled()
     {
         $this->assertEquals(0, $this->configuration['show_black_list_exception']);
     }
 
     /** @test */
-    public function decrypt_cookies_should_be_disabled()
+    public function decryptCookiesShouldBeDisabled()
     {
         $this->assertFalse($this->configuration['decrypt_cookies']);
     }
 
     /** @test */
-    public function providers_should_be_set()
+    public function providersShouldBeSet()
     {
         $this->assertEquals(Lcobucci::class, $this->configuration['providers']['jwt']);
         $this->assertEquals(AuthIlluminate::class, $this->configuration['providers']['auth']);

@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -28,7 +29,7 @@ class Factory
     /**
      * The TTL.
      *
-     * @var int
+     * @var int|null
      */
     protected $ttl = 60;
 
@@ -57,8 +58,6 @@ class Factory
     /**
      * Constructor.
      *
-     * @param Request $request
-     *
      * @return void
      */
     public function __construct(Request $request)
@@ -70,9 +69,10 @@ class Factory
      * Get the instance of the claim when passing the name and value.
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return Claim
+     *
      * @throws InvalidClaimException
      */
     public function get($name, $value)
@@ -91,7 +91,7 @@ class Factory
     /**
      * Check whether the claim exists.
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return bool
      */
@@ -106,6 +106,7 @@ class Factory
      * @param string $name
      *
      * @return Claim
+     *
      * @throws InvalidClaimException
      */
     public function make($name)
@@ -166,8 +167,8 @@ class Factory
     /**
      * Add a new claim mapping.
      *
-     * @param  string  $name
-     * @param  string  $classPath
+     * @param string $name
+     * @param string $classPath
      *
      * @return $this
      */
@@ -181,8 +182,6 @@ class Factory
     /**
      * Set the request instance.
      *
-     * @param Request $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
@@ -195,7 +194,7 @@ class Factory
     /**
      * Set the token ttl (in minutes).
      *
-     * @param  int  $ttl
+     * @param int|null $ttl
      *
      * @return $this
      */
@@ -209,7 +208,7 @@ class Factory
     /**
      * Get the token ttl.
      *
-     * @return int
+     * @return int|null
      */
     public function getTTL()
     {
@@ -219,7 +218,7 @@ class Factory
     /**
      * Set the leeway in seconds.
      *
-     * @param  int  $leeway
+     * @param int $leeway
      *
      * @return $this
      */

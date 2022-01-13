@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,7 +27,6 @@ use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Lcobucci;
-use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Namshi;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class LcobucciTest extends AbstractTestCase
@@ -62,7 +62,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_token_when_passing_a_valid_payload_to_encode()
+    public function itShouldReturnTheTokenWhenPassingAValidPayloadToEncode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
@@ -85,7 +85,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
+    public function itShouldThrowAnInvalidExceptionWhenThePayloadCouldNotBeEncoded()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('Could not create token:');
@@ -106,7 +106,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
+    public function itShouldReturnThePayloadWhenPassingAValidTokenToDecode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
@@ -124,7 +124,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
+    public function itShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecodedDueToABadSignature()
     {
         $token = Mockery::mock(Token::class);
         $dataSet = Mockery::mock(new DataSet(['pay', 'load'], 'payload'));
@@ -143,7 +143,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
+    public function itShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecoded()
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Could not decode token:');
@@ -156,7 +156,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_generate_a_token_when_using_an_rsa_algorithm()
+    public function itShouldGenerateATokenWhenUsingAnRsaAlgorithm()
     {
         $dummyPrivateKey = $this->getDummyPrivateKey();
         $dummyPublicKey = $this->getDummyPublicKey();
@@ -187,7 +187,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
+    public function itShouldThrowAExceptionWhenTheAlgorithmPassedIsInvalid()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('The given algorithm could not be found');
@@ -199,7 +199,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_public_key()
+    public function itShouldReturnThePublicKey()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -211,7 +211,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_keys()
+    public function itShouldReturnTheKeys()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -223,7 +223,7 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_correctly_instantiate_an_ecdsa_signer()
+    public function itShouldCorrectlyInstantiateAnEcdsaSigner()
     {
         $provider = new Lcobucci(
             'does_not_matter',
@@ -256,11 +256,11 @@ class LcobucciTest extends AbstractTestCase
 
     public function getDummyPrivateKey()
     {
-        return file_get_contents(__DIR__ . '/../Keys/id_rsa');
+        return file_get_contents(__DIR__.'/../Keys/id_rsa');
     }
 
     public function getDummyPublicKey()
     {
-        return file_get_contents(__DIR__ . '/../Keys/id_rsa.pub');
+        return file_get_contents(__DIR__.'/../Keys/id_rsa.pub');
     }
 }

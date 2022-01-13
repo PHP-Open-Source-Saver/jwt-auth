@@ -3,7 +3,8 @@
 /*
  * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +14,8 @@ namespace PHPOpenSourceSaver\JWTAuth\Providers\Storage;
 
 use BadMethodCallException;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
-use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage;
+use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 
 class Illuminate implements Storage
 {
@@ -45,8 +46,6 @@ class Illuminate implements Storage
     /**
      * Constructor.
      *
-     * @param  \Illuminate\Contracts\Cache\Repository  $cache
-     *
      * @return void
      */
     public function __construct(CacheContract $cache)
@@ -57,16 +56,16 @@ class Illuminate implements Storage
     /**
      * Add a new item into storage.
      *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  int  $minutes
+     * @param string $key
+     * @param mixed  $value
+     * @param int    $minutes
      *
      * @return void
      */
     public function add($key, $value, $minutes)
     {
         // If the laravel version is 5.8 or higher then convert minutes to seconds.
-        if ($this->laravelVersion !== null
+        if (null !== $this->laravelVersion
             && is_int($minutes)
             && version_compare($this->laravelVersion, '5.8', '>=')
         ) {
@@ -79,8 +78,8 @@ class Illuminate implements Storage
     /**
      * Add a new item into storage forever.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed  $value
      *
      * @return void
      */
@@ -92,7 +91,7 @@ class Illuminate implements Storage
     /**
      * Get an item from storage.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return mixed
      */
@@ -104,7 +103,7 @@ class Illuminate implements Storage
     /**
      * Remove an item from storage.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return bool
      */
@@ -130,7 +129,7 @@ class Illuminate implements Storage
      */
     protected function cache()
     {
-        if ($this->supportsTags === null) {
+        if (null === $this->supportsTags) {
             $this->determineTagSupport();
         }
 
