@@ -20,7 +20,7 @@ abstract class Provider
     /**
      * The secret.
      */
-    protected string $secret;
+    protected ?string $secret;
 
     /**
      * The array of keys.
