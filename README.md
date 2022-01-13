@@ -5,10 +5,11 @@
 
 This uses different namespace, then `tymondesigns/jwt-auth`, but overall, provides the same API, that makes migration to this repository pretty easy:
 
-1) Run `composer require php-open-source-saver/jwt-auth`
+1) Run `composer remove tymon/jwt-auth`
+   > **Info** An error will appear because the package is still in use, ignore it.
 2) Replace all the occurrences of `Tymon\JWTAuth` with `PHPOpenSourceSaver\JWTAuth`.
    > **Tip**: You can use *Find and Replace* feature of your IDE. Try it with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>
-3) Run `composer remove tymon/jwt-auth`
+3) Run `composer require php-open-source-saver/jwt-auth`
 
 ### Notes
 
