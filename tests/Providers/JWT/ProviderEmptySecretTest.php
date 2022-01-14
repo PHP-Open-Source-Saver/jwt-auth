@@ -22,13 +22,12 @@ class ProviderEmptySecretTest extends AbstractTestCase
      */
     protected $provider;
 
-
     /** @test */
     public function noExceptionForNULL()
     {
-        $this->provider = new JWTProviderStub(NULL, 'RS256', []);
+        $this->provider = new JWTProviderStub(null, 'RS256', []);
 
-        $this->provider->setSecret(NULL);
-        $this->assertSame(NULL, $this->provider->getSecret());
+        $this->provider->setSecret(null);
+        $this->assertSame(null, $this->provider->getSecret());
     }
 }
