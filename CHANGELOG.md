@@ -11,7 +11,14 @@ You can find and compare releases at the GitHub release page.
 ### Added
 
 ### Fixed
+
+## [1.4.0] - 2022-01-18
+
+### Added
+
+### Fixed
 - Fixes #101 - Secret is not nullable but should be according to the library config boilerplate
+- Fixes #99 - Steps for migrating from tymons package
 
 ## [1.3.0] - 2022-01-13
 
@@ -45,7 +52,8 @@ You can find and compare releases at the GitHub release page.
 ### Fixed
 - Typo in tests by @eschricker in #23
 
-[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.0...1.1.1
