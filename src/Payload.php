@@ -65,7 +65,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @return bool
      */
-    public function matches(array $values, $strict = false)
+    public function matches(array $values, bool $strict = false): bool
     {
         if (empty($values)) {
             return false;
@@ -167,7 +167,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
@@ -197,36 +197,37 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine if an item exists at an offset.
      *
-     * @param mixed $key
+     * @param mixed $offset
      *
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($offset): bool
     {
-        return Arr::has($this->toArray(), $key);
+        return Arr::has($this->toArray(), $offset);
     }
 
     /**
      * Get an item at a given offset.
      *
-     * @param mixed $key
-     *
+     * @param $offset
      * @return mixed
      */
-    public function offsetGet($key)
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset)
     {
-        return Arr::get($this->toArray(), $key);
+        return Arr::get($this->toArray(), $offset);
     }
 
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param mixed $key
+     * @param mixed $offset
      * @param mixed $value
      *
      * @throws PayloadException
      */
-    public function offsetSet($key, $value)
+    #[\ReturnTypeWillChange]
+    public function offsetSet($offset, $value)
     {
         throw new PayloadException('The payload is immutable');
     }
@@ -234,13 +235,14 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param string $key
+     * @param string $offset
      *
      * @return void
      * @throws PayloadException
      *
      */
-    public function offsetUnset($key)
+    #[\ReturnTypeWillChange]
+    public function offsetUnset($offset)
     {
         throw new PayloadException('The payload is immutable');
     }
@@ -250,7 +252,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->toArray());
     }
