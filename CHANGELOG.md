@@ -11,6 +11,7 @@ You can find and compare releases at the GitHub release page.
 ### Added
 
 ### Fixed
+- Fixes #101 - Secret is not nullable but should be according to the library config boilerplate
 
 ## [1.3.0] - 2022-01-13
 
