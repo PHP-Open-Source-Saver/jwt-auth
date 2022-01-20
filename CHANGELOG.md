@@ -9,6 +9,7 @@ You can find and compare releases at the GitHub release page.
 ## [Unreleased]
 
 ### Added
+- Add Laravel 9 Support
 
 ### Fixed
 
