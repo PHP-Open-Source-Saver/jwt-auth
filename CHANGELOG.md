@@ -6,10 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 You can find and compare releases at the GitHub release page.
 
-## [Unreleased]
-
-### Added
-- Add Laravel 9 Support
 
 ### Fixed
 - Add more ReturnTypeWillChange for PHP 8.1 compatibility
