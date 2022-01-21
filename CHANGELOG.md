@@ -12,6 +12,7 @@ You can find and compare releases at the GitHub release page.
 - Add Laravel 9 Support
 
 ### Fixed
+- Add more ReturnTypeWillChange for PHP 8.1 compatibility
 
 ## [1.4.0] - 2022-01-18
 
