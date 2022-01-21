@@ -16,10 +16,13 @@ jobs:
       fail-fast: false
       matrix:
         php: [7.4, 8.0, 8.1]
-        laravel: [6.*, 7.*, 8.*]
+        laravel: [6.*, 7.*, 8.*, 9.*]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         coverage: [none]
+        exclude:
+          - laravel: 9.*
+            php: 7.4
         include:
           - laravel: 6.*
             dotenv: ^3.3
@@ -30,8 +33,11 @@ jobs:
           - laravel: 8.*
             dotenv: ^5.2
 
+          - laravel: 9.*
+            dotenv: ^5.2
+
           - php: 8.0
-            laravel: 8.*
+            laravel: 9.*
             stability: prefer-stable
             os: ubuntu-latest
             coverage: xdebug
