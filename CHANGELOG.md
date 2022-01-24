@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 You can find and compare releases at the GitHub release page.
 
+
+### Fixed
+- Add more ReturnTypeWillChange for PHP 8.1 compatibility
+
 ## [1.4.0] - 2022-01-18
 
 ### Added
