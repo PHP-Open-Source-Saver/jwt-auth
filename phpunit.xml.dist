@@ -22,8 +22,6 @@
       <directory suffix=".php">src/</directory>
     </include>
     <exclude>
-      <file>src/Providers/AbstractServiceProvider.php</file>
-      <file>src/Providers/LaravelServiceProvider.php</file>
       <file>src/Providers/LumenServiceProvider.php</file>
       <directory suffix=".php">src/Facades/</directory>
       <directory suffix=".php">src/Console/</directory>

@@ -31,16 +31,6 @@ parameters:
 			path: src/Console/JWTGenerateSecretCommand.php
 
 		-
-			message: "#^Function config not found\\.$#"
-			count: 1
-			path: src/Providers/AbstractServiceProvider.php
-
-		-
-			message: "#^Function config_path not found\\.$#"
-			count: 1
-			path: src/Providers/LaravelServiceProvider.php
-
-		-
 			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getAuthIdentifierName\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: tests/Stubs/LaravelUserStub.php
