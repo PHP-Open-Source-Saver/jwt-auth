@@ -30,7 +30,7 @@ class DefaultConfigValuesTest extends AbstractTestCase
     /** @test */
     public function secretShouldBeNull()
     {
-        $this->assertNull($this->configuration['secret']);
+        $this->assertEquals($this->configuration['secret'], '');
     }
 
     /** @test */
