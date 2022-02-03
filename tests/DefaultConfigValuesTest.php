@@ -28,7 +28,7 @@ class DefaultConfigValuesTest extends AbstractTestCase
     }
 
     /** @test */
-    public function secretShouldBeNull()
+    public function secretShouldBeEmpty()
     {
         $this->assertEquals($this->configuration['secret'], '');
     }
