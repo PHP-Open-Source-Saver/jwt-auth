@@ -256,7 +256,7 @@ class Lcobucci extends Provider implements JWT
     protected function getSigningKey()
     {
         return $this->isAsymmetric() ?
-            InMemory::plainText($this->getPrivateKey(), $this->getPassphrase() ?? '') :
+            InMemory::file($this->getPrivateKey(), $this->getPassphrase() ?? '') :
             InMemory::plainText($this->getSecret());
     }
 
@@ -268,7 +268,7 @@ class Lcobucci extends Provider implements JWT
     protected function getVerificationKey()
     {
         return $this->isAsymmetric() ?
-            InMemory::plainText($this->getPublicKey()) :
+            InMemory::file($this->getPublicKey()) :
             InMemory::plainText($this->getSecret());
     }
 }
