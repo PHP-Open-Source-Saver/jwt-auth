@@ -10,3 +10,4 @@
 
 - [ ] I've added tests for my changes or tests are not applicable
 - [ ] I've changed documentations or changes are not required
+- [ ] I've added my changes to [`CHANGELOG.md`](/CHANGELOG.md)
