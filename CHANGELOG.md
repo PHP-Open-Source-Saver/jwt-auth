@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 You can find and compare releases at the GitHub release page.
 
+## [Unreleased]
+
+### Added
+- Added exception if secret key or private/public key are missing
+
+### Fixed
+
 ## [1.4.1] - 2022-01-24
 
 ### Fixed
