@@ -14,10 +14,11 @@ class JWTGenerateCertCommand extends Command
      */
     protected $signature = 'jwt:generate-certs 
         {--force : Override certificates if existing} 
-        {--algo : Algorithm (rsa/ec)} 
-        {--bits= : Key length (rsa:1024,2048,4096,8192;ec:160,224,256,384,512} 
+        {--algo= : Algorithm (rsa/ec)} 
+        {--bits= : RSA-Key length (1024,2048,4096,8192} 
         {--sha= : SHA-variant (1,224,256,384,512)} 
         {--dir= : Directory where the certificates should be placed} 
+        {--curve= : EC-Curvename (e.g. secp384r1, prime256v1 )}
         {--passphrase= : Passphrase}';
 
     /**
@@ -40,6 +41,7 @@ class JWTGenerateCertCommand extends Command
         $bits = $this->option('bits') ? intval($this->option('bits')) : 4096;
         $shaVariant = $this->option('sha') ? intval($this->option('sha')) : 512;
         $passphrase = $this->option('passphrase') ? $this->option('passphrase') : null;
+        $curve = $this->option('curve') ? $this->option('curve') : 'prime256v1';
 
         $filenamePublic = sprintf('%s/jwt-%s-%d-public.pem', $directory, $algo, $bits);
         $filenamePrivate = sprintf('%s/jwt-%s-%d-private.pem', $directory, $algo, $bits);
@@ -81,9 +83,10 @@ class JWTGenerateCertCommand extends Command
 
         // Create the private and public key
         $res = openssl_pkey_new([
-            "digest_alg" => sprintf('sha%d', $shaVariant),
-            "private_key_bits" => $bits,
-            "private_key_type" => $keyType,
+            'digest_alg' => sprintf('sha%d', $shaVariant),
+            'private_key_bits' => $bits,
+            'private_key_type' => $keyType,
+            'curve_name' => $curve,
         ]);
 
         // Extract the private key from $res to $privKey

@@ -67,6 +67,8 @@ class JWTGenerateSecretCommand extends Command
 
                 return false;
             }
+
+            return true;
         });
 
         if($updated) {
