@@ -3,16 +3,22 @@
 namespace PHPOpenSourceSaver\JWTAuth\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class JWTGenerateCertCommand extends Command
 {
+    use EnvHelperTrait;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'jwt:generate-certs {--force : Override certificates if existing} {--algo : Algorithm} {--bits : Key length} {--sha : SHA-variant} {--dir : Directory} {--passphrase : Passphrase}';
+    protected $signature = 'jwt:generate-certs 
+        {--force : Override certificates if existing} 
+        {--algo : Algorithm (rsa/ec)} 
+        {--bits= : Key length (rsa:1024,2048,4096,8192;ec:160,224,256,384,512} 
+        {--sha= : SHA-variant (1,224,256,384,512)} 
+        {--dir= : Directory where the certificates should be placed} 
+        {--passphrase= : Passphrase}';
 
     /**
      * The console command description.
@@ -28,12 +34,12 @@ class JWTGenerateCertCommand extends Command
      */
     public function handle()
     {
-        $force = boolval($this->option('force')) ?? false;
-        $directory = $this->option('dir') ?? 'storage/certs';
-        $algo = $this->option('algo') ?? 'rsa';
-        $bits = intval($this->option('bits')) ?? 4096;
-        $shaVariant = intval($this->option('sha')) ?? 512;
-        $passphrase = $this->option('passphrase');
+        $force = $this->option('force');
+        $directory = $this->option('dir') ? $this->option('dir') : 'storage/certs';
+        $algo = $this->option('algo') ? $this->option('algo') : 'rsa';
+        $bits = $this->option('bits') ? intval($this->option('bits')) : 4096;
+        $shaVariant = $this->option('sha') ? intval($this->option('sha')) : 512;
+        $passphrase = $this->option('passphrase') ? $this->option('passphrase') : null;
 
         $filenamePublic = sprintf('%s/jwt-%s-%d-public.pem', $directory, $algo, $bits);
         $filenamePrivate = sprintf('%s/jwt-%s-%d-private.pem', $directory, $algo, $bits);
@@ -73,14 +79,12 @@ class JWTGenerateCertCommand extends Command
                 }
         }
 
-        $config = array(
+        // Create the private and public key
+        $res = openssl_pkey_new([
             "digest_alg" => sprintf('sha%d', $shaVariant),
             "private_key_bits" => $bits,
             "private_key_type" => $keyType,
-        );
-
-        // Create the private and public key
-        $res = openssl_pkey_new($config);
+        ]);
 
         // Extract the private key from $res to $privKey
         openssl_pkey_export($res, $privKey, $passphrase);
@@ -89,38 +93,23 @@ class JWTGenerateCertCommand extends Command
         $pubKey = openssl_pkey_get_details($res);
         $pubKey = $pubKey["key"];
 
+        // save certificates to disk
+        if (false === is_dir($directory)) {
+            mkdir($directory);
+        }
+
         file_put_contents($filenamePrivate, $privKey);
         file_put_contents($filenamePublic, $pubKey);
 
-        if (false === file_exists($envFilePath = $this->envPath())) {
+        // Updated .env-file
+        if (!$this->envFileExists()) {
             $this->error('.env file missing');
             return -1;
         }
 
-        $this->updateEnvEntry($envFilePath, 'JWT_ALGO', $algoIdentifier);
-        $this->updateEnvEntry($envFilePath, 'JWT_PRIVATE_KEY', sprintf("file://../%s", $filenamePrivate));
-        $this->updateEnvEntry($envFilePath, 'JWT_PUBLIC_KEY', sprintf("file://../%s", $filenamePublic));
-        $this->updateEnvEntry($envFilePath, 'JWT_PASSPHRASE', sprintf("file://../%s", $passphrase ?? ''));
-    }
-
-    function updateEnvEntry(string $filepath, string $key, $value)
-    {
-        if (false === Str::contains(file_get_contents($filepath), $key)) {
-            // create new entry
-            file_put_contents(
-                $filepath,
-                PHP_EOL . "{$key}={$value}" . PHP_EOL,
-                FILE_APPEND
-            );
-        } else {
-            file_put_contents(
-                $filepath,
-                str_replace(
-                    "/{$key}=.*/",
-                    "{$key}={$value}",
-                    file_get_contents($filepath)
-                )
-            );
-        }
+        $this->updateEnvEntry('JWT_ALGO', $algoIdentifier);
+        $this->updateEnvEntry('JWT_PRIVATE_KEY', sprintf("file://../%s", $filenamePrivate));
+        $this->updateEnvEntry('JWT_PUBLIC_KEY', sprintf("file://../%s", $filenamePublic));
+        $this->updateEnvEntry('JWT_PASSPHRASE', $passphrase ?? '');
     }
 }

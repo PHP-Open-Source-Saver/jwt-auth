@@ -17,6 +17,8 @@ use Illuminate\Support\Str;
 
 class JWTGenerateSecretCommand extends Command
 {
+    use EnvHelperTrait;
+
     /**
      * The console command signature.
      *
@@ -49,35 +51,28 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        if (false === file_exists($path = $this->envPath())) {
+        if(!$this->envFileExists()) {
             return $this->displayKey($key);
         }
-
-        if (false === Str::contains(file_get_contents($path), 'JWT_SECRET')) {
-            // create new entry
-            file_put_contents($path, PHP_EOL."JWT_SECRET=$key".PHP_EOL, FILE_APPEND);
-        } else {
-            if ($this->option('always-no')) {
+        
+        $updated = $this->updateEnvEntry('JWT_SECRET', $key, function() {
+            if($this->option('always-no')) {
                 $this->comment('Secret key already exists. Skipping...');
 
-                return;
+                return false;
             }
 
             if (false === $this->isConfirmed()) {
                 $this->comment('Phew... No changes were made to your secret key.');
 
-                return;
+                return false;
             }
+        });
 
-            // update existing entry
-            file_put_contents($path, str_replace(
-                'JWT_SECRET='.$this->laravel['config']['jwt.secret'],
-                'JWT_SECRET='.$key,
-                file_get_contents($path)
-            ));
+        if($updated) {
+            $this->updateEnvEntry('JWT_ALGO', 'HS256');
+            $this->displayKey($key);
         }
-
-        $this->displayKey($key);
     }
 
     /**
@@ -104,24 +99,5 @@ class JWTGenerateSecretCommand extends Command
         return $this->option('force') ? true : $this->confirm(
             'This will invalidate all existing tokens. Are you sure you want to override the secret key?'
         );
-    }
-
-    /**
-     * Get the .env file path.
-     *
-     * @return string
-     */
-    protected function envPath()
-    {
-        if (method_exists($this->laravel, 'environmentFilePath')) {
-            return $this->laravel->environmentFilePath();
-        }
-
-        // check if laravel version Less than 5.4.17
-        if (version_compare($this->laravel->version(), '5.4.17', '<')) {
-            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'.env';
-        }
-
-        return $this->laravel->basePath('.env');
     }
 }
