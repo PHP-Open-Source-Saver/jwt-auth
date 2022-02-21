@@ -114,5 +114,7 @@ class JWTGenerateCertCommand extends Command
         $this->updateEnvEntry('JWT_PRIVATE_KEY', sprintf("file://../%s", $filenamePrivate));
         $this->updateEnvEntry('JWT_PUBLIC_KEY', sprintf("file://../%s", $filenamePublic));
         $this->updateEnvEntry('JWT_PASSPHRASE', $passphrase ?? '');
+
+        return 0;
     }
 }
