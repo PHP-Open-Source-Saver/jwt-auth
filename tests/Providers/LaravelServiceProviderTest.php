@@ -16,6 +16,7 @@ use Orchestra\Testbench\TestCase;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Factory as ClaimFactory;
 use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateSecretCommand;
+use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateCertCommand;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT as JWTContract;
@@ -233,10 +234,17 @@ class LaravelServiceProviderTest extends TestCase
         $this->assertInstanceOf(Factory::class, $factory);
     }
 
-    public function testRegisterJWTCommand()
+    public function testRegisterJWTGenerateSecretCommand()
     {
         /** @var Factory $factory */
         $factory = $this->app->make('tymon.jwt.secret');
         $this->assertInstanceOf(JWTGenerateSecretCommand::class, $factory);
+    }
+
+    public function testRegisterJWTGenerateCertCommand()
+    {
+        /** @var Factory $factory */
+        $factory = $this->app->make('tymon.jwt.cert');
+        $this->assertInstanceOf(JWTGenerateCertCommand::class, $factory);
     }
 }
