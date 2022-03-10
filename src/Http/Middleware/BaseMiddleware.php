@@ -19,7 +19,6 @@ use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-/** @deprecated */
 abstract class BaseMiddleware
 {
     /**

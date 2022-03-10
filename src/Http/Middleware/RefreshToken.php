@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-/** @deprecated */
 class RefreshToken extends BaseMiddleware
 {
     /**

@@ -15,7 +15,6 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 
-/** @deprecated */
 class Check extends BaseMiddleware
 {
     /**
