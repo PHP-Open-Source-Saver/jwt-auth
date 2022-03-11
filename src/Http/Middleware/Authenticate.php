@@ -16,7 +16,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-/** @deprecated */
 class Authenticate extends BaseMiddleware
 {
     /**
