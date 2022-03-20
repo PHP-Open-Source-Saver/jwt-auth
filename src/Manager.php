@@ -58,6 +58,9 @@ class Manager
      */
     protected $persistentClaims = [];
 
+    /**
+     * @var bool
+     */
     protected $showBlackListException = true;
 
     /**
@@ -102,15 +105,13 @@ class Manager
             ->customClaims($payloadArray)
             ->make();
 
-        if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
-            if (
-                $checkBlacklist &&
-                $this->blacklistEnabled &&
-                $this->blacklist->has($payload) &&
-                $this->getBlackListExceptionEnabled()
-            ) {
-                throw new TokenBlacklistedException('The token has been blacklisted');
-            }
+        if (
+            $checkBlacklist &&
+            $this->blacklistEnabled &&
+            $this->getBlackListExceptionEnabled() &&
+            $this->blacklist->has($payload)
+        ) {
+            throw new TokenBlacklistedException('The token has been blacklisted');
         }
 
         return $payload;
