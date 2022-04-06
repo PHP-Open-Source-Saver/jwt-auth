@@ -14,6 +14,7 @@ namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
 use Illuminate\Support\Arr;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\SecretMissingException;
 
 abstract class Provider
 {
@@ -42,6 +43,10 @@ abstract class Provider
      */
     public function __construct($secret, $algo, array $keys)
     {
+        if(is_null($secret) && (is_null($keys['public']) || is_null($keys['private']))) {
+            throw new SecretMissingException();
+        }
+
         $this->secret = $secret;
         $this->algo = $algo;
         $this->keys = $keys;
