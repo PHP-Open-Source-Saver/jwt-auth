@@ -8,12 +8,13 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+## [1.4.2]
+
 ### Added
 - Added exception if secret key or private/public key are missing
 
 ### Fixed
 - Add command for generating certs
-
 
 ## [1.4.1] - 2022-01-24
 
@@ -61,6 +62,8 @@ You can find and compare releases at the GitHub release page.
 - Typo in tests by @eschricker in #23
 
 [Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...HEAD
+[1.4.2]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.1...1.4.2
+[1.4.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.1.1...1.2.0
