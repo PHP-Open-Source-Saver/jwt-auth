@@ -31,6 +31,36 @@ parameters:
 			path: src/Console/JWTGenerateSecretCommand.php
 
 		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\RequestReceived not found\\.$#"
+			count: 1
+			path: src/Providers/LaravelServiceProvider.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TaskReceived not found\\.$#"
+			count: 1
+			path: src/Providers/LaravelServiceProvider.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TickReceived not found\\.$#"
+			count: 1
+			path: src/Providers/LaravelServiceProvider.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\RequestReceived not found\\.$#"
+			count: 2
+			path: tests/Providers/LaravelServiceProviderTest.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TaskReceived not found\\.$#"
+			count: 2
+			path: tests/Providers/LaravelServiceProviderTest.php
+
+		-
+			message: "#^Class Laravel\\\\Octane\\\\Events\\\\TickReceived not found\\.$#"
+			count: 2
+			path: tests/Providers/LaravelServiceProviderTest.php
+
+		-
 			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getAuthIdentifierName\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: tests/Stubs/LaravelUserStub.php
