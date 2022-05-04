@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of jwt-auth.
+ *
+ * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
+ * (c) 2021 PHP Open Source Saver
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPOpenSourceSaver\JWTAuth\Console;
 
 use Illuminate\Console\Command;
@@ -51,6 +61,7 @@ class JWTGenerateCertCommand extends Command
 
             if (!$force) {
                 $this->warn('Aborting');
+
                 return;
             }
         }
@@ -60,25 +71,26 @@ class JWTGenerateCertCommand extends Command
 
             if (!$force) {
                 $this->warn('Aborting');
+
                 return;
             }
         }
 
         switch ($algo) {
-            case 'rsa': {
+            case 'rsa':
                     $keyType = OPENSSL_KEYTYPE_RSA;
                     $algoIdentifier = sprintf('RS%d', $shaVariant);
                     break;
-                }
-            case 'ec': {
+
+            case 'ec':
                     $keyType = OPENSSL_KEYTYPE_EC;
                     $algoIdentifier = sprintf('ES%d', $shaVariant);
                     break;
-                }
-            default: {
+
+            default:
                     $this->error('Unknown algorithm');
+
                     return -1;
-                }
         }
 
         // Create the private and public key
@@ -94,7 +106,7 @@ class JWTGenerateCertCommand extends Command
 
         // Extract the public key from $res to $pubKey
         $pubKey = openssl_pkey_get_details($res);
-        $pubKey = $pubKey["key"];
+        $pubKey = $pubKey['key'];
 
         // save certificates to disk
         if (false === is_dir($directory)) {
@@ -107,12 +119,13 @@ class JWTGenerateCertCommand extends Command
         // Updated .env-file
         if (!$this->envFileExists()) {
             $this->error('.env file missing');
+
             return -1;
         }
 
         $this->updateEnvEntry('JWT_ALGO', $algoIdentifier);
-        $this->updateEnvEntry('JWT_PRIVATE_KEY', sprintf("file://../%s", $filenamePrivate));
-        $this->updateEnvEntry('JWT_PUBLIC_KEY', sprintf("file://../%s", $filenamePublic));
+        $this->updateEnvEntry('JWT_PRIVATE_KEY', sprintf('file://../%s', $filenamePrivate));
+        $this->updateEnvEntry('JWT_PUBLIC_KEY', sprintf('file://../%s', $filenamePublic));
         $this->updateEnvEntry('JWT_PASSPHRASE', $passphrase ?? '');
 
         return 0;

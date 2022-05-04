@@ -83,7 +83,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
         $this->commands([
             'tymon.jwt.secret',
-            'tymon.jwt.cert'
+            'tymon.jwt.cert',
         ]);
     }
 

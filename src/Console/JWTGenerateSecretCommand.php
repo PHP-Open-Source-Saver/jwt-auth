@@ -51,12 +51,12 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        if(!$this->envFileExists()) {
+        if (!$this->envFileExists()) {
             return $this->displayKey($key);
         }
-        
-        $updated = $this->updateEnvEntry('JWT_SECRET', $key, function() {
-            if($this->option('always-no')) {
+
+        $updated = $this->updateEnvEntry('JWT_SECRET', $key, function () {
+            if ($this->option('always-no')) {
                 $this->comment('Secret key already exists. Skipping...');
 
                 return false;
@@ -71,7 +71,7 @@ class JWTGenerateSecretCommand extends Command
             return true;
         });
 
-        if($updated) {
+        if ($updated) {
             $this->updateEnvEntry('JWT_ALGO', 'HS256');
             $this->displayKey($key);
         }

@@ -43,7 +43,7 @@ abstract class Provider
      */
     public function __construct($secret, $algo, array $keys)
     {
-        if(is_null($secret) && (is_null($keys['public']) || is_null($keys['private']))) {
+        if (is_null($secret) && (is_null($keys['public']) || is_null($keys['private']))) {
             throw new SecretMissingException();
         }
 
