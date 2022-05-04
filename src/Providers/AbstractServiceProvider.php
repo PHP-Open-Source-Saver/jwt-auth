@@ -12,6 +12,7 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Providers;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Namshi\JOSE\JWS;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
@@ -138,7 +139,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->registerNamshiProvider();
         $this->registerLcobucciProvider();
 
-        $this->app->singleton('tymon.jwt.provider.jwt', fn ($app) => $this->getConfigInstance('providers.jwt'));
+        $this->app->singleton('tymon.jwt.provider.jwt', fn ($app) => $this->getConfigInstance($app, 'providers.jwt'));
     }
 
     /**
@@ -149,10 +150,10 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerNamshiProvider()
     {
         $this->app->singleton('tymon.jwt.provider.jwt.namshi', fn ($app) => new Namshi(
-            new JWS(['typ' => 'JWT', 'alg' => $this->config('algo')]),
-            $this->config('secret'),
-            $this->config('algo'),
-            $this->config('keys')
+            new JWS(['typ' => 'JWT', 'alg' => $app->make('config')->get('jwt.algo')]),
+            $app->make('config')->get('jwt.secret'),
+            $app->make('config')->get('jwt.algo'),
+            $app->make('config')->get('jwt.keys')
         ));
     }
 
@@ -164,9 +165,9 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerLcobucciProvider()
     {
         $this->app->singleton('tymon.jwt.provider.jwt.lcobucci', fn ($app) => new Lcobucci(
-            $this->config('secret'),
-            $this->config('algo'),
-            $this->config('keys')
+            $app->make('config')->get('jwt.secret'),
+            $app->make('config')->get('jwt.algo'),
+            $app->make('config')->get('jwt.keys')
         ));
     }
 
@@ -177,7 +178,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerAuthProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.auth', fn () => $this->getConfigInstance('providers.auth'));
+        $this->app->singleton('tymon.jwt.provider.auth', fn ($app) => $this->getConfigInstance($app, 'providers.auth'));
     }
 
     /**
@@ -187,7 +188,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerStorageProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.storage', fn () => $this->getConfigInstance('providers.storage'));
+        $this->app->singleton('tymon.jwt.provider.storage', fn ($app) => $this->getConfigInstance($app, 'providers.storage'));
     }
 
     /**
@@ -204,9 +205,9 @@ abstract class AbstractServiceProvider extends ServiceProvider
                 $app['tymon.jwt.payload.factory']
             );
 
-            return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'))
-                ->setPersistentClaims($this->config('persistent_claims'))
-                ->setBlackListExceptionEnabled((bool) $this->config('show_black_list_exception', 0));
+            return $instance->setBlacklistEnabled((bool) $app->make('config')->get('jwt.blacklist_enabled'))
+                ->setPersistentClaims($app->make('config')->get('jwt.persistent_claims'))
+                ->setBlackListExceptionEnabled((bool) $app->make('config')->get('jwt.show_black_list_exception', 0));
         });
     }
 
@@ -243,7 +244,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt', fn ($app) => (new JWT(
             $app['tymon.jwt.manager'],
             $app['tymon.jwt.parser']
-        ))->lockSubject($this->config('lock_subject')));
+        ))->lockSubject($app->make('config')->get('jwt.lock_subject')));
     }
 
     /**
@@ -257,7 +258,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $app['tymon.jwt.manager'],
             $app['tymon.jwt.provider.auth'],
             $app['tymon.jwt.parser']
-        ))->lockSubject($this->config('lock_subject')));
+        ))->lockSubject($app->make('config')->get('jwt.lock_subject')));
     }
 
     /**
@@ -270,8 +271,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt.blacklist', function ($app) {
             $instance = new Blacklist($app['tymon.jwt.provider.storage']);
 
-            return $instance->setGracePeriod($this->config('blacklist_grace_period'))
-                            ->setRefreshTTL($this->config('refresh_ttl'));
+            return $instance->setGracePeriod($app->make('config')->get('jwt.blacklist_grace_period'))
+                            ->setRefreshTTL($app->make('config')->get('jwt.refresh_ttl'));
         });
     }
 
@@ -282,9 +283,9 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerPayloadValidator()
     {
-        $this->app->singleton('tymon.jwt.validators.payload', fn () => (new PayloadValidator())
-            ->setRefreshTTL($this->config('refresh_ttl'))
-            ->setRequiredClaims($this->config('required_claims')));
+        $this->app->singleton('tymon.jwt.validators.payload', fn ($app) => (new PayloadValidator())
+            ->setRefreshTTL($app->make('config')->get('jwt.refresh_ttl'))
+            ->setRequiredClaims($app->make('config')->get('jwt.required_claims')));
     }
 
     /**
@@ -298,8 +299,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $factory = new ClaimFactory($app['request']);
             $app->refresh('request', $factory, 'setRequest');
 
-            return $factory->setTTL($this->config('ttl'))
-                           ->setLeeway($this->config('leeway'));
+            return $factory->setTTL($app->make('config')->get('jwt.ttl'))
+                           ->setLeeway($app->make('config')->get('jwt.leeway'));
         });
     }
 
@@ -328,28 +329,16 @@ abstract class AbstractServiceProvider extends ServiceProvider
     }
 
     /**
-     * Helper to get the config values.
-     *
-     * @param string $key
-     * @param string $default
-     *
-     * @return mixed
-     */
-    protected function config($key, $default = null)
-    {
-        return config("jwt.$key", $default);
-    }
-
-    /**
      * Get an instantiable configuration instance.
      *
-     * @param string $key
+     * @param Application $app
+     * @param string      $key
      *
      * @return mixed
      */
-    protected function getConfigInstance($key)
+    protected function getConfigInstance($app, $key)
     {
-        $instance = $this->config($key);
+        $instance = $app->make('config')->get('jwt.'.$key);
 
         if (is_string($instance)) {
             return $this->app->make($instance);

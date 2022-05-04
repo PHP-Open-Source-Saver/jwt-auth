@@ -12,6 +12,10 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test\Providers;
 
+use Illuminate\Support\Facades\Event;
+use Laravel\Octane\Events\RequestReceived;
+use Laravel\Octane\Events\TaskReceived;
+use Laravel\Octane\Events\TickReceived;
 use Orchestra\Testbench\TestCase;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Factory as ClaimFactory;
@@ -78,6 +82,16 @@ class LaravelServiceProviderTest extends TestCase
         $parsers = $this->app['tymon.jwt.parser']->getChain();
         $this->assertCount(5, $parsers);
         $this->assertContainsOnlyInstancesOf(Parser::class, $parsers);
+
+        $this->assertCount(0, Event::getListeners(RequestReceived::class));
+        $this->assertCount(0, Event::getListeners(TaskReceived::class));
+        $this->assertCount(0, Event::getListeners(TickReceived::class));
+
+        $_SERVER['LARAVEL_OCTANE'] = true;
+        $this->refreshApplication();
+        $this->assertCount(1, Event::getListeners(RequestReceived::class));
+        $this->assertCount(1, Event::getListeners(TaskReceived::class));
+        $this->assertCount(1, Event::getListeners(TickReceived::class));
     }
 
     public function testRegisterAliases()

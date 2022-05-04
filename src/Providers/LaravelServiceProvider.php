@@ -12,6 +12,12 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Providers;
 
+use Laravel\Octane\Events\RequestReceived;
+use Laravel\Octane\Events\TaskReceived;
+use Laravel\Octane\Events\TickReceived;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTFactory;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTProvider;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Cookies;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\RouteParams;
 
@@ -33,8 +39,20 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
         $this->app['tymon.jwt.parser']->addParser([
             new RouteParams(),
-            new Cookies($this->config('decrypt_cookies')),
+            new Cookies($this->app->make('config')->get('jwt.decrypt_cookies')),
         ]);
+
+        if (isset($_SERVER['LARAVEL_OCTANE'])) {
+            $clear = function () {
+                JWTAuth::clearResolvedInstances();
+                JWTFactory::clearResolvedInstances();
+                JWTProvider::clearResolvedInstances();
+            };
+
+            $this->app['events']->listen(RequestReceived::class, $clear);
+            $this->app['events']->listen(TaskReceived::class, $clear);
+            $this->app['events']->listen(TickReceived::class, $clear);
+        }
     }
 
     /**
@@ -42,8 +60,8 @@ class LaravelServiceProvider extends AbstractServiceProvider
      */
     protected function registerStorageProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.storage', function () {
-            $instance = $this->getConfigInstance('providers.storage');
+        $this->app->singleton('tymon.jwt.provider.storage', function ($app) {
+            $instance = $this->getConfigInstance($app, 'providers.storage');
 
             if (method_exists($instance, 'setLaravelVersion')) {
                 $instance->setLaravelVersion($this->app->version());
