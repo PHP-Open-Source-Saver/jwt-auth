@@ -551,4 +551,42 @@ class ParserTest extends AbstractTestCase
         $this->assertNull($parser->parseToken());
         $this->assertFalse($parser->hasToken());
     }
+
+    /** @test */
+    public function itShouldIgnoreTokensWithoutPrefixes()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Basic OnBhc3N3b3Jk');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
+    /** @test */
+    public function itShouldParseMultipleAuthHeaders()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5, Basic OnBhc3N3b3Jk');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'eyJhbGciOiJIUzI1NiIsInR5');
+        $this->assertTrue($parser->hasToken());
+    }
 }
