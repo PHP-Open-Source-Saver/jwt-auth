@@ -556,7 +556,7 @@ class ParserTest extends AbstractTestCase
     public function itShouldIgnoreTokensWithoutPrefixes()
     {
         $request = Request::create('foo', 'POST');
-        $request->headers->set('Authorization', 'Basic OnBhc3N3b3Jk');
+        $request->headers->set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5');
 
         $parser = new Parser($request);
 
