@@ -8,6 +8,9 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+### Fixed
+- Auth header not ignoring other auth schemes
+
 ## [1.4.2]
 
 ### Added
