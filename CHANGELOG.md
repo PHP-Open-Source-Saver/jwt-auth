@@ -10,6 +10,7 @@ You can find and compare releases at the GitHub release page.
 
 ### Fixed
 - Auth header not ignoring other auth schemes
+- Added `ask-passphrase` parameter to generating certs command
 
 ## [1.4.2]
 
