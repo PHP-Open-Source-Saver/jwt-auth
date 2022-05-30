@@ -47,7 +47,7 @@ trait EnvHelperTrait
                 // update existing entry
                 file_put_contents(
                     $filepath,
-                    str_replace(
+                    preg_replace(
                         "/{$key}=.*/",
                         "{$key}={$value}",
                         file_get_contents($filepath)
