@@ -27,12 +27,8 @@ trait EnvHelperTrait
      */
     function updateEnvEntry(string $key, $value, Closure $confirmOnExisting = null): bool
     {
-        static $filepath = null;
+        $filepath = $this->envPath();
         
-        if(is_null($filepath)) {
-            $filepath = $this->envPath();
-        }
-
         if (false === Str::contains(file_get_contents($filepath), $key)) {
             // create new entry
             file_put_contents(
@@ -70,11 +66,6 @@ trait EnvHelperTrait
     {
         if (method_exists($this->laravel, 'environmentFilePath')) {
             return $this->laravel->environmentFilePath();
-        }
-
-        // check if laravel version Less than 5.4.17
-        if (version_compare($this->laravel->version(), '5.4.17', '<')) {
-            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . '.env';
         }
 
         return $this->laravel->basePath('.env');
