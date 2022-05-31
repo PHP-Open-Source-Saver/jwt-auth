@@ -22,16 +22,16 @@ class MockEnvHelperClass {
         return true;
     }
 
-    protected static string $dummy = '';
+    protected string $dummy = '';
 
     public function getFileContents(string $filepath): string
     {
-        return static::$dummy;
+        return $this->dummy;
     }
 
     public function putFileContents(string $filepath, string $data): void
     {
-        static::$dummy = $data;
+        $this->dummy = $data;
     }
 
     protected function envPath(): string
