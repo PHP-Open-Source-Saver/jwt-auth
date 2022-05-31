@@ -12,8 +12,8 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test\Console;
 
-use Orchestra\Testbench\TestCase;
 use PHPOpenSourceSaver\JWTAuth\Console\EnvHelperTrait;
+use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class MockEnvHelperClass {
     use EnvHelperTrait;
@@ -40,7 +40,7 @@ class MockEnvHelperClass {
     }
 }
 
-class EnvHelperTraitTest extends TestCase
+class EnvHelperTraitTest extends AbstractTestCase
 {
     public function testEmptyEnv() {
         $sut = new MockEnvHelperClass();
