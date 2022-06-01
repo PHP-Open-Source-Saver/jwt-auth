@@ -8,6 +8,9 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+### Added
+- Added `ask-passphrase` parameter to generating certs command
+
 ### Fixed
 - Auth header not ignoring other auth schemes
 
