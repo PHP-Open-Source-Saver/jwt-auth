@@ -12,7 +12,7 @@ trait EnvHelperTrait
      * 
      * @return bool
      */
-    function envFileExists(): bool
+    protected function envFileExists(): bool
     {
         return file_exists($this->envPath());
     }
@@ -25,32 +25,29 @@ trait EnvHelperTrait
      * @param Closure|null $confirmOnExisting
      * @return bool
      */
-    function updateEnvEntry(string $key, $value, Closure $confirmOnExisting = null): bool
+    public function updateEnvEntry(string $key, $value, Closure $confirmOnExisting = null): bool
     {
-        static $filepath = null;
-        
-        if(is_null($filepath)) {
-            $filepath = $this->envPath();
-        }
+        $filepath = $this->envPath();
 
-        if (false === Str::contains(file_get_contents($filepath), $key)) {
+        $filecontents = $this->getFileContents($filepath);
+
+        if (false === Str::contains($filecontents, $key)) {
             // create new entry
-            file_put_contents(
+            $this->putFileContents(
                 $filepath,
-                PHP_EOL . "{$key}={$value}" . PHP_EOL,
-                FILE_APPEND
+                $filecontents . PHP_EOL . "{$key}={$value}" . PHP_EOL
             );
 
             return true;
         } else {
-            if(is_null($confirmOnExisting) || $confirmOnExisting()) {
+            if (is_null($confirmOnExisting) || $confirmOnExisting()) {
                 // update existing entry
-                file_put_contents(
+                $this->putFileContents(
                     $filepath,
-                    str_replace(
+                    preg_replace(
                         "/{$key}=.*/",
                         "{$key}={$value}",
-                        file_get_contents($filepath)
+                        $filecontents
                     )
                 );
 
@@ -59,6 +56,16 @@ trait EnvHelperTrait
         }
 
         return false;
+    }
+
+    protected function getFileContents(string $filepath): string
+    {
+        return file_get_contents($filepath);
+    }
+
+    protected function putFileContents(string $filepath, string $data): void
+    {
+        file_put_contents($filepath, $data);
     }
 
     /**
@@ -70,11 +77,6 @@ trait EnvHelperTrait
     {
         if (method_exists($this->laravel, 'environmentFilePath')) {
             return $this->laravel->environmentFilePath();
-        }
-
-        // check if laravel version Less than 5.4.17
-        if (version_compare($this->laravel->version(), '5.4.17', '<')) {
-            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . '.env';
         }
 
         return $this->laravel->basePath('.env');
