@@ -10,6 +10,7 @@ You can find and compare releases at the GitHub release page.
 
 ### Added
 - Added `ask-passphrase` parameter to generating certs command
+- Added Russian translation for some docs
 
 ### Fixed
 - Auth header not ignoring other auth schemes
