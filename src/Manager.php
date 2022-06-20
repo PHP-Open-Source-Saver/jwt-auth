@@ -108,7 +108,6 @@ class Manager
         if (
             $checkBlacklist &&
             $this->blacklistEnabled &&
-            $this->getBlackListExceptionEnabled() &&
             $this->blacklist->has($payload)
         ) {
             throw new TokenBlacklistedException('The token has been blacklisted');
