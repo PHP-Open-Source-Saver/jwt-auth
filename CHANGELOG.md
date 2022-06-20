@@ -14,6 +14,7 @@ You can find and compare releases at the GitHub release page.
 ### Fixed
 - Auth header not ignoring other auth schemes
 - Logout/invalidate not working
+
 ## [1.4.2]
 
 ### Added
