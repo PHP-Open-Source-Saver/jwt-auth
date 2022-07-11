@@ -1,15 +1,5 @@
 <?php
 
-/*
- * This file is part of jwt-auth.
- *
- * (c) 2014-2021 Sean Tymon <tymon148@gmail.com>
- * (c) 2021 PHP Open Source Saver
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace PHPOpenSourceSaver\JWTAuth\Console;
 
 use Closure;
@@ -18,44 +8,46 @@ use Illuminate\Support\Str;
 trait EnvHelperTrait
 {
     /**
-     * Checks if the env file exists.
+     * Checks if the env file exists
+     * 
+     * @return bool
      */
-    public function envFileExists(): bool
+    protected function envFileExists(): bool
     {
         return file_exists($this->envPath());
     }
 
     /**
-     * Update an env-file entry.
-     *
+     * Update an env-file entry
+     * 
+     * @param string $key
      * @param string|int $value
+     * @param Closure|null $confirmOnExisting
+     * @return bool
      */
     public function updateEnvEntry(string $key, $value, Closure $confirmOnExisting = null): bool
     {
-        static $filepath = null;
+        $filepath = $this->envPath();
 
-        if (is_null($filepath)) {
-            $filepath = $this->envPath();
-        }
+        $filecontents = $this->getFileContents($filepath);
 
-        if (false === Str::contains(file_get_contents($filepath), $key)) {
+        if (false === Str::contains($filecontents, $key)) {
             // create new entry
-            file_put_contents(
+            $this->putFileContents(
                 $filepath,
-                PHP_EOL."{$key}={$value}".PHP_EOL,
-                FILE_APPEND
+                $filecontents . PHP_EOL . "{$key}={$value}" . PHP_EOL
             );
 
             return true;
         } else {
             if (is_null($confirmOnExisting) || $confirmOnExisting()) {
                 // update existing entry
-                file_put_contents(
+                $this->putFileContents(
                     $filepath,
-                    str_replace(
+                    preg_replace(
                         "/{$key}=.*/",
                         "{$key}={$value}",
-                        file_get_contents($filepath)
+                        $filecontents
                     )
                 );
 
@@ -66,18 +58,25 @@ trait EnvHelperTrait
         return false;
     }
 
+    protected function getFileContents(string $filepath): string
+    {
+        return file_get_contents($filepath);
+    }
+
+    protected function putFileContents(string $filepath, string $data): void
+    {
+        file_put_contents($filepath, $data);
+    }
+
     /**
      * Get the .env file path.
+     *
+     * @return string
      */
     protected function envPath(): string
     {
         if (method_exists($this->laravel, 'environmentFilePath')) {
             return $this->laravel->environmentFilePath();
-        }
-
-        // check if laravel version Less than 5.4.17
-        if (version_compare($this->laravel->version(), '5.4.17', '<')) {
-            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'.env';
         }
 
         return $this->laravel->basePath('.env');

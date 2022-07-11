@@ -5,6 +5,7 @@ nav:
   - Home: index.md
   - Laravel Installation: laravel-installation.md
   - Lumen Installation (incomplete): lumen-installation.md
+  - Generate Secrets: generate-secrets.md
   - Quick start: quick-start.md
   - Auth guard: auth-guard.md
   - Configuration: configuration.md

@@ -29,7 +29,8 @@ class JWTGenerateCertCommand extends Command
         {--sha= : SHA-variant (1,224,256,384,512)} 
         {--dir= : Directory where the certificates should be placed} 
         {--curve= : EC-Curvename (e.g. secp384r1, prime256v1 )}
-        {--passphrase= : Passphrase}';
+        {--passphrase= : Passphrase}
+        {--ask-passphrase : Enter passphrase instead passing as argument}';
 
     /**
      * The console command description.
@@ -50,8 +51,13 @@ class JWTGenerateCertCommand extends Command
         $algo = $this->option('algo') ? $this->option('algo') : 'rsa';
         $bits = $this->option('bits') ? intval($this->option('bits')) : 4096;
         $shaVariant = $this->option('sha') ? intval($this->option('sha')) : 512;
-        $passphrase = $this->option('passphrase') ? $this->option('passphrase') : null;
         $curve = $this->option('curve') ? $this->option('curve') : 'prime256v1';
+
+        if($this->option('ask-passphrase')) {
+            $passphrase = $this->secret('Passphrase');
+        } else {
+            $passphrase = $this->option('passphrase') ? $this->option('passphrase') : null;
+        }
 
         $filenamePublic = sprintf('%s/jwt-%s-%d-public.pem', $directory, $algo, $bits);
         $filenamePrivate = sprintf('%s/jwt-%s-%d-private.pem', $directory, $algo, $bits);
@@ -110,7 +116,7 @@ class JWTGenerateCertCommand extends Command
 
         // save certificates to disk
         if (false === is_dir($directory)) {
-            mkdir($directory);
+            mkdir($directory, 0777, true);
         }
 
         file_put_contents($filenamePrivate, $privKey);
