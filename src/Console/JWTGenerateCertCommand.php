@@ -53,7 +53,7 @@ class JWTGenerateCertCommand extends Command
         $shaVariant = $this->option('sha') ? intval($this->option('sha')) : 512;
         $curve = $this->option('curve') ? $this->option('curve') : 'prime256v1';
 
-        if($this->option('ask-passphrase')) {
+        if ($this->option('ask-passphrase')) {
             $passphrase = $this->secret('Passphrase');
         } else {
             $passphrase = $this->option('passphrase') ? $this->option('passphrase') : null;
@@ -84,19 +84,19 @@ class JWTGenerateCertCommand extends Command
 
         switch ($algo) {
             case 'rsa':
-                    $keyType = OPENSSL_KEYTYPE_RSA;
-                    $algoIdentifier = sprintf('RS%d', $shaVariant);
-                    break;
+                $keyType = OPENSSL_KEYTYPE_RSA;
+                $algoIdentifier = sprintf('RS%d', $shaVariant);
+                break;
 
             case 'ec':
-                    $keyType = OPENSSL_KEYTYPE_EC;
-                    $algoIdentifier = sprintf('ES%d', $shaVariant);
-                    break;
+                $keyType = OPENSSL_KEYTYPE_EC;
+                $algoIdentifier = sprintf('ES%d', $shaVariant);
+                break;
 
             default:
-                    $this->error('Unknown algorithm');
+                $this->error('Unknown algorithm');
 
-                    return -1;
+                return -1;
         }
 
         // Create the private and public key
