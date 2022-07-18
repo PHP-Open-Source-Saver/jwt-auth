@@ -15,10 +15,12 @@ namespace PHPOpenSourceSaver\JWTAuth\Test\Console;
 use PHPOpenSourceSaver\JWTAuth\Console\EnvHelperTrait;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
-class MockEnvHelperClass {
+class MockEnvHelperClass
+{
     use EnvHelperTrait;
 
-    function envFileExists(): bool {
+    public function envFileExists(): bool
+    {
         return true;
     }
 
@@ -42,7 +44,8 @@ class MockEnvHelperClass {
 
 class EnvHelperTraitTest extends AbstractTestCase
 {
-    public function testEmptyEnv() {
+    public function testEmptyEnv()
+    {
         $sut = new MockEnvHelperClass();
 
         $this->assertEmpty($sut->getFileContents('.env'));
@@ -52,7 +55,8 @@ class EnvHelperTraitTest extends AbstractTestCase
         $this->assertEquals("\nJWT_TEST=123\n", $sut->getFileContents('.env'));
     }
 
-    public function testUpdateEnv() {
+    public function testUpdateEnv()
+    {
         $sut = new MockEnvHelperClass();
 
         $sut->putFileContents('.env', "\nJWT_TEST=123\n");
