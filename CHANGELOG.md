@@ -8,6 +8,8 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+## [2.0.0] 2022-08-25
+
 ### Added
 - Adds Octane Compatibility
 - Added `ask-passphrase` parameter to generating certs command
@@ -71,7 +73,7 @@ You can find and compare releases at the GitHub release page.
 ### Fixed
 - Typo in tests by @eschricker in #23
 
-[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.2...HEAD
+[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/2.0.0...HEAD
 [1.4.2]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...1.4.0
