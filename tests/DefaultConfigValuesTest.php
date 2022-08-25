@@ -107,7 +107,7 @@ class DefaultConfigValuesTest extends AbstractTestCase
     /** @test */
     public function showBlackListExceptionShouldBeDisabled()
     {
-        $this->assertEquals(0, $this->configuration['show_black_list_exception']);
+        $this->assertTrue($this->configuration['show_black_list_exception']);
     }
 
     /** @test */
