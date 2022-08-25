@@ -71,7 +71,7 @@ You can find and compare releases at the GitHub release page.
 ### Fixed
 - Typo in tests by @eschricker in #23
 
-[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...HEAD
+[Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.2...HEAD
 [1.4.2]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...1.4.0
