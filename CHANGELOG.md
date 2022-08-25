@@ -8,7 +8,7 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
-## [2.0.0] 2022-08-25
+## [2.0.0-RC1] 2022-08-25
 
 ### Added
 - Adds Octane Compatibility
