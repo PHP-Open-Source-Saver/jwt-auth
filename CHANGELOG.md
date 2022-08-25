@@ -8,14 +8,15 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
-## [1.5.0] 2022-08-25
-
 ### Added
+- Adds Octane Compatibility
 - Added `ask-passphrase` parameter to generating certs command
+- Support autocomplete guard
 
 ### Fixed
 - Default config value for `show_black_list_exception` changed to true
 - Auth header not ignoring other auth schemes
+- Fixed replacing of values using regex
 
 ## [1.4.2] 2022-04-22
 
