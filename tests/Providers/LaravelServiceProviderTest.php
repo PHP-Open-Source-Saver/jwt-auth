@@ -166,12 +166,12 @@ class LaravelServiceProviderTest extends TestCase
         /** @var Manager $manager */
         $manager = $this->app->make('tymon.jwt.manager');
         $this->assertInstanceOf(Manager::class, $manager);
-        $this->assertFalse($manager->getBlackListExceptionEnabled());
+        $this->assertTrue($manager->getBlackListExceptionEnabled());
 
-        $this->app['config']->set('jwt.show_black_list_exception', true);
+        $this->app['config']->set('jwt.show_black_list_exception', false);
         $this->app->forgetInstance('tymon.jwt.manager');
         $manager = $this->app->make('tymon.jwt.manager');
-        $this->assertTrue($manager->getBlackListExceptionEnabled());
+        $this->assertFalse($manager->getBlackListExceptionEnabled());
     }
 
     public function testRegisterTokenParser()
