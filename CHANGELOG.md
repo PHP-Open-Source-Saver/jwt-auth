@@ -8,6 +8,8 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+## [1.5.0] 2022-08-25
+
 ### Added
 - Added `ask-passphrase` parameter to generating certs command
 
@@ -15,7 +17,7 @@ You can find and compare releases at the GitHub release page.
 - Default config value for `show_black_list_exception` changed to true
 - Auth header not ignoring other auth schemes
 
-## [1.4.2]
+## [1.4.2] 2022-04-22
 
 ### Added
 - Added exception if secret key or private/public key are missing
