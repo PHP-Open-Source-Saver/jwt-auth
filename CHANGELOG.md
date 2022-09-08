@@ -8,6 +8,9 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 
+## [2.0.0] 2022-09-08
+- No changes to 2.0.0-RC1
+
 ## [2.0.0-RC1] 2022-08-25
 
 ### Added
@@ -74,6 +77,8 @@ You can find and compare releases at the GitHub release page.
 - Typo in tests by @eschricker in #23
 
 [Unreleased]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.2...2.0.0
+[2.0.0-RC1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.2...2.0.0-RC1
 [1.4.2]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/PHP-Open-Source-Saver/jwt-auth/compare/1.3.0...1.4.0
