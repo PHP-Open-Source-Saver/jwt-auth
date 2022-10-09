@@ -181,7 +181,7 @@ class Manager
             $persistentClaims,
             [
                 'sub' => $payload['sub'],
-                'iat' => $payload['iat'],
+                // 'iat' => $payload['iat'],
             ]
         );
     }
