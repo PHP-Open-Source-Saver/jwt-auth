@@ -1,3 +1,7 @@
+<a href="README.pr-ar.md">
+<img src="https://img.shields.io/badge/lang-ar-blue" />
+</a>
+
 ## Credits
 [This repository is a fork from original tymonsdesigns/jwt-auth](https://github.com/tymondesigns/jwt-auth/wiki), we decided to fork and work independent because the original one was not being updated for long time and keep doing support for the application.
 

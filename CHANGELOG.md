@@ -11,6 +11,9 @@ You can find and compare releases at the GitHub release page.
 ## [2.0.0] 2022-09-08
 - No changes to 2.0.0-RC1
 
+### Added
+- Arabic translation for docs by hawkiq
+
 ## [2.0.0-RC1] 2022-08-25
 
 ### Added
