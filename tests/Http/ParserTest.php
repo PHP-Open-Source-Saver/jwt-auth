@@ -542,10 +542,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            new AuthHeaders,
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            new AuthHeaders(),
+            new RouteParams(),
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -561,10 +561,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            new AuthHeaders,
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            new AuthHeaders(),
+            new RouteParams(),
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -580,10 +580,10 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request);
 
         $parser->setChain([
-            new QueryString,
-            new InputSource,
-            new AuthHeaders,
-            new RouteParams,
+            new QueryString(),
+            new InputSource(),
+            new AuthHeaders(),
+            new RouteParams(),
         ]);
 
         $this->assertSame($parser->parseToken(), 'eyJhbGciOiJIUzI1NiIsInR5');

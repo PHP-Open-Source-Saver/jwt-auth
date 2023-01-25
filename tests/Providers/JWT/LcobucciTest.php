@@ -76,7 +76,7 @@ class LcobucciTest extends AbstractTestCase
             ->shouldReceive('getToken')
             ->once()
             ->with(\Mockery::type(Signer::class), \Mockery::type(Key::class))
-            ->andReturn(new Token\Plain(new DataSet([], 'header'), $dataSet, (new Token\Signature('', 'signature'))));
+            ->andReturn(new Token\Plain(new DataSet([], 'header'), $dataSet, new Token\Signature('', 'signature')));
 
         /** @var Token $token */
         $token = $this->getProvider('secret', 'HS256')->encode($payload);
@@ -179,7 +179,7 @@ class LcobucciTest extends AbstractTestCase
             ->shouldReceive('getToken')
             ->once()
             ->with(Mockery::type(RS256::class), Mockery::type(Key::class))
-            ->andReturn(new Token\Plain(new DataSet([], 'header'), $dataSet, (new Token\Signature('', 'signature'))));
+            ->andReturn(new Token\Plain(new DataSet([], 'header'), $dataSet, new Token\Signature('', 'signature')));
 
         $token = $provider->encode($payload);
 

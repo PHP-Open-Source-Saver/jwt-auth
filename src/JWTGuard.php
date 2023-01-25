@@ -29,6 +29,9 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
 
+/**
+ * @mixin JWT
+ */
 class JWTGuard implements Guard
 {
     use GuardHelpers {

@@ -12,11 +12,15 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test\Providers;
 
+use Illuminate\Support\Facades\Event;
+use Laravel\Octane\Events\RequestReceived;
+use Laravel\Octane\Events\TaskReceived;
+use Laravel\Octane\Events\TickReceived;
 use Orchestra\Testbench\TestCase;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Factory as ClaimFactory;
-use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateSecretCommand;
 use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateCertCommand;
+use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateSecretCommand;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT as JWTContract;
@@ -78,6 +82,16 @@ class LaravelServiceProviderTest extends TestCase
         $parsers = $this->app['tymon.jwt.parser']->getChain();
         $this->assertCount(5, $parsers);
         $this->assertContainsOnlyInstancesOf(Parser::class, $parsers);
+
+        $this->assertCount(0, Event::getListeners(RequestReceived::class));
+        $this->assertCount(0, Event::getListeners(TaskReceived::class));
+        $this->assertCount(0, Event::getListeners(TickReceived::class));
+
+        $_SERVER['LARAVEL_OCTANE'] = true;
+        $this->refreshApplication();
+        $this->assertCount(1, Event::getListeners(RequestReceived::class));
+        $this->assertCount(1, Event::getListeners(TaskReceived::class));
+        $this->assertCount(1, Event::getListeners(TickReceived::class));
     }
 
     public function testRegisterAliases()
@@ -152,12 +166,12 @@ class LaravelServiceProviderTest extends TestCase
         /** @var Manager $manager */
         $manager = $this->app->make('tymon.jwt.manager');
         $this->assertInstanceOf(Manager::class, $manager);
-        $this->assertFalse($manager->getBlackListExceptionEnabled());
+        $this->assertTrue($manager->getBlackListExceptionEnabled());
 
-        $this->app['config']->set('jwt.show_black_list_exception', true);
+        $this->app['config']->set('jwt.show_black_list_exception', false);
         $this->app->forgetInstance('tymon.jwt.manager');
         $manager = $this->app->make('tymon.jwt.manager');
-        $this->assertTrue($manager->getBlackListExceptionEnabled());
+        $this->assertFalse($manager->getBlackListExceptionEnabled());
     }
 
     public function testRegisterTokenParser()
