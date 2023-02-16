@@ -52,7 +52,7 @@ jobs:
             coverage: xdebug
             dotenv: ^5.2
 
-            - php: 8.1
+          - php: 8.1
             laravel: 10.*
             stability: prefer-stable
             os: ubuntu-latest
