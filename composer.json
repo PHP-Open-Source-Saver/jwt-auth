@@ -1,95 +1,95 @@
 {
-	"name": "php-open-source-saver/jwt-auth",
-	"description": "JSON Web Token Authentication for Laravel and Lumen",
-	"keywords": [
-		"auth",
-		"authentication",
-		"json web token",
-		"jwt",
-		"laravel"
-	],
-	"homepage": "https://github.com/PHP-Open-Source-Saver/jwt-auth",
-	"support": {
-		"issues": "https://github.com/PHP-Open-Source-Saver/jwt-auth/issues",
-		"source": "https://github.com/PHP-Open-Source-Saver/jwt-auth"
-	},
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Sean Tymon",
-			"email": "tymon148@gmail.com",
-			"homepage": "https://tymon.xyz",
-			"role": "Forked package creator | Developer"
-		},
-		{
-			"name": "Eric Schricker",
-			"email": "eric.schricker@adiutabyte.de",
-			"role": "Developer"
-		},
-		{
-			"name": "Fabio William Conceição",
-			"email": "messhias@gmail.com",
-			"role": "Developer"
-		}
-	],
-	"require": {
-		"php": "^7.4|^8.1",
-		"ext-json": "*",
-		"illuminate/auth": "^6|^7|^8.67|^9|^10.0",
-		"illuminate/contracts": "^6|^7|^8.67|^9|^10.0",
-		"illuminate/http": "^6|^7|^8.67|^9|^10.0",
-		"illuminate/support": "^6|^7|^8.67|^9|^10.0",
-		"lcobucci/jwt": "^4.0",
-		"namshi/jose": "^7.0",
-		"nesbot/carbon": "^1.0|^2.0"
-	},
-	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^3",
-		"illuminate/console": "^6|^7|^8.67|^9|^10.0",
-		"illuminate/routing": "^6|^7|^8.67|^9|^10.0",
-		"orchestra/testbench": "^4.18|^5.8|^6.3|^7",
-		"mockery/mockery": "^1.4.4",
-		"phpstan/phpstan": "^1",
-		"phpunit/phpunit": "^8.5|^10.0",
-		"rector/rector": "^0.12.4",
-		"vlucas/phpdotenv": "^5.4.1",
-		"yoast/phpunit-polyfills": "^1.0.2"
-	},
-	"autoload": {
-		"psr-4": {
-			"PHPOpenSourceSaver\\JWTAuth\\": "src/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"PHPOpenSourceSaver\\JWTAuth\\Test\\": "tests/"
-		}
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-develop": "2.0-dev"
-		},
-		"laravel": {
-			"aliases": {
-				"JWTAuth": "PHPOpenSourceSaver\\JWTAuth\\Facades\\JWTAuth",
-				"JWTFactory": "PHPOpenSourceSaver\\JWTAuth\\Facades\\JWTFactory"
-			},
-			"providers": [
-				"PHPOpenSourceSaver\\JWTAuth\\Providers\\LaravelServiceProvider"
-			]
-		}
-	},
-	"funding": [],
-	"config": {
-		"sort-packages": true
-	},
-	"prefer-stable": true,
-	"minimum-stability": "dev",
-	"scripts": {
-		"php-cs-fixer": "php-cs-fixer fix --diff",
-		"test": "phpunit --colors=always",
-		"test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml",
-		"phpstan": "phpstan analyse --memory-limit=256M",
-		"phpstan-baseline": "phpstan analyse --generate-baseline --memory-limit=256M"
-	}
+    "name": "php-open-source-saver/jwt-auth",
+    "description": "JSON Web Token Authentication for Laravel and Lumen",
+    "keywords": [
+        "auth",
+        "authentication",
+        "json web token",
+        "jwt",
+        "laravel"
+    ],
+    "homepage": "https://github.com/PHP-Open-Source-Saver/jwt-auth",
+    "support": {
+        "issues": "https://github.com/PHP-Open-Source-Saver/jwt-auth/issues",
+        "source": "https://github.com/PHP-Open-Source-Saver/jwt-auth"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sean Tymon",
+            "email": "tymon148@gmail.com",
+            "homepage": "https://tymon.xyz",
+            "role": "Forked package creator | Developer"
+        },
+        {
+            "name": "Eric Schricker",
+            "email": "eric.schricker@adiutabyte.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Fabio William Conceição",
+            "email": "messhias@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.1",
+        "ext-json": "*",
+        "illuminate/auth": "^6|^7|^8.67|^9|^10.0",
+        "illuminate/contracts": "^6|^7|^8.67|^9|^10.0",
+        "illuminate/http": "^6|^7|^8.67|^9|^10.0",
+        "illuminate/support": "^6|^7|^8.67|^9|^10.0",
+        "lcobucci/jwt": "^4.0",
+        "namshi/jose": "^7.0",
+        "nesbot/carbon": "^1.0|^2.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3",
+        "illuminate/console": "^6|^7|^8.67|^9|^10.0",
+        "illuminate/routing": "^6|^7|^8.67|^9|^10.0",
+        "orchestra/testbench": "^4.18|^5.8|^6.3|^7",
+        "mockery/mockery": "^1.4.4",
+        "phpstan/phpstan": "^1",
+        "phpunit/phpunit": "^8.5|^10.0",
+        "rector/rector": "^0.12.4",
+        "vlucas/phpdotenv": "^5.4.1",
+        "yoast/phpunit-polyfills": "^1.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPOpenSourceSaver\\JWTAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHPOpenSourceSaver\\JWTAuth\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "2.0-dev"
+        },
+        "laravel": {
+            "aliases": {
+                "JWTAuth": "PHPOpenSourceSaver\\JWTAuth\\Facades\\JWTAuth",
+                "JWTFactory": "PHPOpenSourceSaver\\JWTAuth\\Facades\\JWTFactory"
+            },
+            "providers": [
+                "PHPOpenSourceSaver\\JWTAuth\\Providers\\LaravelServiceProvider"
+            ]
+        }
+    },
+    "funding": [],
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "scripts": {
+        "php-cs-fixer": "php-cs-fixer fix --diff",
+        "test": "phpunit --colors=always",
+        "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml",
+        "phpstan": "phpstan analyse --memory-limit=256M",
+        "phpstan-baseline": "phpstan analyse --generate-baseline --memory-limit=256M"
+    }
 }
