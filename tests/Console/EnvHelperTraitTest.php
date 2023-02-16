@@ -17,54 +17,54 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class MockEnvHelperClass
 {
-	use EnvHelperTrait;
+    use EnvHelperTrait;
 
-	public function envFileExists(): bool
-	{
-		return true;
-	}
+    public function envFileExists(): bool
+    {
+        return true;
+    }
 
-	protected string $dummy = '';
+    protected string $dummy = '';
 
-	public function getFileContents(string $filepath): string
-	{
-		return $this->dummy;
-	}
+    public function getFileContents(string $filepath): string
+    {
+        return $this->dummy;
+    }
 
-	public function putFileContents(string $filepath, string $data): void
-	{
-		$this->dummy = $data;
-	}
+    public function putFileContents(string $filepath, string $data): void
+    {
+        $this->dummy = $data;
+    }
 
-	protected function envPath(): string
-	{
-		return 'N/A';
-	}
+    protected function envPath(): string
+    {
+        return 'N/A';
+    }
 }
 
 class EnvHelperTraitTest extends AbstractTestCase
 {
-	public function testEmptyEnv()
-	{
-		$sut = new MockEnvHelperClass();
+    public function testEmptyEnv()
+    {
+        $sut = new MockEnvHelperClass();
 
-		$this->assertEmpty($sut->getFileContents('.env'));
+        $this->assertEmpty($sut->getFileContents('.env'));
 
-		$sut->updateEnvEntry('JWT_TEST', '123');
+        $sut->updateEnvEntry('JWT_TEST', '123');
 
-		$this->assertEquals(PHP_EOL . "JWT_TEST=123" . PHP_EOL, $sut->getFileContents('.env'));
-	}
+        $this->assertEquals(PHP_EOL . "JWT_TEST=123" . PHP_EOL, $sut->getFileContents('.env'));
+    }
 
-	public function testUpdateEnv()
-	{
-		$sut = new MockEnvHelperClass();
+    public function testUpdateEnv()
+    {
+        $sut = new MockEnvHelperClass();
 
-		$sut->putFileContents('.env', "\nJWT_TEST=123\n");
+        $sut->putFileContents('.env', "\nJWT_TEST=123\n");
 
-		$this->assertEquals("\nJWT_TEST=123\n", $sut->getFileContents('.env'));
+        $this->assertEquals("\nJWT_TEST=123\n", $sut->getFileContents('.env'));
 
-		$sut->updateEnvEntry('JWT_TEST', '456');
+        $sut->updateEnvEntry('JWT_TEST', '456');
 
-		$this->assertEquals("\nJWT_TEST=456\n", $sut->getFileContents('.env'));
-	}
+        $this->assertEquals("\nJWT_TEST=456\n", $sut->getFileContents('.env'));
+    }
 }
