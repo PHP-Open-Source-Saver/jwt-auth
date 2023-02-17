@@ -15,18 +15,32 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4, 8.0, 8.1]
-        laravel: [6.*, 7.*, 8.*, 9.*]
+        php: [7.4, 8.0, 8.1, 8.2]
+        laravel: [6.*, 7.*, 8.*, 9.*, 10.*]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         coverage: [none]
         exclude:
           - laravel: 6.*
             php: 8.1
+          - laravel: 6.*
+            php: 8.2
           - laravel: 7.*
             php: 8.1
+          - laravel: 7.*
+            php: 8.2
+          - laravel: 8.*
+            php: 8.2
+            stability: prefer-lowest
           - laravel: 9.*
             php: 7.4
+          - laravel: 9.*
+            php: 8.2
+            stability: prefer-lowest
+          - laravel: 10.*
+            php: 7.4
+          - laravel: 10.*
+            php: 8.0
         include:
           - laravel: 6.*
             dotenv: ^3.3
@@ -40,12 +54,22 @@ jobs:
           - laravel: 9.*
             dotenv: ^5.2
 
+          - laravel: 10.*
+            dotenv: ^5.4.1
+
           - php: 8.0
             laravel: 9.*
             stability: prefer-stable
             os: ubuntu-latest
             coverage: xdebug
             dotenv: ^5.2
+
+          - php: 8.1
+            laravel: 10.*
+            stability: prefer-stable
+            os: ubuntu-latest
+            coverage: xdebug
+            dotenv: ^5.4.1
 
     name: '[PHP ${{ matrix.php }}] [Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}] [${{ matrix.coverage }} coverage]'
 
