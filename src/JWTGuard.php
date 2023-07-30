@@ -264,7 +264,7 @@ class JWTGuard implements Guard
 
     /**
      * Alias for onceUsingId.
-     * 
+     *
      * @param mixed $id
      *
      * @return bool
