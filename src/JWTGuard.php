@@ -218,7 +218,7 @@ class JWTGuard implements Guard
      * Create a new token by User id.
      *
      * @param mixed $id
-     * 
+     *
      * @return string|null
      */
     public function tokenById($id)
@@ -248,7 +248,7 @@ class JWTGuard implements Guard
      * Log the given User into the application.
      *
      * @param mixed $id
-     * 
+     *
      * @return bool
      */
     public function onceUsingId($id)
