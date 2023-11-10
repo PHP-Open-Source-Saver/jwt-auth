@@ -321,6 +321,16 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Get the token ttl.
+     *
+     * @return int|null
+     */
+    public function getTTL()
+    {
+        return $this->jwt->factory()->getTTL();
+    }
+
+    /**
      * Set the token ttl.
      *
      * @param int|null $ttl

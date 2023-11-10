@@ -261,4 +261,40 @@ class LaravelServiceProviderTest extends TestCase
         $factory = $this->app->make('tymon.jwt.cert');
         $this->assertInstanceOf(JWTGenerateCertCommand::class, $factory);
     }
+
+    public function testGuardHasOwnTTL()
+    {
+        // with custom ttl
+        $this->app['config']->set('auth.guards.custom-ttl-guard', [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'ttl' => 120,
+        ]);
+
+        $customInstance = $this->app['auth']->guard('custom-ttl-guard');
+        $this->assertInstanceOf(JWTGuard::class, $customInstance);
+
+        $this->assertEquals(120, $customInstance->getTTL());
+
+        // with null ttl
+        $this->app['config']->set('auth.guards.null-ttl-guard', [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'ttl' => null,
+        ]);
+
+        $notNullInstance = $this->app['auth']->guard('null-ttl-guard');
+        $this->assertInstanceOf(JWTGuard::class, $notNullInstance);
+
+        $this->assertNull($notNullInstance->getTTL());
+
+        // other guards' ttl should not be affected and should use default global ttl
+        $jwtInstance = $this->app['auth']->guard('jwt');
+        $this->assertInstanceOf(JWTGuard::class, $jwtInstance);
+
+        $this->assertEquals(
+            $this->app['config']->get('jwt.ttl'),
+            $jwtInstance->getTTL(),
+        );
+    }
 }

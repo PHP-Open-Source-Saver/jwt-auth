@@ -209,7 +209,7 @@ class Factory
     /**
      * Helper to get the ttl.
      *
-     * @return int
+     * @return int|null
      */
     public function getTTL()
     {
