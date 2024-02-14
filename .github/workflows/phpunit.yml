@@ -15,25 +15,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4, 8.0, 8.1, 8.2]
-        laravel: [6.*, 7.*, 8.*, 9.*, 10.*]
+        php: [8.0, 8.1, 8.2]
+        laravel: [9.*, 10.*]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         coverage: [none]
         exclude:
-          - laravel: 6.*
-            php: 8.1
-          - laravel: 6.*
-            php: 8.2
-          - laravel: 7.*
-            php: 8.1
-          - laravel: 7.*
-            php: 8.2
-          - laravel: 8.*
-            php: 8.2
-            stability: prefer-lowest
-          - laravel: 9.*
-            php: 7.4
           - laravel: 9.*
             php: 8.2
             stability: prefer-lowest
@@ -42,15 +29,6 @@ jobs:
           - laravel: 10.*
             php: 8.0
         include:
-          - laravel: 6.*
-            dotenv: ^3.3
-
-          - laravel: 7.*
-            dotenv: ^4.0
-
-          - laravel: 8.*
-            dotenv: ^5.2
-
           - laravel: 9.*
             dotenv: ^5.2
 
