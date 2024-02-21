@@ -152,7 +152,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    public function whitespaceProvider()
+    public static function whitespaceProvider()
     {
         return [
             'space' => [' '],
