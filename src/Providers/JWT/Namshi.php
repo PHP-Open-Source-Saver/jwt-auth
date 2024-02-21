@@ -12,15 +12,11 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Providers\JWT;
 
-use Exception;
-use InvalidArgumentException;
 use Namshi\JOSE\JWS;
 use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
-use ReflectionClass;
-use ReflectionException;
 
 class Namshi extends Provider implements JWT
 {
@@ -59,7 +55,7 @@ class Namshi extends Provider implements JWT
             $this->jws->setPayload($payload)->sign($this->getSigningKey(), $this->getPassphrase());
 
             return (string) $this->jws->getTokenString();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -78,7 +74,7 @@ class Namshi extends Provider implements JWT
         try {
             // Let's never allow insecure tokens
             $jws = $this->jws->load($token, false);
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
@@ -89,14 +85,11 @@ class Namshi extends Provider implements JWT
         return (array) $jws->getPayload();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isAsymmetric()
     {
         try {
-            return (new ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);
-        } catch (ReflectionException $e) {
+            return (new \ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);
+        } catch (\ReflectionException $e) {
             throw new JWTException('The given algorithm could not be found', $e->getCode(), $e);
         }
     }

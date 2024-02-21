@@ -12,20 +12,16 @@
 
 namespace PHPOpenSourceSaver\JWTAuth;
 
-use ArrayAccess;
-use BadMethodCallException;
-use Countable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use JsonSerializable;
 use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\PayloadException;
 use PHPOpenSourceSaver\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
+class Payload implements \ArrayAccess, Arrayable, \Countable, Jsonable, \JsonSerializable
 {
     /**
      * The collection of claims.
@@ -92,10 +88,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Get the payload.
-     *
-     * @param mixed $claim
-     *
-     * @return mixed
      */
     public function get($claim = null)
     {
@@ -192,8 +184,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine if an item exists at an offset.
      *
-     * @param mixed $key
-     *
      * @return bool
      */
     #[\ReturnTypeWillChange]
@@ -204,10 +194,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Get an item at a given offset.
-     *
-     * @param mixed $key
-     *
-     * @return mixed
      */
     #[\ReturnTypeWillChange]
     public function offsetGet($key)
@@ -217,9 +203,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Don't allow changing the payload as it should be immutable.
-     *
-     * @param mixed $key
-     * @param mixed $value
      *
      * @throws PayloadException
      */
@@ -257,10 +240,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Invoke the Payload as a callable function.
-     *
-     * @param mixed $claim
-     *
-     * @return mixed
      */
     public function __invoke($claim = null)
     {
@@ -273,9 +252,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * @param string $method
      * @param array  $parameters
      *
-     * @return mixed
-     *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)
     {
@@ -287,6 +264,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
             }
         }
 
-        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', Str::after($method, 'get')));
+        throw new \BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', Str::after($method, 'get')));
     }
 }

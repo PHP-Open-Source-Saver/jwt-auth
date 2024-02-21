@@ -18,14 +18,8 @@ class Expiration extends Claim
 {
     use DatetimeTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     protected $name = 'exp';
 
-    /**
-     * {@inheritdoc}
-     */
     public function validatePayload()
     {
         if ($this->isPast($this->getValue())) {

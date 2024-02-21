@@ -75,7 +75,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -92,7 +92,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-dir)" >> $GITHUB_OUTPUT
 
       - name: Set Minimum PHP 8.0 Versions
         run: composer require phpunit/phpunit:^9.4 --no-interaction --no-progress --no-update
@@ -104,7 +104,7 @@ jobs:
           composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update --dev
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('composer.json') }}
@@ -121,9 +121,9 @@ jobs:
         run: composer test:ci
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v4
         if: matrix.coverage == 'xdebug'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          yml: ./codecov.yml
+          files: ./coverage.xml
+          codecov_yml_path: ./codecov.yml

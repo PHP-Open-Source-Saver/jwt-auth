@@ -187,8 +187,6 @@ class Blacklist
 
     /**
      * Get the unique key held within the blacklist.
-     *
-     * @return mixed
      */
     public function getKey(Payload $payload)
     {

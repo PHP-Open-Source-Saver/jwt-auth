@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test\Middleware;
 
-use Mockery;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
@@ -36,7 +35,7 @@ class AuthenticateTest extends AbstractMiddlewareTest
     /** @test */
     public function itShouldAuthenticateAUser()
     {
-        $parser = Mockery::mock(Parser::class);
+        $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -53,7 +52,7 @@ class AuthenticateTest extends AbstractMiddlewareTest
     {
         $this->expectException(UnauthorizedHttpException::class);
 
-        $parser = Mockery::mock(Parser::class);
+        $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -68,7 +67,7 @@ class AuthenticateTest extends AbstractMiddlewareTest
     {
         $this->expectException(UnauthorizedHttpException::class);
 
-        $parser = Mockery::mock(Parser::class);
+        $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -85,7 +84,7 @@ class AuthenticateTest extends AbstractMiddlewareTest
     {
         $this->expectException(UnauthorizedHttpException::class);
 
-        $parser = Mockery::mock(Parser::class);
+        $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);

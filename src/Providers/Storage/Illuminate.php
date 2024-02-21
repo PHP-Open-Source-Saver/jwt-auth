@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Providers\Storage;
 
-use BadMethodCallException;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Storage;
 use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
@@ -22,7 +21,7 @@ class Illuminate implements Storage
     /**
      * The cache repository contract.
      *
-     * @var \Illuminate\Contracts\Cache\Repository
+     * @var CacheContract
      */
     protected $cache;
 
@@ -57,7 +56,6 @@ class Illuminate implements Storage
      * Add a new item into storage.
      *
      * @param string $key
-     * @param mixed  $value
      * @param int    $minutes
      *
      * @return void
@@ -79,7 +77,6 @@ class Illuminate implements Storage
      * Add a new item into storage forever.
      *
      * @param string $key
-     * @param mixed  $value
      *
      * @return void
      */
@@ -92,8 +89,6 @@ class Illuminate implements Storage
      * Get an item from storage.
      *
      * @param string $key
-     *
-     * @return mixed
      */
     public function get($key)
     {
@@ -125,7 +120,7 @@ class Illuminate implements Storage
     /**
      * Return the cache instance with tags attached.
      *
-     * @return \Illuminate\Contracts\Cache\Repository
+     * @return CacheContract
      */
     protected function cache()
     {
@@ -164,7 +159,7 @@ class Illuminate implements Storage
                 // Attempt the repository tags command, which throws exceptions when unsupported
                 $this->cache->tags($this->tag);
                 $this->supportsTags = true;
-            } catch (BadMethodCallException $ex) {
+            } catch (\BadMethodCallException $ex) {
                 $this->supportsTags = false;
             }
         } else {

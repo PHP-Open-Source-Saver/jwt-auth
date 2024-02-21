@@ -13,7 +13,6 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\Storage;
 
 use Illuminate\Contracts\Cache\Repository;
-use Mockery;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate as Storage;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
@@ -35,7 +34,7 @@ class IlluminateTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->cache = Mockery::mock(Repository::class);
+        $this->cache = \Mockery::mock(Repository::class);
         $this->storage = new Storage($this->cache);
     }
 
@@ -100,7 +99,7 @@ class IlluminateTest extends AbstractTestCase
     {
         $this->storage = new TaggedStorage($this->cache);
 
-        $this->cache->shouldReceive('tags')->with('tymon.jwt')->once()->andReturn(Mockery::self());
+        $this->cache->shouldReceive('tags')->with('tymon.jwt')->once()->andReturn(\Mockery::self());
     }
 
     /** @test */

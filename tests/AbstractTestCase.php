@@ -13,7 +13,6 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Carbon\Carbon;
-use Mockery;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 abstract class AbstractTestCase extends TestCase
@@ -34,7 +33,7 @@ abstract class AbstractTestCase extends TestCase
     public function tearDown(): void
     {
         Carbon::setTestNow();
-        Mockery::close();
+        \Mockery::close();
 
         parent::tearDown();
     }
