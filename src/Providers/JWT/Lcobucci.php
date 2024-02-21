@@ -202,7 +202,11 @@ class Lcobucci extends Provider implements JWT
                 $this->builder->issuedBy($value);
                 break;
             case RegisteredClaims::AUDIENCE:
-                $this->builder->permittedFor($value);
+                if (is_array($value)) {
+                    $this->builder->permittedFor(...$value);
+                } else {
+                    $this->builder->permittedFor($value);
+                }
                 break;
             case RegisteredClaims::SUBJECT:
                 $this->builder->relatedTo($value);

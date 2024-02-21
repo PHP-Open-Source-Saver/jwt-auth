@@ -231,6 +231,48 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame('ES256', $provider->getConfig()->signer()->algorithmId());
     }
 
+    public function testEncodeAudienceClaimString(): void
+    {
+        $payload = [
+            'aud' => 'foo',
+        ];
+
+        $dataSet = new DataSet($payload, 'payload');
+
+        $this->builder->shouldReceive('permittedFor')->once()->andReturnSelf();  // aud
+        $this->builder
+            ->shouldReceive('getToken')
+            ->once()
+            ->with(\Mockery::type(Signer::class), \Mockery::type(Key::class))
+            ->andReturn(new Token\Plain(new DataSet([], 'header'), $dataSet, new Token\Signature('', 'signature')));
+
+        /** @var Token $token */
+        $token = $this->getProvider('secret', 'HS256')->encode($payload);
+
+        $this->assertSame('header.payload.signature', $token);
+    }
+
+    public function testEncodeAudienceClaimArray(): void
+    {
+        $payload = [
+            'aud' => ['foo', 'bar'],
+        ];
+
+        $dataSet = new DataSet($payload, 'payload');
+
+        $this->builder->shouldReceive('permittedFor')->once()->andReturnSelf();  // aud
+        $this->builder
+            ->shouldReceive('getToken')
+            ->once()
+            ->with(\Mockery::type(Signer::class), \Mockery::type(Key::class))
+            ->andReturn(new Token\Plain(new DataSet([], 'header'), $dataSet, new Token\Signature('', 'signature')));
+
+        /** @var Token $token */
+        $token = $this->getProvider('secret', 'HS256')->encode($payload);
+
+        $this->assertSame('header.payload.signature', $token);
+    }
+
     public function getProvider($secret, $algo, array $keys = [])
     {
         $provider = new Lcobucci($secret, $algo, $keys);
