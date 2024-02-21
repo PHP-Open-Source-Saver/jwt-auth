@@ -179,7 +179,7 @@ class BlacklistTest extends AbstractTestCase
         $this->assertTrue($this->blacklist->has($payload));
     }
 
-    public function blacklist_provider()
+    public static function blacklist_provider()
     {
         return [
             [null],
