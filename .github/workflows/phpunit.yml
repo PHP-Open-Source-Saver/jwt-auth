@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [7.4, 8.0, 8.1, 8.2]
-        laravel: [6.*, 7.*, 8.*, 9.*, 10.*]
+        laravel: [6.*, 7.*, 8.*, 9.*, 10.*, 11.*]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         coverage: [none]
@@ -41,6 +41,12 @@ jobs:
             php: 7.4
           - laravel: 10.*
             php: 8.0
+          - laravel: 11.*
+            php: 7.4
+          - laravel: 11.*
+            php: 8.0
+          - laravel: 11.*
+            php: 8.1
         include:
           - laravel: 6.*
             dotenv: ^3.3
@@ -55,6 +61,9 @@ jobs:
             dotenv: ^5.2
 
           - laravel: 10.*
+            dotenv: ^5.4.1
+
+          - laravel: 11.*
             dotenv: ^5.4.1
 
           - php: 8.0
@@ -94,9 +103,18 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-dir)" >> $GITHUB_OUTPUT
 
-      - name: Set Minimum PHP 8.0 Versions
+      - name: Set phpunit for PHP >= 8 but Laravel < 11
         run: composer require phpunit/phpunit:^9.4 --no-interaction --no-progress --no-update
-        if: matrix.php >= 8
+        if: matrix.php >= 8 || matrix.laravel != '11.*'
+
+      - name: Set phpunit for Laravel >= 11
+        run: composer require phpunit/phpunit:^10 --no-interaction --no-progress --no-update
+        if: matrix.laravel == '11.*'
+
+      # Packages which are not striclty required for testing but could cause
+      # conflicts with other packages
+      - name: Remove packages not necessary
+        run: composer remove --dev rector/rector --no-interaction --no-progress --no-update
 
       - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
         run: |
