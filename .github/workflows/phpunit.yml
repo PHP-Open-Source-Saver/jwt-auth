@@ -104,7 +104,7 @@ jobs:
           composer require "vlucas/phpdotenv:${{ matrix.dotenv }}" --no-interaction --no-progress --no-update --dev
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('composer.json') }}
