@@ -121,9 +121,9 @@ jobs:
         run: composer test:ci
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v4
         if: matrix.coverage == 'xdebug'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          yml: ./codecov.yml
+          files: ./coverage.xml
+          codecov_yml_path: ./codecov.yml
