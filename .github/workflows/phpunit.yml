@@ -91,7 +91,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring json openssl
-          coverage: ${{ matrix.coverage }}
+          coverage: xdebug
           ini-values: memory_limit=-1
 
       - name: Setup Problem Matchers
