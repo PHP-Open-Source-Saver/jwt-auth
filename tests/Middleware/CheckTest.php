@@ -17,7 +17,7 @@ use PHPOpenSourceSaver\JWTAuth\Http\Middleware\Check;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
 
-class CheckTest extends AbstractMiddlewareTest
+class CheckTest extends AbstractMiddleware
 {
     /**
      * @var Check

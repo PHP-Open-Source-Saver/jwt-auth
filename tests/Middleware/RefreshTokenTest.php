@@ -18,7 +18,7 @@ use PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class RefreshTokenTest extends AbstractMiddlewareTest
+class RefreshTokenTest extends AbstractMiddleware
 {
     /**
      * @var RefreshToken

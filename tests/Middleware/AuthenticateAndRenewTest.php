@@ -20,7 +20,7 @@ use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class AuthenticateAndRenewTest extends AbstractMiddlewareTest
+class AuthenticateAndRenewTest extends AbstractMiddleware
 {
     /**
      * @var Authenticate|AuthenticateAndRenew
