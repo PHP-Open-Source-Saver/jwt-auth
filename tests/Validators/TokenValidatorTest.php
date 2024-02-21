@@ -38,6 +38,7 @@ class TokenValidatorTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
      *
      * @param string $token
@@ -49,6 +50,7 @@ class TokenValidatorTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
      */
     public function itShouldThrowAnExceptionWhenProvidingAMalformedToken($token)
@@ -61,6 +63,7 @@ class TokenValidatorTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
      */
     public function itShouldReturnFalseWhenProvidingATokenWithWrongSegmentsNumber($token)
@@ -70,6 +73,7 @@ class TokenValidatorTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider \PHPOpenSourceSaver\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
      */
     public function itShouldThrowAnExceptionWhenProvidingAMalformedTokenWithWrongSegmentsNumber($token)

@@ -13,11 +13,6 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test\Claims;
 
 use Carbon\Carbon;
-use DateInterval;
-use DateTime;
-use DateTimeImmutable;
-use DateTimeInterface;
-use Mockery;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Expiration;
@@ -44,7 +39,7 @@ class DatetimeClaimTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->validator = \Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
 
         $this->claimsTimestamp = [
@@ -66,8 +61,8 @@ class DatetimeClaimTest extends AbstractTestCase
         $testCarbonCopy = clone $testCarbon;
 
         $this->assertInstanceOf(Carbon::class, $testCarbon);
-        $this->assertInstanceOf(Datetime::class, $testCarbon);
-        $this->assertInstanceOf(DatetimeInterface::class, $testCarbon);
+        $this->assertInstanceOf(\DateTime::class, $testCarbon);
+        $this->assertInstanceOf(\DateTimeInterface::class, $testCarbon);
 
         $claimsDatetime = [
             'sub' => new Subject(1),
@@ -87,11 +82,11 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function itShouldHandleDatetimeClaims()
     {
-        $testDateTime = DateTime::createFromFormat('U', $this->testNowTimestamp);
+        $testDateTime = \DateTime::createFromFormat('U', $this->testNowTimestamp);
         $testDateTimeCopy = clone $testDateTime;
 
-        $this->assertInstanceOf(DateTime::class, $testDateTime);
-        $this->assertInstanceOf(DatetimeInterface::class, $testDateTime);
+        $this->assertInstanceOf(\DateTime::class, $testDateTime);
+        $this->assertInstanceOf(\DateTimeInterface::class, $testDateTime);
 
         $claimsDatetime = [
             'sub' => new Subject(1),
@@ -111,10 +106,10 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function itShouldHandleDatetimeImmutableClaims()
     {
-        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
+        $testDateTimeImmutable = \DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $testDateTimeImmutable);
-        $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);
+        $this->assertInstanceOf(\DateTimeImmutable::class, $testDateTimeImmutable);
+        $this->assertInstanceOf(\DateTimeInterface::class, $testDateTimeImmutable);
 
         $claimsDatetime = [
             'sub' => new Subject(1),
@@ -136,9 +131,9 @@ class DatetimeClaimTest extends AbstractTestCase
      */
     public function itShouldHandleDatetintervalClaims()
     {
-        $testDateInterval = new DateInterval('PT1H');
+        $testDateInterval = new \DateInterval('PT1H');
 
-        $this->assertInstanceOf(DateInterval::class, $testDateInterval);
+        $this->assertInstanceOf(\DateInterval::class, $testDateInterval);
 
         $claimsDateInterval = [
             'sub' => new Subject(1),

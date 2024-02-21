@@ -14,8 +14,5 @@ namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 class Issuer extends Claim
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $name = 'iss';
 }

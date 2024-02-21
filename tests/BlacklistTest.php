@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
-use Mockery;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -38,9 +37,9 @@ class BlacklistTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->storage = Mockery::mock(Storage::class);
+        $this->storage = \Mockery::mock(Storage::class);
         $this->blacklist = new Blacklist($this->storage);
-        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->validator = \Mockery::mock(PayloadValidator::class);
     }
 
     /** @test */
@@ -193,9 +192,8 @@ class BlacklistTest extends AbstractTestCase
 
     /**
      * @test
-     * @dataProvider blacklist_provider
      *
-     * @param mixed $result
+     * @dataProvider blacklist_provider
      */
     public function itShouldCheckWhetherATokenHasNotBeenBlacklisted($result)
     {

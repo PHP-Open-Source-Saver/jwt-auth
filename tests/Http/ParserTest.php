@@ -16,7 +16,6 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
-use Mockery;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Http\Parser as ParserContract;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\AuthHeaders;
@@ -132,6 +131,7 @@ class ParserTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider whitespaceProvider
      */
     public function itShouldHandleExcessWhitespaceFromTheAuthorizationHeader($whitespace)
@@ -360,7 +360,7 @@ class ParserTest extends AbstractTestCase
 
     protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
     {
-        return Mockery::mock(Route::class)
+        return \Mockery::mock(Route::class)
             ->shouldReceive('parameter')
             ->with($expectedParameterName)
             ->andReturn($expectedParameterValue)
@@ -468,7 +468,7 @@ class ParserTest extends AbstractTestCase
             new RouteParams(),
         ];
 
-        $parser = new Parser(Mockery::mock(Request::class));
+        $parser = new Parser(\Mockery::mock(Request::class));
         $parser->setChain($chain);
 
         $this->assertSame($parser->getChain(), $chain);
@@ -485,7 +485,7 @@ class ParserTest extends AbstractTestCase
         ];
 
         /* @var Request $request */
-        $request = Mockery::mock(Request::class);
+        $request = \Mockery::mock(Request::class);
 
         $parser = new Parser($request);
         $parser->setChainOrder($chain);
@@ -505,7 +505,7 @@ class ParserTest extends AbstractTestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
 
-        $customParser = Mockery::mock(ParserContract::class);
+        $customParser = \Mockery::mock(ParserContract::class);
         $customParser->shouldReceive('parse')->with($request)->andReturn('foobar');
 
         $parser = new Parser($request);
@@ -520,10 +520,10 @@ class ParserTest extends AbstractTestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
 
-        $customParser1 = Mockery::mock(ParserContract::class);
+        $customParser1 = \Mockery::mock(ParserContract::class);
         $customParser1->shouldReceive('parse')->with($request)->andReturn(false);
 
-        $customParser2 = Mockery::mock(ParserContract::class);
+        $customParser2 = \Mockery::mock(ParserContract::class);
         $customParser2->shouldReceive('parse')->with($request)->andReturn('foobar');
 
         $parser = new Parser($request);

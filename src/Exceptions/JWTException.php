@@ -12,12 +12,7 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Exceptions;
 
-use Exception;
-
-class JWTException extends Exception
+class JWTException extends \Exception
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $message = 'An error occurred';
 }

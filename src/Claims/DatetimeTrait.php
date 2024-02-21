@@ -12,8 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
-use DateInterval;
-use DateTimeInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Support\Utils;
 
@@ -29,28 +27,23 @@ trait DatetimeTrait
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param mixed $value
+     * @return $this
      *
      * @throws InvalidClaimException
-     *
-     * @return $this
      */
     public function setValue($value)
     {
-        if ($value instanceof DateInterval) {
+        if ($value instanceof \DateInterval) {
             $value = Utils::now()->add($value);
         }
 
-        if ($value instanceof DateTimeInterface) {
+        if ($value instanceof \DateTimeInterface) {
             $value = $value->getTimestamp();
         }
 
         return parent::setValue($value);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validateCreate($value)
     {
         if (!is_numeric($value)) {
@@ -63,8 +56,6 @@ trait DatetimeTrait
     /**
      * Determine whether the value is in the future.
      *
-     * @param mixed $value
-     *
      * @return bool
      */
     protected function isFuture($value)
@@ -74,8 +65,6 @@ trait DatetimeTrait
 
     /**
      * Determine whether the value is in the past.
-     *
-     * @param mixed $value
      *
      * @return bool
      */

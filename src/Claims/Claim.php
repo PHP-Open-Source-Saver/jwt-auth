@@ -14,11 +14,10 @@ namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use JsonSerializable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Claim as ClaimContract;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
+abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSerializable
 {
     /**
      * The claim name.
@@ -29,14 +28,10 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * The claim value.
-     *
-     * @var mixed
      */
     private $value;
 
     /**
-     * @param mixed $value
-     *
      * @return void
      *
      * @throws InvalidClaimException
@@ -49,11 +44,9 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param mixed $value
+     * @return $this
      *
      * @throws InvalidClaimException
-     *
-     * @return $this
      */
     public function setValue($value)
     {
@@ -64,8 +57,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Get the claim value.
-     *
-     * @return mixed
      */
     public function getValue()
     {
@@ -99,8 +90,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Validate the claim in a standalone Claim context.
      *
-     * @param mixed $value
-     *
      * @return bool
      */
     public function validateCreate($value)
@@ -133,8 +122,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Checks if the value matches the claim.
      *
-     * @param mixed $value
-     * @param bool  $strict
+     * @param bool $strict
      *
      * @return bool
      */

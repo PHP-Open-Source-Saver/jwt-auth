@@ -47,8 +47,6 @@ class Illuminate implements Auth
     /**
      * Authenticate a user via the id.
      *
-     * @param mixed $id
-     *
      * @return bool
      */
     public function byId($id)
@@ -58,8 +56,6 @@ class Illuminate implements Auth
 
     /**
      * Get the currently authenticated user.
-     *
-     * @return mixed
      */
     public function user()
     {

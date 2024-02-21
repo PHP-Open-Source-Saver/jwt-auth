@@ -12,8 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Http\Middleware;
 
-use Closure;
-use Exception;
 use Illuminate\Http\Request;
 
 class Check extends BaseMiddleware
@@ -22,15 +20,13 @@ class Check extends BaseMiddleware
      * Handle an incoming request.
      *
      * @param Request $request
-     *
-     * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, \Closure $next)
     {
         if ($this->auth->parser()->setRequest($request)->hasToken()) {
             try {
                 $this->auth->parseToken()->authenticate();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
             }
         }
 

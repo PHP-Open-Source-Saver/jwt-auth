@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth;
 
-use BadMethodCallException;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
@@ -208,8 +207,6 @@ class JWT
      * Convenience method to get a claim value.
      *
      * @param string $claim
-     *
-     * @return mixed
      */
     public function getClaim($claim)
     {
@@ -392,9 +389,7 @@ class JWT
      * @param string $method
      * @param array  $parameters
      *
-     * @return mixed
-     *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)
     {
@@ -402,6 +397,6 @@ class JWT
             return call_user_func_array([$this->manager, $method], $parameters);
         }
 
-        throw new BadMethodCallException("Method [$method] does not exist.");
+        throw new \BadMethodCallException("Method [$method] does not exist.");
     }
 }

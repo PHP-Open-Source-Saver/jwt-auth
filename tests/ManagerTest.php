@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
-use Mockery;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -48,11 +47,11 @@ class ManagerTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->jwt = Mockery::mock(JWT::class);
-        $this->blacklist = Mockery::mock(Blacklist::class);
-        $this->factory = Mockery::mock(Factory::class);
+        $this->jwt = \Mockery::mock(JWT::class);
+        $this->blacklist = \Mockery::mock(Blacklist::class);
+        $this->factory = \Mockery::mock(Factory::class);
         $this->manager = new Manager($this->jwt, $this->blacklist, $this->factory);
-        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->validator = \Mockery::mock(PayloadValidator::class);
     }
 
     /** @test
