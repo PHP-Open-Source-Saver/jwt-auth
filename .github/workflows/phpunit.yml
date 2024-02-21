@@ -92,7 +92,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-dir)" >> $GITHUB_OUTPUT
 
       - name: Set Minimum PHP 8.0 Versions
         run: composer require phpunit/phpunit:^9.4 --no-interaction --no-progress --no-update
