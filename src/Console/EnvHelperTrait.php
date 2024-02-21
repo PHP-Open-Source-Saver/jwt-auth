@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Console;
 
-use Closure;
 use Illuminate\Support\Str;
 
 trait EnvHelperTrait
@@ -30,7 +29,7 @@ trait EnvHelperTrait
      *
      * @param string|int $value
      */
-    public function updateEnvEntry(string $key, $value, Closure $confirmOnExisting = null): bool
+    public function updateEnvEntry(string $key, $value, ?\Closure $confirmOnExisting = null): bool
     {
         $filepath = $this->envPath();
 

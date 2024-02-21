@@ -12,7 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
-use Mockery;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Custom;
@@ -40,8 +39,8 @@ class FactoryTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->claimFactory = Mockery::mock(ClaimFactory::class);
-        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->claimFactory = \Mockery::mock(ClaimFactory::class);
+        $this->validator = \Mockery::mock(PayloadValidator::class);
         $this->factory = new Factory($this->claimFactory, $this->validator);
     }
 

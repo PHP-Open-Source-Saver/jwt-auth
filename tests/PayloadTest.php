@@ -12,8 +12,6 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
-use BadMethodCallException;
-use Mockery;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Claims\Audience;
 use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
@@ -67,7 +65,7 @@ class PayloadTest extends AbstractTestCase
 
         $collection = Collection::make($claims);
 
-        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->validator = \Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
 
         return new Payload($collection, $this->validator);
@@ -169,7 +167,7 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function itShouldThrowAnExceptionWhenMagicallyGettingAPropertyThatDoesNotExist()
     {
-        $this->expectException(BadMethodCallException::class);
+        $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('The claim [Foo] does not exist on the payload');
 
         $this->payload->getFoo();

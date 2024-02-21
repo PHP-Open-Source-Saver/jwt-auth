@@ -94,7 +94,7 @@ class Manager
      *
      * @return Payload
      *
-     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException
+     * @throws TokenBlacklistedException
      */
     public function decode(Token $token, $checkBlacklist = true)
     {
@@ -106,10 +106,10 @@ class Manager
             ->make();
 
         if (
-            $checkBlacklist &&
-            $this->blacklistEnabled &&
-            $this->getBlackListExceptionEnabled() &&
-            $this->blacklist->has($payload)
+            $checkBlacklist
+            && $this->blacklistEnabled
+            && $this->getBlackListExceptionEnabled()
+            && $this->blacklist->has($payload)
         ) {
             throw new TokenBlacklistedException('The token has been blacklisted');
         }

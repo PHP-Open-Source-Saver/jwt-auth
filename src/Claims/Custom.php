@@ -18,7 +18,6 @@ class Custom extends Claim
 {
     /**
      * @param string $name
-     * @param mixed  $value
      *
      * @return void
      *

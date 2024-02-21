@@ -14,8 +14,5 @@ namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 class JwtId extends Claim
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $name = 'jti';
 }

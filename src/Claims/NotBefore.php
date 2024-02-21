@@ -18,14 +18,9 @@ class NotBefore extends Claim
 {
     use DatetimeTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     protected $name = 'nbf';
 
     /**
-     * {@inheritdoc}
-     *
      * @throws TokenInvalidException
      */
     public function validatePayload()

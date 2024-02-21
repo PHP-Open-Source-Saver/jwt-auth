@@ -23,9 +23,6 @@ use PHPOpenSourceSaver\JWTAuth\Http\Parser\RouteParams;
 
 class LaravelServiceProvider extends AbstractServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     public function boot()
     {
         $path = realpath(__DIR__.'/../../config/config.php');
@@ -55,9 +52,6 @@ class LaravelServiceProvider extends AbstractServiceProvider
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function registerStorageProvider()
     {
         $this->app->singleton('tymon.jwt.provider.storage', function ($app) {

@@ -13,7 +13,6 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test\Providers\Auth;
 
 use Illuminate\Contracts\Auth\Guard;
-use Mockery;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate as Auth;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
@@ -34,7 +33,7 @@ class IlluminateTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->authManager = Mockery::mock(Guard::class);
+        $this->authManager = \Mockery::mock(Guard::class);
         $this->auth = new Auth($this->authManager);
     }
 

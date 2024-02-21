@@ -16,8 +16,5 @@ use PHPOpenSourceSaver\JWTAuth\Claims\Claim;
 
 class Foo extends Claim
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $name = 'foo';
 }

@@ -116,7 +116,6 @@ class Factory
      * Add a claim to the Payload.
      *
      * @param string $name
-     * @param mixed  $value
      *
      * @return $this
      */

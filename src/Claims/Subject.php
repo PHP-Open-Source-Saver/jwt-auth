@@ -14,8 +14,5 @@ namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 class Subject extends Claim
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $name = 'sub';
 }
