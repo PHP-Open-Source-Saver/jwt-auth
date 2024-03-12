@@ -18,7 +18,7 @@ use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use PHPOpenSourceSaver\JWTAuth\Test\Stubs\UserStub;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class AuthenticateTest extends AbstractMiddlewareTest
+class AuthenticateTest extends AbstractMiddleware
 {
     /**
      * @var Authenticate

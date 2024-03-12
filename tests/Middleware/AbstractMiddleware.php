@@ -17,7 +17,7 @@ use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
-abstract class AbstractMiddlewareTest extends AbstractTestCase
+abstract class AbstractMiddleware extends AbstractTestCase
 {
     /**
      * @var MockInterface|JWTAuth
