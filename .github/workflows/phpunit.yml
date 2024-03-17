@@ -111,11 +111,6 @@ jobs:
         run: composer require phpunit/phpunit:^10 --no-interaction --no-progress --no-update
         if: matrix.laravel == '11.*'
 
-      # Packages which are not striclty required for testing but could cause
-      # conflicts with other packages
-      - name: Remove packages not necessary
-        run: composer remove --dev rector/rector --no-interaction --no-progress --no-update
-
       - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
