@@ -41,7 +41,7 @@
         "illuminate/support": "^6|^7|^8.67|^9|^10|^11",
         "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
-        "nesbot/carbon": "^1.0|^2.0"
+        "nesbot/carbon": "^2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3",
