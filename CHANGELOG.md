@@ -11,6 +11,9 @@ You can find and compare releases at the GitHub release page.
 ### Added
 - Support for Carbon 3 (and drop Carbon 1, but it was unused anyway)
 
+### Removed
+- Dropped support for Laravel < 10 and PHP < 8.1
+
 ## [2.2.0] 2024-03-12
 
 ### Added
