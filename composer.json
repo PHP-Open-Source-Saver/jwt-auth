@@ -50,8 +50,7 @@
         "orchestra/testbench": "^8|^9",
         "mockery/mockery": "^1.4.4",
         "phpstan/phpstan": "^1",
-        "phpunit/phpunit": "^9.4|^10",
-        "yoast/phpunit-polyfills": "^2.0.0"
+        "phpunit/phpunit": "^9.4|^10"
     },
     "autoload": {
         "psr-4": {
