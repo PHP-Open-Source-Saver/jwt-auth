@@ -51,7 +51,6 @@
         "mockery/mockery": "^1.4.4",
         "phpstan/phpstan": "^1",
         "phpunit/phpunit": "^9.4|^10",
-        "vlucas/phpdotenv": "^5.2.0",
         "yoast/phpunit-polyfills": "^2.0.0"
     },
     "autoload": {
