@@ -71,6 +71,11 @@ parameters:
 			path: tests/Stubs/LaravelUserStub.php
 
 		-
+			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getAuthPasswordName\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: tests/Stubs/LaravelUserStub.php
+
+		-
 			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Test\\\\Stubs\\\\LaravelUserStub\\:\\:getRememberToken\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: tests/Stubs/LaravelUserStub.php
