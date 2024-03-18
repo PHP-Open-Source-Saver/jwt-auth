@@ -17,7 +17,7 @@ This uses different namespace, then `tymondesigns/jwt-auth`, but overall, provid
 
 ### Notes
 
-Due to new features, added in our library, there are some incompatibilities. _This won't hurt you in most cases_, unless you have [implicitly disabled autodiscovery](https://laravel.com/docs/8.x/packages#opting-out-of-package-discovery) for original Tymon's package.
+Due to new features, added in our library, there are some incompatibilities. _This won't hurt you in most cases_, unless you have [implicitly disabled autodiscovery](https://laravel.com/docs/11.x/packages#opting-out-of-package-discovery) for original Tymon's package.
 
 Current compatability breaks:
 - [`JWTGuard`](src/JWTGuard.php) have new required constructor parameter [`$eventDispatcher`](src/Providers/AbstractServiceProvider.php#L97) 
