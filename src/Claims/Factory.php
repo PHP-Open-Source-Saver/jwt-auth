@@ -199,7 +199,7 @@ class Factory
      */
     public function setTTL($ttl)
     {
-        $this->ttl = $ttl;
+        $this->ttl = $ttl ? (int) $ttl : $ttl;
 
         return $this;
     }
