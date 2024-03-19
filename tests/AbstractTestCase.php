@@ -13,7 +13,7 @@
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
 use Carbon\Carbon;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
