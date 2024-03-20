@@ -41,7 +41,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring json openssl
-          coverage: xdebug
+          coverage: ${{ matrix.coverage }}
           ini-values: memory_limit=-1
 
       - name: Setup Problem Matchers
@@ -71,7 +71,12 @@ jobs:
       - name: Install dependencies
         run: composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
-      - name: Execute tests
+      - name: Execute tests (without coverage)
+        if: matrix.coverage != 'xdebug'
+        run: composer test -- --no-coverage
+
+      - name: Execute tests (with coverage)
+        if: matrix.coverage == 'xdebug'
         run: composer test:ci
 
       - name: Upload coverage
