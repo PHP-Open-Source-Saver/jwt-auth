@@ -35,28 +35,24 @@ class FactoryTest extends AbstractTestCase
         $this->factory = new Factory(Request::create('/foo', 'GET'));
     }
 
-    /** @test */
-    public function itShouldSetTheRequest()
+    public function testItShouldSetTheRequest()
     {
         $factory = $this->factory->setRequest(Request::create('/bar', 'GET'));
         $this->assertInstanceOf(Factory::class, $factory);
     }
 
-    /** @test */
-    public function itShouldSetTheTtl()
+    public function testItShouldSetTheTtl()
     {
         $this->assertInstanceOf(Factory::class, $this->factory->setTTL(30));
     }
 
-    /** @test */
-    public function itShouldGetTheTtl()
+    public function testItShouldGetTheTtl()
     {
         $this->factory->setTTL($ttl = 30);
         $this->assertSame($ttl, $this->factory->getTTL());
     }
 
-    /** @test */
-    public function itShouldGetADefinedClaimInstanceWhenPassingANameAndValue()
+    public function testItShouldGetADefinedClaimInstanceWhenPassingANameAndValue()
     {
         $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));
         $this->assertInstanceOf(Issuer::class, $this->factory->get('iss', 'http://example.com'));
@@ -66,14 +62,12 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(JwtId::class, $this->factory->get('jti', 'foo'));
     }
 
-    /** @test */
-    public function itShouldGetACustomClaimInstanceWhenPassingANonDefinedNameAndValue()
+    public function testItShouldGetACustomClaimInstanceWhenPassingANonDefinedNameAndValue()
     {
         $this->assertInstanceOf(Custom::class, $this->factory->get('foo', ['bar']));
     }
 
-    /** @test */
-    public function itShouldMakeAClaimInstanceWithAValue()
+    public function testItShouldMakeAClaimInstanceWithAValue()
     {
         $iat = $this->factory->make('iat');
         $this->assertSame($iat->getValue(), $this->testNowTimestamp);
@@ -95,8 +89,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(JwtId::class, $jti);
     }
 
-    /** @test */
-    public function itShouldExtendClaimFactoryToAddACustomClaim()
+    public function testItShouldExtendClaimFactoryToAddACustomClaim()
     {
         $this->factory->extend('foo', Foo::class);
 

@@ -23,16 +23,14 @@ class ProviderEmptySecretTest extends AbstractTestCase
      */
     protected $provider;
 
-    /** @test */
-    public function asymmetricNoSecret()
+    public function testAsymmetricNoSecret()
     {
         $this->provider = new JWTProviderStub(null, 'RS256', ['public' => '123', 'private' => '456']);
 
         $this->assertSame(null, $this->provider->getSecret());
     }
 
-    /** @test */
-    public function asymmetricPublicMissing()
+    public function testAsymmetricPublicMissing()
     {
         $this->expectException(SecretMissingException::class);
         $this->provider = new JWTProviderStub(null, 'RS256', ['public' => null, 'private' => '456']);
@@ -40,8 +38,7 @@ class ProviderEmptySecretTest extends AbstractTestCase
         $this->assertSame(null, $this->provider->getSecret());
     }
 
-    /** @test */
-    public function asymmetricPrivateMissing()
+    public function testAsymmetricPrivateMissing()
     {
         $this->expectException(SecretMissingException::class);
         $this->provider = new JWTProviderStub(null, 'RS256', ['public' => '123', 'private' => null]);
@@ -49,8 +46,7 @@ class ProviderEmptySecretTest extends AbstractTestCase
         $this->assertSame(null, $this->provider->getSecret());
     }
 
-    /** @test */
-    public function symmetricKeyMissing()
+    public function testSymmetricKeyMissing()
     {
         $this->expectException(SecretMissingException::class);
         $this->provider = new JWTProviderStub(null, 'RS256', ['public' => null, 'private' => null]);

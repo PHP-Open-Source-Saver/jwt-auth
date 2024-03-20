@@ -37,11 +37,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldReturnTrueWhenProvidingAValidPayload()
+    public function testItShouldReturnTrueWhenProvidingAValidPayload()
     {
         $claims = [
             new Subject(1),
@@ -58,11 +56,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldThrowAnExceptionWhenProvidingAnExpiredPayload()
+    public function testItShouldThrowAnExceptionWhenProvidingAnExpiredPayload()
     {
         $this->expectException(TokenExpiredException::class);
         $this->expectExceptionMessage('Token has expired');
@@ -82,11 +78,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldThrowAnExceptionWhenProvidingAnInvalidNbfClaim()
+    public function testItShouldThrowAnExceptionWhenProvidingAnInvalidNbfClaim()
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Not Before (nbf) timestamp cannot be in the future');
@@ -105,8 +99,7 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /** @test */
-    public function itShouldThrowAnExceptionWhenProvidingAnInvalidIatClaim()
+    public function testItShouldThrowAnExceptionWhenProvidingAnInvalidIatClaim()
     {
         $this->expectException(InvalidClaimException::class);
         $this->expectExceptionMessage('Invalid value provided for claim [iat]');
@@ -126,11 +119,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldThrowAnExceptionWhenProvidingAnInvalidPayload()
+    public function testItShouldThrowAnExceptionWhenProvidingAnInvalidPayload()
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('JWT payload does not contain the required claims');
@@ -145,8 +136,7 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /** @test */
-    public function itShouldThrowAnExceptionWhenProvidingAnInvalidExpiry()
+    public function testItShouldThrowAnExceptionWhenProvidingAnInvalidExpiry()
     {
         $this->expectException(InvalidClaimException::class);
         $this->expectExceptionMessage('Invalid value provided for claim [exp]');
@@ -166,11 +156,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldSetTheRequiredClaims()
+    public function testItShouldSetTheRequiredClaims()
     {
         $claims = [
             new Subject(1),
@@ -183,11 +171,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldCheckTheTokenInTheRefreshContext()
+    public function testItShouldCheckTheTokenInTheRefreshContext()
     {
         $claims = [
             new Subject(1),
@@ -206,11 +192,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldReturnTrueIfTheRefreshTtlIsNull()
+    public function testItShouldReturnTrueIfTheRefreshTtlIsNull()
     {
         $claims = [
             new Subject(1),
@@ -229,11 +213,9 @@ class PayloadValidatorTest extends AbstractTestCase
     }
 
     /**
-     * @test
-     *
      * @throws InvalidClaimException
      */
-    public function itShouldThrowAnExceptionIfTheTokenCannotBeRefreshed()
+    public function testItShouldThrowAnExceptionIfTheTokenCannotBeRefreshed()
     {
         $this->expectException(TokenExpiredException::class);
         $this->expectExceptionMessage('Token has expired and can no longer be refreshed');

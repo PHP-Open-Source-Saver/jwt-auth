@@ -52,10 +52,10 @@ class DatetimeClaimTest extends AbstractTestCase
         ];
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldHandleCarbonClaims()
+    public function testItShouldHandleCarbonClaims()
     {
         $testCarbon = Carbon::createFromTimestampUTC($this->testNowTimestamp);
         $testCarbonCopy = clone $testCarbon;
@@ -79,8 +79,7 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
 
-    /** @test */
-    public function itShouldHandleDatetimeClaims()
+    public function testItShouldHandleDatetimeClaims()
     {
         $testDateTime = \DateTime::createFromFormat('U', $this->testNowTimestamp);
         $testDateTimeCopy = clone $testDateTime;
@@ -103,8 +102,7 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
 
-    /** @test */
-    public function itShouldHandleDatetimeImmutableClaims()
+    public function testItShouldHandleDatetimeImmutableClaims()
     {
         $testDateTimeImmutable = \DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
 
@@ -126,10 +124,10 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldHandleDatetintervalClaims()
+    public function testItShouldHandleDatetintervalClaims()
     {
         $testDateInterval = new \DateInterval('PT1H');
 

@@ -32,8 +32,7 @@ class AuthenticateTest extends AbstractMiddleware
         $this->middleware = new Authenticate($this->auth);
     }
 
-    /** @test */
-    public function itShouldAuthenticateAUser()
+    public function testItShouldAuthenticateAUser()
     {
         $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
@@ -47,8 +46,7 @@ class AuthenticateTest extends AbstractMiddleware
         });
     }
 
-    /** @test */
-    public function itShouldThrowAnUnauthorizedExceptionIfTokenNotProvided()
+    public function testItShouldThrowAnUnauthorizedExceptionIfTokenNotProvided()
     {
         $this->expectException(UnauthorizedHttpException::class);
 
@@ -62,8 +60,7 @@ class AuthenticateTest extends AbstractMiddleware
         });
     }
 
-    /** @test */
-    public function itShouldThrowAnUnauthorizedExceptionIfTokenInvalid()
+    public function testItShouldThrowAnUnauthorizedExceptionIfTokenInvalid()
     {
         $this->expectException(UnauthorizedHttpException::class);
 
@@ -79,8 +76,7 @@ class AuthenticateTest extends AbstractMiddleware
         });
     }
 
-    /** @test */
-    public function itShouldThrowAnUnauthorizedExceptionIfUserNotFound()
+    public function testItShouldThrowAnUnauthorizedExceptionIfUserNotFound()
     {
         $this->expectException(UnauthorizedHttpException::class);
 

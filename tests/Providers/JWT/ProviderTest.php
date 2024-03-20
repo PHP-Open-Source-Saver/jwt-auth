@@ -29,16 +29,14 @@ class ProviderTest extends AbstractTestCase
         $this->provider = new JWTProviderStub('secret', 'HS256', []);
     }
 
-    /** @test */
-    public function itShouldSetTheAlgo()
+    public function testItShouldSetTheAlgo()
     {
         $this->provider->setAlgo('HS512');
 
         $this->assertSame('HS512', $this->provider->getAlgo());
     }
 
-    /** @test */
-    public function itShouldSetTheSecret()
+    public function testItShouldSetTheSecret()
     {
         $this->provider->setSecret('foo');
 

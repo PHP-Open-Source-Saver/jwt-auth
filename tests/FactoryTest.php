@@ -44,8 +44,7 @@ class FactoryTest extends AbstractTestCase
         $this->factory = new Factory($this->claimFactory, $this->validator);
     }
 
-    /** @test */
-    public function itShouldReturnAPayloadWhenPassingAnArrayOfClaims()
+    public function testItShouldReturnAPayloadWhenPassingAnArrayOfClaims()
     {
         $expTime = $this->testNowTimestamp + 3600;
 
@@ -85,10 +84,10 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldReturnAPayloadWhenChainingClaimMethods()
+    public function testItShouldReturnAPayloadWhenChainingClaimMethods()
     {
         $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->twice()->with('foo', 'baz')->andReturn(new Custom('foo', 'baz'));
@@ -116,10 +115,10 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldReturnAPayloadWhenPassingMiltidimensionalArrayAsCustomClaimToMakeMethod()
+    public function testItShouldReturnAPayloadWhenPassingMiltidimensionalArrayAsCustomClaimToMakeMethod()
     {
         // these are added from default claims
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
@@ -150,10 +149,10 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldExcludeTheExpClaimWhenSettingTtlToNull()
+    public function testItShouldExcludeTheExpClaimWhenSettingTtlToNull()
     {
         // these are added from default claims
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
@@ -180,8 +179,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Payload::class, $payload);
     }
 
-    /** @test */
-    public function itShouldExcludeClaimsFromPreviousPayloads()
+    public function testItShouldExcludeClaimsFromPreviousPayloads()
     {
         $validator = new PayloadValidator();
         $factory = new Factory($this->claimFactory, $validator);
@@ -209,18 +207,17 @@ class FactoryTest extends AbstractTestCase
         $this->assertFalse($payload->hasKey('baz'));
     }
 
-    /** @test */
-    public function itShouldSetTheDefaultClaims()
+    public function testItShouldSetTheDefaultClaims()
     {
         $this->factory->setDefaultClaims(['sub', 'iat']);
 
         $this->assertSame($this->factory->getDefaultClaims(), ['sub', 'iat']);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldGetPayloadWithAPredefinedCollectionOfClaims()
+    public function testItShouldGetPayloadWithAPredefinedCollectionOfClaims()
     {
         $claims = [
             new Subject(1),
@@ -240,8 +237,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($payload->get('sub'), 1);
     }
 
-    /** @test */
-    public function itShouldGetTheValidator()
+    public function testItShouldGetTheValidator()
     {
         $this->assertInstanceOf(PayloadValidator::class, $this->factory->validator());
     }

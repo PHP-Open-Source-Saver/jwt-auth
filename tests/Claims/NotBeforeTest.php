@@ -18,8 +18,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class NotBeforeTest extends AbstractTestCase
 {
-    /** @test */
-    public function itShouldThrowAnExceptionWhenPassingAnInvalidValue()
+    public function testItShouldThrowAnExceptionWhenPassingAnInvalidValue()
     {
         $this->expectException(InvalidClaimException::class);
         $this->expectExceptionMessage('Invalid value provided for claim [nbf]');

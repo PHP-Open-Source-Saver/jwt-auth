@@ -26,11 +26,11 @@ use PHPOpenSourceSaver\JWTAuth\Http\Parser\Parser;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\QueryString;
 use PHPOpenSourceSaver\JWTAuth\Http\Parser\RouteParams;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ParserTest extends AbstractTestCase
 {
-    /** @test */
-    public function itShouldReturnTheTokenFromTheAuthorizationHeader()
+    public function testItShouldReturnTheTokenFromTheAuthorizationHeader()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'Bearer foobar');
@@ -48,8 +48,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromThePrefixedAuthenticationHeader()
+    public function testItShouldReturnTheTokenFromThePrefixedAuthenticationHeader()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'Custom foobar');
@@ -67,8 +66,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromTheCustomAuthenticationHeader()
+    public function testItShouldReturnTheTokenFromTheCustomAuthenticationHeader()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('custom_authorization', 'Bearer foobar');
@@ -86,8 +84,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromTheAltAuthorizationHeaders()
+    public function testItShouldReturnTheTokenFromTheAltAuthorizationHeaders()
     {
         $request1 = Request::create('foo', 'POST');
         $request1->server->set('HTTP_AUTHORIZATION', 'Bearer foobar');
@@ -110,8 +107,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldNotStripTrailingHyphensFromTheAuthorizationHeader()
+    public function testItShouldNotStripTrailingHyphensFromTheAuthorizationHeader()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'Bearer foobar--');
@@ -129,12 +125,8 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider whitespaceProvider
-     */
-    public function itShouldHandleExcessWhitespaceFromTheAuthorizationHeader($whitespace)
+    #[DataProvider('whitespaceProvider')]
+    public function testItShouldHandleExcessWhitespaceFromTheAuthorizationHeader($whitespace)
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', "Bearer{$whitespace}foobar{$whitespace}");
@@ -167,8 +159,7 @@ class ParserTest extends AbstractTestCase
         ];
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromQueryString()
+    public function testItShouldReturnTheTokenFromQueryString()
     {
         $request = Request::create('foo', 'GET', ['token' => 'foobar']);
 
@@ -184,8 +175,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromTheCustomQueryString()
+    public function testItShouldReturnTheTokenFromTheCustomQueryString()
     {
         $request = Request::create('foo', 'GET', ['custom_token_key' => 'foobar']);
 
@@ -201,8 +191,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromTheQueryStringNotTheInputSource()
+    public function testItShouldReturnTheTokenFromTheQueryStringNotTheInputSource()
     {
         $request = Request::create('foo?token=foobar', 'POST', [], [], [], [], json_encode(['token' => 'foobarbaz']));
 
@@ -218,8 +207,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromTheCustomQueryStringNotTheCustomInputSource()
+    public function testItShouldReturnTheTokenFromTheCustomQueryStringNotTheCustomInputSource()
     {
         $request = Request::create('foo?custom_token_key=foobar', 'POST', [], [], [], [], json_encode(['custom_token_key' => 'foobarbaz']));
 
@@ -235,8 +223,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromInputSource()
+    public function testItShouldReturnTheTokenFromInputSource()
     {
         $request = Request::create('foo', 'POST', [], [], [], [], json_encode(['token' => 'foobar']));
         $request->headers->set('Content-Type', 'application/json');
@@ -253,8 +240,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromTheCustomInputSource()
+    public function testItShouldReturnTheTokenFromTheCustomInputSource()
     {
         $request = Request::create('foo', 'POST', [], [], [], [], json_encode(['custom_token_key' => 'foobar']));
         $request->headers->set('Content-Type', 'application/json');
@@ -271,8 +257,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromAnUnencryptedCookie()
+    public function testItShouldReturnTheTokenFromAnUnencryptedCookie()
     {
         $request = Request::create('foo', 'POST', [], ['token' => 'foobar']);
 
@@ -289,8 +274,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromACryptedCookie()
+    public function testItShouldReturnTheTokenFromACryptedCookie()
     {
         Crypt::shouldReceive('encrypt')
             ->with('foobar')
@@ -317,8 +301,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldThrowTokenInvalidExceptionFromAInvalidEncryptedCookie()
+    public function testItShouldThrowTokenInvalidExceptionFromAInvalidEncryptedCookie()
     {
         $request = Request::create('foo', 'POST', [], ['token' => 'foobar']);
 
@@ -340,8 +323,7 @@ class ParserTest extends AbstractTestCase
         $parser->parseToken();
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromRoute()
+    public function testItShouldReturnTheTokenFromRoute()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(fn () => $this->getRouteMock('foobar'));
@@ -367,8 +349,7 @@ class ParserTest extends AbstractTestCase
             ->getMock();
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenFromRouteWithACustomParam()
+    public function testItShouldReturnTheTokenFromRouteWithACustomParam()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(fn () => $this->getRouteMock('foobar', 'custom_route_param'));
@@ -385,8 +366,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldIgnoreRoutelessRequests()
+    public function testItShouldIgnoreRoutelessRequests()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
@@ -404,8 +384,7 @@ class ParserTest extends AbstractTestCase
         $this->assertFalse($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldIgnoreLumenRequestArrays()
+    public function testItShouldIgnoreLumenRequestArrays()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(fn () => [false, ['uses' => 'someController'], ['token' => 'foobar']]);
@@ -422,8 +401,7 @@ class ParserTest extends AbstractTestCase
         $this->assertFalse($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldAcceptLumenRequestArraysWithSpecialClass()
+    public function testItShouldAcceptLumenRequestArraysWithSpecialClass()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(fn () => [false, ['uses' => 'someController'], ['token' => 'foo.bar.baz']]);
@@ -440,8 +418,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldReturnNullIfNoTokenInRequest()
+    public function testItShouldReturnNullIfNoTokenInRequest()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(fn () => $this->getRouteMock());
@@ -458,8 +435,7 @@ class ParserTest extends AbstractTestCase
         $this->assertFalse($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldRetrieveTheChain()
+    public function testItShouldRetrieveTheChain()
     {
         $chain = [
             new AuthHeaders(),
@@ -474,8 +450,7 @@ class ParserTest extends AbstractTestCase
         $this->assertSame($parser->getChain(), $chain);
     }
 
-    /** @test */
-    public function itShouldRetrieveTheChainWithAlias()
+    public function testItShouldRetrieveTheChainWithAlias()
     {
         $chain = [
             new AuthHeaders(),
@@ -493,15 +468,13 @@ class ParserTest extends AbstractTestCase
         $this->assertSame($parser->getChain(), $chain);
     }
 
-    /** @test */
-    public function itShouldSetTheCookieKey()
+    public function testItShouldSetTheCookieKey()
     {
         $cookies = (new Cookies())->setKey('test');
         $this->assertInstanceOf(Cookies::class, $cookies);
     }
 
-    /** @test */
-    public function itShouldAddCustomParser()
+    public function testItShouldAddCustomParser()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
 
@@ -515,8 +488,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldAddMultipleCustomParser()
+    public function testItShouldAddMultipleCustomParser()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
 
@@ -533,8 +505,7 @@ class ParserTest extends AbstractTestCase
         $this->assertTrue($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldIgnoreNonBearerTokens()
+    public function testItShouldIgnoreNonBearerTokens()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'Basic OnBhc3N3b3Jk');
@@ -552,8 +523,7 @@ class ParserTest extends AbstractTestCase
         $this->assertFalse($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldIgnoreTokensWithoutPrefixes()
+    public function testItShouldIgnoreTokensWithoutPrefixes()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5');
@@ -571,8 +541,7 @@ class ParserTest extends AbstractTestCase
         $this->assertFalse($parser->hasToken());
     }
 
-    /** @test */
-    public function itShouldParseMultipleAuthHeaders()
+    public function testItShouldParseMultipleAuthHeaders()
     {
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5, Basic OnBhc3N3b3Jk');

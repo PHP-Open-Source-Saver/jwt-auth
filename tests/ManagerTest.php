@@ -54,10 +54,10 @@ class ManagerTest extends AbstractTestCase
         $this->validator = \Mockery::mock(PayloadValidator::class);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldEncodeAPayload()
+    public function testItShouldEncodeAPayload()
     {
         $claims = [
             new Subject(1),
@@ -80,10 +80,10 @@ class ManagerTest extends AbstractTestCase
         $this->assertEquals($token, 'foo.bar.baz');
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException|TokenBlacklistedException
      */
-    public function itShouldDecodeAToken()
+    public function testItShouldDecodeAToken()
     {
         $claims = [
             new Subject(1),
@@ -114,10 +114,10 @@ class ManagerTest extends AbstractTestCase
         $this->assertSame($payload->count(), 6);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldThrowExceptionWhenTokenIsBlacklisted()
+    public function testItShouldThrowExceptionWhenTokenIsBlacklisted()
     {
         $this->expectException(TokenBlacklistedException::class);
         $this->expectExceptionMessage('The token has been blacklisted');
@@ -147,10 +147,10 @@ class ManagerTest extends AbstractTestCase
         $this->manager->decode($token);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldRefreshAToken()
+    public function testItShouldRefreshAToken()
     {
         $claims = [
             new Subject(1),
@@ -183,10 +183,10 @@ class ManagerTest extends AbstractTestCase
         $this->assertEquals('baz.bar.foo', $token);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldInvalidateAToken()
+    public function testItShouldInvalidateAToken()
     {
         $claims = [
             new Subject(1),
@@ -215,10 +215,10 @@ class ManagerTest extends AbstractTestCase
         $this->manager->invalidate($token);
     }
 
-    /** @test
+    /**
      * @throws InvalidClaimException
      */
-    public function itShouldForceInvalidateATokenForever()
+    public function testItShouldForceInvalidateATokenForever()
     {
         $claims = [
             new Subject(1),
@@ -247,8 +247,7 @@ class ManagerTest extends AbstractTestCase
         $this->manager->invalidate($token, true);
     }
 
-    /** @test */
-    public function itShouldThrowAnExceptionWhenEnableBlacklistIsSetToFalse()
+    public function testItShouldThrowAnExceptionWhenEnableBlacklistIsSetToFalse()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('You must have the blacklist enabled to invalidate a token.');
@@ -258,25 +257,21 @@ class ManagerTest extends AbstractTestCase
         $this->manager->setBlacklistEnabled(false)->invalidate($token);
     }
 
-    /** @test */
-    public function itShouldGetThePayloadFactory()
+    public function testItShouldGetThePayloadFactory()
     {
         $this->assertInstanceOf(Factory::class, $this->manager->getPayloadFactory());
     }
 
-    /** @test */
-    public function itShouldGetTheJwtProvider()
+    public function testItShouldGetTheJwtProvider()
     {
         $this->assertInstanceOf(JWT::class, $this->manager->getJWTProvider());
     }
 
-    /** @test */
-    public function itShouldGetTheBlacklist()
+    public function testItShouldGetTheBlacklist()
     {
         $this->assertInstanceOf(Blacklist::class, $this->manager->getBlacklist());
     }
 
-    /** @test */
     public function testIfShowBlacklistedExceptionConfigurationIsEnabled()
     {
         $this->manager->setBlackListExceptionEnabled(true);
@@ -284,7 +279,6 @@ class ManagerTest extends AbstractTestCase
         $this->assertIsBool($this->manager->getBlackListExceptionEnabled());
     }
 
-    /** @test */
     public function testIfBlackListedExceptionIsSetToTrue()
     {
         $this->manager->setBlackListExceptionEnabled(true);
@@ -292,7 +286,6 @@ class ManagerTest extends AbstractTestCase
         $this->assertTrue($this->manager->getBlackListExceptionEnabled());
     }
 
-    /** @test */
     public function testIfBlackListedExceptionIsSetToFalse()
     {
         $this->manager->setBlackListExceptionEnabled(false);

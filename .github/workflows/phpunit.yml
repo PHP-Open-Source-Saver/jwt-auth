@@ -10,7 +10,7 @@ on:
 
 jobs:
   php-tests:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -18,19 +18,17 @@ jobs:
         php: [8.1, 8.2, 8.3]
         laravel: [10.*, 11.*]
         stability: [prefer-lowest, prefer-stable]
-        os: [ubuntu-latest]
         coverage: [none]
         exclude:
           - laravel: 11.*
             php: 8.1
         include:
-          - php: 8.1
-            laravel: 10.*
+          - php: 8.3
+            laravel: 11.*
             stability: prefer-stable
-            os: ubuntu-latest
             coverage: xdebug
 
-    name: '[PHP ${{ matrix.php }}] [Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}] [${{ matrix.coverage }} coverage]'
+    name: 'P${{ matrix.php }} L${{ matrix.laravel }} ${{ matrix.stability }} c:${{ matrix.coverage }}'
 
     steps:
       - name: Checkout code
@@ -41,7 +39,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring json openssl
-          coverage: xdebug
+          coverage: ${{ matrix.coverage }}
           ini-values: memory_limit=-1
 
       - name: Setup Problem Matchers
@@ -52,14 +50,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-dir)" >> $GITHUB_OUTPUT
-
-      - name: Set phpunit for PHP >= 8 but Laravel < 11
-        run: composer require phpunit/phpunit:^9.4 --no-interaction --no-progress --no-update
-        if: matrix.php >= 8 || matrix.laravel != '11.*'
-
-      - name: Set phpunit for Laravel >= 11
-        run: composer require phpunit/phpunit:^10 --no-interaction --no-progress --no-update
-        if: matrix.laravel == '11.*'
 
       - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
         run: |
@@ -79,7 +69,12 @@ jobs:
       - name: Install dependencies
         run: composer update --no-progress --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
-      - name: Execute tests
+      - name: Execute tests (without coverage)
+        if: matrix.coverage != 'xdebug'
+        run: composer test -- --no-coverage
+
+      - name: Execute tests (with coverage)
+        if: matrix.coverage == 'xdebug'
         run: composer test:ci
 
       - name: Upload coverage
