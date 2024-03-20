@@ -36,11 +36,8 @@ class TokenValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->isValid('one.two.three'));
     }
 
-    /**
-     * @param string $token
-     */
     #[DataProviderExternal(TokenValidatorTest::class, 'dataProviderMalformedTokens')]
-    public function testItShouldReturnFalseWhenProvidingAMalformedToken($token)
+    public function testItShouldReturnFalseWhenProvidingAMalformedToken(string $token)
     {
         $this->assertFalse($this->validator->isValid($token));
     }

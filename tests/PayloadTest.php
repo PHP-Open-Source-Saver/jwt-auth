@@ -44,11 +44,9 @@ class PayloadTest extends AbstractTestCase
     }
 
     /**
-     * @return Payload
-     *
      * @throws InvalidClaimException
      */
-    private function getTestPayload(array $extraClaims = [])
+    private function getTestPayload(array $extraClaims = []): Payload
     {
         $claims = [
             new Subject(1),
