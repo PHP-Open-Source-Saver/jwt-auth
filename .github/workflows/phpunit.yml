@@ -30,7 +30,7 @@ jobs:
             os: ubuntu-latest
             coverage: xdebug
 
-    name: '[PHP ${{ matrix.php }}] [Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}] [${{ matrix.coverage }} coverage]'
+    name: 'P${{ matrix.php }} L${{ matrix.laravel }} ${{ matrix.stability }} c:${{ matrix.coverage }}'
 
     steps:
       - name: Checkout code
