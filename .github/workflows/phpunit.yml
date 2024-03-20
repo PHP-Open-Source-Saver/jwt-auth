@@ -53,14 +53,6 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-dir)" >> $GITHUB_OUTPUT
 
-      - name: Set phpunit for PHP >= 8 but Laravel < 11
-        run: composer require phpunit/phpunit:^9.4 --no-interaction --no-progress --no-update
-        if: matrix.php >= 8 || matrix.laravel != '11.*'
-
-      - name: Set phpunit for Laravel >= 11
-        run: composer require phpunit/phpunit:^10 --no-interaction --no-progress --no-update
-        if: matrix.laravel == '11.*'
-
       - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
