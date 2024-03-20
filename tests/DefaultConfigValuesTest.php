@@ -27,40 +27,34 @@ class DefaultConfigValuesTest extends AbstractTestCase
         $this->configuration = include __DIR__.'/../config/config.php';
     }
 
-    /** @test */
-    public function secretShouldBeNull()
+    public function testSecretShouldBeNull()
     {
         $this->assertNull($this->configuration['secret']);
     }
 
-    /** @test */
-    public function keysShouldBeNull()
+    public function testKeysShouldBeNull()
     {
         $this->assertNull($this->configuration['keys']['public']);
         $this->assertNull($this->configuration['keys']['private']);
         $this->assertNull($this->configuration['keys']['passphrase']);
     }
 
-    /** @test */
-    public function ttlShouldBeSet()
+    public function testTtlShouldBeSet()
     {
         $this->assertEquals(60, $this->configuration['ttl']);
     }
 
-    /** @test */
-    public function refreshTtlShouldBeSet()
+    public function testRefreshTtlShouldBeSet()
     {
         $this->assertEquals(20160, $this->configuration['refresh_ttl']);
     }
 
-    /** @test */
-    public function algoShouldBeHs256()
+    public function testAlgoShouldBeHs256()
     {
         $this->assertEquals('HS256', $this->configuration['algo']);
     }
 
-    /** @test */
-    public function requiredClaimsShouldBeSet()
+    public function testRequiredClaimsShouldBeSet()
     {
         $this->assertIsArray($this->configuration['required_claims']);
         $this->assertCount(6, $this->configuration['required_claims']);
@@ -73,51 +67,43 @@ class DefaultConfigValuesTest extends AbstractTestCase
         $this->assertTrue(in_array('jti', $this->configuration['required_claims']));
     }
 
-    /** @test */
-    public function persistedClaimsShouldBeEmpty()
+    public function testPersistedClaimsShouldBeEmpty()
     {
         $this->assertIsArray($this->configuration['persistent_claims']);
         $this->assertCount(0, $this->configuration['persistent_claims']);
     }
 
-    /** @test */
-    public function subjectShouldBeLocked()
+    public function testSubjectShouldBeLocked()
     {
         $this->assertTrue($this->configuration['lock_subject']);
     }
 
-    /** @test */
-    public function leewayShouldBeSet()
+    public function testLeewayShouldBeSet()
     {
         $this->assertEquals(0, $this->configuration['leeway']);
     }
 
-    /** @test */
-    public function blacklistShouldBeEnabled()
+    public function testBlacklistShouldBeEnabled()
     {
         $this->assertTrue($this->configuration['blacklist_enabled']);
     }
 
-    /** @test */
-    public function blacklistGracePeriodShouldBeSet()
+    public function testBlacklistGracePeriodShouldBeSet()
     {
         $this->assertEquals(0, $this->configuration['blacklist_grace_period']);
     }
 
-    /** @test */
-    public function showBlackListExceptionShouldBeDisabled()
+    public function testShowBlackListExceptionShouldBeDisabled()
     {
         $this->assertTrue($this->configuration['show_black_list_exception']);
     }
 
-    /** @test */
-    public function decryptCookiesShouldBeDisabled()
+    public function testDecryptCookiesShouldBeDisabled()
     {
         $this->assertFalse($this->configuration['decrypt_cookies']);
     }
 
-    /** @test */
-    public function providersShouldBeSet()
+    public function testProvidersShouldBeSet()
     {
         $this->assertEquals(Lcobucci::class, $this->configuration['providers']['jwt']);
         $this->assertEquals(AuthIlluminate::class, $this->configuration['providers']['auth']);

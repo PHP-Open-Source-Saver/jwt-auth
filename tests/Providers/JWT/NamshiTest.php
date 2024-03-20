@@ -38,8 +38,7 @@ class NamshiTest extends AbstractTestCase
         $this->jws = \Mockery::mock(JWS::class);
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenWhenPassingAValidPayloadToEncode()
+    public function testItShouldReturnTheTokenWhenPassingAValidPayloadToEncode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
@@ -57,8 +56,7 @@ class NamshiTest extends AbstractTestCase
         return new Namshi($this->jws, $secret, $algo, $keys);
     }
 
-    /** @test */
-    public function itShouldThrowAnInvalidExceptionWhenThePayloadCouldNotBeEncoded()
+    public function testItShouldThrowAnInvalidExceptionWhenThePayloadCouldNotBeEncoded()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('Could not create token:');
@@ -71,8 +69,7 @@ class NamshiTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->encode($payload);
     }
 
-    /** @test */
-    public function itShouldReturnThePayloadWhenPassingAValidTokenToDecode()
+    public function testItShouldReturnThePayloadWhenPassingAValidTokenToDecode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
@@ -83,8 +80,7 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
 
-    /** @test */
-    public function itShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecodedDueToABadSignature()
+    public function testItShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecodedDueToABadSignature()
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Token Signature could not be verified.');
@@ -96,8 +92,7 @@ class NamshiTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecoded()
+    public function testItShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecoded()
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Could not decode token:');
@@ -109,8 +104,7 @@ class NamshiTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldGenerateATokenWhenUsingAnRsaAlgorithm()
+    public function testItShouldGenerateATokenWhenUsingAnRsaAlgorithm()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -139,8 +133,7 @@ class NamshiTest extends AbstractTestCase
         return file_get_contents(__DIR__.'/../Keys/id_rsa.pub');
     }
 
-    /** @test */
-    public function itShouldGenerateATokenWhenUsingAnEcdsaAlgorithm()
+    public function testItShouldGenerateATokenWhenUsingAnEcdsaAlgorithm()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -159,8 +152,7 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /** @test */
-    public function itShouldDecodeATokenWhenUsingAnRsaAlgorithm()
+    public function testItShouldDecodeATokenWhenUsingAnRsaAlgorithm()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -179,8 +171,7 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /** @test */
-    public function itShouldThrowAExceptionWhenTheAlgorithmPassedIsInvalid()
+    public function testItShouldThrowAExceptionWhenTheAlgorithmPassedIsInvalid()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('The given algorithm could not be found');
@@ -191,8 +182,7 @@ class NamshiTest extends AbstractTestCase
         $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldReturnThePublicKey()
+    public function testItShouldReturnThePublicKey()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -203,8 +193,7 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame($keys['public'], $provider->getPublicKey());
     }
 
-    /** @test */
-    public function itShouldReturnTheKeys()
+    public function testItShouldReturnTheKeys()
     {
         $provider = $this->getProvider(
             'does_not_matter',

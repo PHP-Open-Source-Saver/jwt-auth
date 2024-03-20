@@ -58,8 +58,7 @@ class LcobucciTest extends AbstractTestCase
         $this->parser = \Mockery::mock(Parser::class);
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenWhenPassingAValidPayloadToEncode()
+    public function testItShouldReturnTheTokenWhenPassingAValidPayloadToEncode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
@@ -81,8 +80,7 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame('header.payload.signature', $token);
     }
 
-    /** @test */
-    public function itShouldThrowAnInvalidExceptionWhenThePayloadCouldNotBeEncoded()
+    public function testItShouldThrowAnInvalidExceptionWhenThePayloadCouldNotBeEncoded()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('Could not create token:');
@@ -102,8 +100,7 @@ class LcobucciTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->encode($payload);
     }
 
-    /** @test */
-    public function itShouldReturnThePayloadWhenPassingAValidTokenToDecode()
+    public function testItShouldReturnThePayloadWhenPassingAValidTokenToDecode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
@@ -120,8 +117,7 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($payload, $provider->decode('foo.bar.baz'));
     }
 
-    /** @test */
-    public function itShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecodedDueToABadSignature()
+    public function testItShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecodedDueToABadSignature()
     {
         $token = \Mockery::mock(Token::class);
         $dataSet = \Mockery::mock(new DataSet(['pay', 'load'], 'payload'));
@@ -139,8 +135,7 @@ class LcobucciTest extends AbstractTestCase
         $provider->decode('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecoded()
+    public function testItShouldThrowATokenInvalidExceptionWhenTheTokenCouldNotBeDecoded()
     {
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Could not decode token:');
@@ -152,8 +147,7 @@ class LcobucciTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldGenerateATokenWhenUsingAnRsaAlgorithm()
+    public function testItShouldGenerateATokenWhenUsingAnRsaAlgorithm()
     {
         $dummyPrivateKey = $this->getDummyPrivateKey();
         $dummyPublicKey = $this->getDummyPublicKey();
@@ -183,8 +177,7 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame('header.payload.signature', $token);
     }
 
-    /** @test */
-    public function itShouldThrowAExceptionWhenTheAlgorithmPassedIsInvalid()
+    public function testItShouldThrowAExceptionWhenTheAlgorithmPassedIsInvalid()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('The given algorithm could not be found');
@@ -195,8 +188,7 @@ class LcobucciTest extends AbstractTestCase
         $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldReturnThePublicKey()
+    public function testItShouldReturnThePublicKey()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -207,8 +199,7 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($keys['public'], $provider->getPublicKey());
     }
 
-    /** @test */
-    public function itShouldReturnTheKeys()
+    public function testItShouldReturnTheKeys()
     {
         $provider = $this->getProvider(
             'does_not_matter',
@@ -219,8 +210,7 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($keys, $provider->getKeys());
     }
 
-    /** @test */
-    public function itShouldCorrectlyInstantiateAnEcdsaSigner()
+    public function testItShouldCorrectlyInstantiateAnEcdsaSigner()
     {
         $provider = new Lcobucci(
             'does_not_matter',

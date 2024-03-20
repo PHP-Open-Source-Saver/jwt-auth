@@ -37,29 +37,25 @@ class IlluminateTest extends AbstractTestCase
         $this->auth = new Auth($this->authManager);
     }
 
-    /** @test */
-    public function itShouldReturnTrueIfCredentialsAreValid()
+    public function testItShouldReturnTrueIfCredentialsAreValid()
     {
         $this->authManager->shouldReceive('once')->once()->with(['email' => 'foo@bar.com', 'password' => 'foobar'])->andReturn(true);
         $this->assertTrue($this->auth->byCredentials(['email' => 'foo@bar.com', 'password' => 'foobar']));
     }
 
-    /** @test */
-    public function itShouldReturnTrueIfUserIsFound()
+    public function testItShouldReturnTrueIfUserIsFound()
     {
         $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andReturn(true);
         $this->assertTrue($this->auth->byId(123));
     }
 
-    /** @test */
-    public function itShouldReturnFalseIfUserIsNotFound()
+    public function testItShouldReturnFalseIfUserIsNotFound()
     {
         $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andReturn(false);
         $this->assertFalse($this->auth->byId(123));
     }
 
-    /** @test */
-    public function itShouldReturnTheCurrentlyAuthenticatedUser()
+    public function testItShouldReturnTheCurrentlyAuthenticatedUser()
     {
         $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
         $this->assertSame($this->auth->user()->id, 1);

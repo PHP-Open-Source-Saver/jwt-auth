@@ -28,14 +28,12 @@ class TokenTest extends AbstractTestCase
         $this->token = new Token('foo.bar.baz');
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenWhenCastingToAString()
+    public function testItShouldReturnTheTokenWhenCastingToAString()
     {
         $this->assertEquals((string) $this->token, $this->token);
     }
 
-    /** @test */
-    public function itShouldReturnTheTokenWhenCallingGetMethod()
+    public function testItShouldReturnTheTokenWhenCallingGetMethod()
     {
         $this->assertIsString($this->token->get());
     }

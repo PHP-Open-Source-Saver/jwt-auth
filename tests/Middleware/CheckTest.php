@@ -31,8 +31,7 @@ class CheckTest extends AbstractMiddleware
         $this->middleware = new Check($this->auth);
     }
 
-    /** @test */
-    public function itShouldAuthenticateAUserIfATokenIsPresent()
+    public function testItShouldAuthenticateAUserIfATokenIsPresent()
     {
         $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
@@ -46,8 +45,7 @@ class CheckTest extends AbstractMiddleware
         });
     }
 
-    /** @test */
-    public function itShouldUnsetTheExceptionIfATokenIsPresent()
+    public function testItShouldUnsetTheExceptionIfATokenIsPresent()
     {
         $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
@@ -61,8 +59,7 @@ class CheckTest extends AbstractMiddleware
         });
     }
 
-    /** @test */
-    public function itShouldDoNothingIfATokenIsNotPresent()
+    public function testItShouldDoNothingIfATokenIsNotPresent()
     {
         $parser = \Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);

@@ -18,8 +18,7 @@ use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
 
 class IssuedAtTest extends AbstractTestCase
 {
-    /** @test */
-    public function itShouldThrowAnExceptionWhenPassingAFutureTimestamp()
+    public function testItShouldThrowAnExceptionWhenPassingAFutureTimestamp()
     {
         $this->expectException(InvalidClaimException::class);
         $this->expectExceptionMessage('Invalid value provided for claim [iat]');

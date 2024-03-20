@@ -71,8 +71,7 @@ class PayloadTest extends AbstractTestCase
         return new Payload($collection, $this->validator);
     }
 
-    /** @test */
-    public function itShouldThrowAnExceptionWhenTryingToAddToThePayload()
+    public function testItShouldThrowAnExceptionWhenTryingToAddToThePayload()
     {
         $this->expectException(PayloadException::class);
         $this->expectExceptionMessage('The payload is immutable');
@@ -80,8 +79,7 @@ class PayloadTest extends AbstractTestCase
         $this->payload['foo'] = 'bar';
     }
 
-    /** @test */
-    public function itShouldThrowAnExceptionWhenTryingToRemoveAKeyFromThePayload()
+    public function testItShouldThrowAnExceptionWhenTryingToRemoveAKeyFromThePayload()
     {
         $this->expectException(PayloadException::class);
         $this->expectExceptionMessage('The payload is immutable');
@@ -89,23 +87,20 @@ class PayloadTest extends AbstractTestCase
         unset($this->payload['foo']);
     }
 
-    /** @test */
-    public function itShouldCastThePayloadToAStringAsJson()
+    public function testItShouldCastThePayloadToAStringAsJson()
     {
         $this->assertSame((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
         $this->assertJsonStringEqualsJsonString((string) $this->payload, json_encode($this->payload->get()));
     }
 
-    /** @test */
-    public function itShouldAllowArrayAccessOnThePayload()
+    public function testItShouldAllowArrayAccessOnThePayload()
     {
         $this->assertTrue(isset($this->payload['iat']));
         $this->assertSame($this->payload['sub'], 1);
         $this->assertArrayHasKey('exp', $this->payload);
     }
 
-    /** @test */
-    public function itShouldGetPropertiesOfPayloadViaGetMethod()
+    public function testItShouldGetPropertiesOfPayloadViaGetMethod()
     {
         $this->assertIsArray($this->payload->get());
         $this->assertSame($this->payload->get('sub'), 1);
@@ -116,8 +111,7 @@ class PayloadTest extends AbstractTestCase
         );
     }
 
-    /** @test */
-    public function itShouldGetMultiplePropertiesWhenPassingAnArrayToTheGetMethod()
+    public function testItShouldGetMultiplePropertiesWhenPassingAnArrayToTheGetMethod()
     {
         $values = $this->payload->get(['sub', 'jti']);
 
@@ -129,15 +123,13 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame($jti, 'foo');
     }
 
-    /** @test */
-    public function itShouldDetermineWhetherThePayloadHasAClaim()
+    public function testItShouldDetermineWhetherThePayloadHasAClaim()
     {
         $this->assertTrue($this->payload->has(new Subject(1)));
         $this->assertFalse($this->payload->has(new Audience(1)));
     }
 
-    /** @test */
-    public function itShouldMagicallyGetAProperty()
+    public function testItShouldMagicallyGetAProperty()
     {
         $sub = $this->payload->getSubject();
         $jti = $this->payload->getJwtId();
@@ -148,8 +140,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame($iss, 'http://example.com');
     }
 
-    /** @test */
-    public function itShouldInvokeTheInstanceAsACallable()
+    public function testItShouldInvokeTheInstanceAsACallable()
     {
         $payload = $this->payload;
 
@@ -164,8 +155,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame($payload(), $this->payload->toArray());
     }
 
-    /** @test */
-    public function itShouldThrowAnExceptionWhenMagicallyGettingAPropertyThatDoesNotExist()
+    public function testItShouldThrowAnExceptionWhenMagicallyGettingAPropertyThatDoesNotExist()
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('The claim [Foo] does not exist on the payload');
@@ -173,8 +163,7 @@ class PayloadTest extends AbstractTestCase
         $this->payload->getFoo();
     }
 
-    /** @test */
-    public function itShouldGetTheClaims()
+    public function testItShouldGetTheClaims()
     {
         $claims = $this->payload->getClaims();
 
@@ -185,21 +174,18 @@ class PayloadTest extends AbstractTestCase
         $this->assertContainsOnlyInstancesOf(Claim::class, $claims);
     }
 
-    /** @test */
-    public function itShouldGetTheObjectAsJson()
+    public function testItShouldGetTheObjectAsJson()
     {
         $this->assertJsonStringEqualsJsonString(json_encode($this->payload), $this->payload->toJson());
     }
 
-    /** @test */
-    public function itShouldCountTheClaims()
+    public function testItShouldCountTheClaims()
     {
         $this->assertSame(6, $this->payload->count());
         $this->assertCount(6, $this->payload);
     }
 
-    /** @test */
-    public function itShouldMatchValues()
+    public function testItShouldMatchValues()
     {
         $values = $this->payload->toArray();
         $values['sub'] = (string) $values['sub'];
@@ -207,8 +193,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertTrue($this->payload->matches($values));
     }
 
-    /** @test */
-    public function itShouldMatchStrictValues()
+    public function testItShouldMatchStrictValues()
     {
         $values = $this->payload->toArray();
 
@@ -216,14 +201,12 @@ class PayloadTest extends AbstractTestCase
         $this->assertTrue($this->payload->matches($values, true));
     }
 
-    /** @test */
-    public function itShouldNotMatchEmptyValues()
+    public function testItShouldNotMatchEmptyValues()
     {
         $this->assertFalse($this->payload->matches([]));
     }
 
-    /** @test */
-    public function itShouldNotMatchValues()
+    public function testItShouldNotMatchValues()
     {
         $values = $this->payload->toArray();
         $values['sub'] = 'dummy_subject';
@@ -231,8 +214,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertFalse($this->payload->matches($values));
     }
 
-    /** @test */
-    public function itShouldNotMatchStrictValues()
+    public function testItShouldNotMatchStrictValues()
     {
         $values = $this->payload->toArray();
         $values['sub'] = (string) $values['sub'];
@@ -241,8 +223,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertFalse($this->payload->matches($values, true));
     }
 
-    /** @test */
-    public function itShouldNotMatchANonExistingClaim()
+    public function testItShouldNotMatchANonExistingClaim()
     {
         $values = ['foo' => 'bar'];
 
