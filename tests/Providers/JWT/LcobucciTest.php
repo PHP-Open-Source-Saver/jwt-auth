@@ -20,6 +20,7 @@ use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\Validation\Constraint;
+use Lcobucci\JWT\Validator;
 use Mockery\MockInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
@@ -267,7 +268,7 @@ class LcobucciTest extends AbstractTestCase
     {
         $provider = new Lcobucci($secret, $algo, $keys);
 
-        $this->validator = \Mockery::mock(\Lcobucci\JWT\Validator::class);
+        $this->validator = \Mockery::mock(Validator::class);
         $this->config = \Mockery::mock($provider->getConfig());
 
         $provider = new Lcobucci($secret, $algo, $keys, $this->config);
