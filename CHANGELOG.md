@@ -14,6 +14,9 @@ You can find and compare releases at the GitHub release page.
 ### Removed
 - Dropped support for Laravel < 10 and PHP < 8.1
 
+### Fixed
+- Use `id` claim for identify user if `sub` doesn't exists.
+
 ## [2.2.0] 2024-03-12
 
 ### Added
