@@ -39,7 +39,7 @@
         "illuminate/contracts": "^10|^11",
         "illuminate/http": "^10|^11",
         "illuminate/support": "^10|^11",
-        "lcobucci/jwt": "^4.0",
+        "lcobucci/jwt": "^5.0",
         "namshi/jose": "^7.0",
         "nesbot/carbon": "^2.0|^3.0"
     },

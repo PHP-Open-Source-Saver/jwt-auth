@@ -9,6 +9,11 @@ You can find and compare releases at the GitHub release page.
 ## [Unreleased]
 
 ### Added
+- Support for lcobucci/jwt^5.0 (and dropped support for ^4.0)
+
+## [2.3.0] 2024-05-09
+
+### Added
 - Support for Carbon 3 (and drop Carbon 1, but it was unused anyway)
 
 ### Removed
