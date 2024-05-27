@@ -82,7 +82,7 @@ class Lcobucci extends Provider implements JWT
      *
      * @param Configuration $config optional, to pass an existing configuration to be used
      *
-     * @return $this
+     * @return void
      */
     private function generateConfig($config = null)
     {
