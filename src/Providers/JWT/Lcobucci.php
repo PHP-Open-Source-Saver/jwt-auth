@@ -74,7 +74,18 @@ class Lcobucci extends Provider implements JWT
         $config = null
     ) {
         parent::__construct($secret, $algo, $keys);
+        $this->generateConfig($config);
+    }
 
+    /**
+     * Generate the config.
+     *
+     * @param Configuration $config optional, to pass an existing configuration to be used
+     *
+     * @return void
+     */
+    private function generateConfig($config = null)
+    {
         $this->signer = $this->getSigner();
 
         if (!is_null($config)) {
@@ -89,6 +100,21 @@ class Lcobucci extends Provider implements JWT
                 new SignedWith($this->signer, $this->getVerificationKey()),
             );
         }
+    }
+
+    /**
+     * Set the secret used to sign the token and regenerate the config using the secret.
+     *
+     * @param string $secret
+     *
+     * @return $this
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+        $this->generateConfig();
+
+        return $this;
     }
 
     /**

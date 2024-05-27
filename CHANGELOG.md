@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
+- SetSecret regenerates config with new secret in the Lcobucci provider
 
 ### Added
 - Support for lcobucci/jwt^5.0 (and dropped support for ^4.0)
