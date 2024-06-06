@@ -1,15 +1,14 @@
-### Generate secret key
+### Сгенерируйте секретный ключ
 
-I have included a helper command to generate a key for you:
+Воспользуйтесь вспомогательной командой:
 
 ```bash
 php artisan jwt:secret
 ```
 
-This will update your `.env` file with something like `JWT_SECRET=foobar`
+В вашем `.env` файле должно появиться что-то похожее на: `JWT_SECRET=foobar`
 
-It is the key that will be used to sign your tokens. How that happens exactly will depend
-on the algorithm that you choose to use.
+Этот ключ будет использован для подписи ваших токенов. Как именно это будет происходить зависит от выбранного вами алгоритма.
 
 ### Generate certificate
 
