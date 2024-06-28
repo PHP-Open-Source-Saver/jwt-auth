@@ -17,6 +17,7 @@ use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException;
 use PHPOpenSourceSaver\JWTAuth\Support\CustomClaims;
 use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
+use PHPOpenSourceSaver\JWTAuth\Support\Utils;
 
 class Manager
 {
@@ -181,7 +182,7 @@ class Manager
             $persistentClaims,
             [
                 'sub' => $payload['sub'],
-                'iat' => $payload['iat'],
+                'iat' => Utils::now()->timestamp,
             ]
         );
     }

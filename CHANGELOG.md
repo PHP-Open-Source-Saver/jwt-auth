@@ -8,6 +8,7 @@ You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
 - SetSecret regenerates config with new secret in the Lcobucci provider
+- Refresh iat claim when refreshing a token
 
 ### Added
 - Support for lcobucci/jwt^5.0 (and dropped support for ^4.0)
