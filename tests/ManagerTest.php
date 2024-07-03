@@ -12,6 +12,7 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
+use Illuminate\Support\Carbon;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
 use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
@@ -181,6 +182,42 @@ class ManagerTest extends AbstractTestCase
         // $this->assertArrayHasKey('ref', $payload);
         $this->assertInstanceOf(Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
+    }
+
+    public function testBuildRefreshClaimsMethodWillRefreshTheIAT()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
+        ];
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
+
+        $managerClass = new \ReflectionClass(Manager::class);
+        $buildRefreshClaimsMethod = $managerClass->getMethod('buildRefreshClaims');
+        $buildRefreshClaimsMethod->setAccessible(true);
+        $managerInstance = new Manager($this->jwt, $this->blacklist, $this->factory);
+
+        $firstResult = $buildRefreshClaimsMethod->invokeArgs($managerInstance, [$payload]);
+        Carbon::setTestNow(Carbon::now()->addMinutes(2));
+        $secondResult = $buildRefreshClaimsMethod->invokeArgs($managerInstance, [$payload]);
+
+        $this->assertIsInt($firstResult['iat']);
+        $this->assertIsInt($secondResult['iat']);
+
+        $carbonTimestamp = Carbon::createFromTimestamp($firstResult['iat']);
+        $this->assertInstanceOf(Carbon::class, $carbonTimestamp);
+
+        $carbonTimestamp = Carbon::createFromTimestamp($secondResult['iat']);
+        $this->assertInstanceOf(Carbon::class, $carbonTimestamp);
+
+        $this->assertNotEquals($firstResult['iat'], $secondResult['iat']);
     }
 
     /**
