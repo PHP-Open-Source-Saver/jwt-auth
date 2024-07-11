@@ -12,6 +12,7 @@ You can find and compare releases at the GitHub release page.
 
 ### Added
 - Support for lcobucci/jwt^5.0 (and dropped support for ^4.0)
+- New `getUserId` method
 
 ## [2.3.0] 2024-05-09
 
