@@ -109,6 +109,26 @@ class JWTGuard implements Guard
     }
 
     /**
+     * @return int|string|null
+     */
+    public function getUserId()
+    {
+        if (null !== $this->user) {
+            return $this->user->getAuthIdentifier();
+        }
+
+        if (
+            $this->jwt->setRequest($this->request)->getToken()
+            && ($payload = $this->jwt->check(true))
+            && $this->validateSubject()
+        ) {
+            return $payload['sub'];
+        }
+
+        return null;
+    }
+
+    /**
      * Get the currently authenticated user or throws an exception.
      *
      * @return Authenticatable
