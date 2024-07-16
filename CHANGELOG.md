@@ -9,6 +9,7 @@ You can find and compare releases at the GitHub release page.
 ## [Unreleased]
 
 ### Added
+- Fixes #259 - Can't logout with an expired token
 
 ### Removed
 
