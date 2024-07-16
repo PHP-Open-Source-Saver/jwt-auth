@@ -7,12 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 You can find and compare releases at the GitHub release page.
 
 ## [Unreleased]
-- SetSecret regenerates config with new secret in the Lcobucci provider
+
+### Added
+
+### Removed
+
+## [2.6.0] 2024-07-11
+
+### Added
+- New `getUserId` method
+
+## [2.5.0] 2024-07-03
+
+### Added
 - Refresh iat claim when refreshing a token
+
+## [2.4.0] 2024-05-27
 
 ### Added
 - Support for lcobucci/jwt^5.0 (and dropped support for ^4.0)
-- New `getUserId` method
+- SetSecret regenerates config with new secret in the Lcobucci provider
 
 ## [2.3.0] 2024-05-09
 
