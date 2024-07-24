@@ -48,7 +48,9 @@ You can find and compare releases at the GitHub release page.
 ### Added
 - Adds Octane Compatibility
 - Added `ask-passphrase` parameter to generating certs command
+- Added Russian translation for some docs
 - Support autocomplete guard
+
 
 ### Fixed
 - Default config value for `show_black_list_exception` changed to true
