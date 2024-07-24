@@ -27,6 +27,9 @@ jobs:
             laravel: 11.*
             stability: prefer-stable
             coverage: xdebug
+          - php: 8.3
+            laravel: 11.*
+            carbon: 3.*
 
     name: 'P${{ matrix.php }} L${{ matrix.laravel }} ${{ matrix.stability }} c:${{ matrix.coverage }}'
 
@@ -54,6 +57,11 @@ jobs:
       - name: Set Minimum Laravel ${{ matrix.laravel }} Versions
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
+
+      - name: Set carbon version
+        if: ${{ matrix.carbon }}
+        run: |
+          composer require "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-progress --no-update
 
       - name: Cache dependencies
         uses: actions/cache@v4
