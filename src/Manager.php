@@ -178,8 +178,8 @@ class Manager
 
         // persist the relevant claims
         return array_merge(
-            $this->customClaims,
             $persistentClaims,
+            $this->customClaims,
             [
                 'sub' => $payload['sub'],
                 'iat' => Utils::now()->timestamp,
