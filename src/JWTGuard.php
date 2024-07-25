@@ -200,7 +200,11 @@ class JWTGuard implements Guard
      */
     public function logout($forceForever = false)
     {
-        $this->requireToken()->invalidate($forceForever);
+        try {
+            $this->requireToken()->invalidate($forceForever);
+        } catch (JWTException $e) {
+            // Proceed with the logout as normal if we can't invalidate the token
+        }
 
         $this->fireLogoutEvent($this->user);
 

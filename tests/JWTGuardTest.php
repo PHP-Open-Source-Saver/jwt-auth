@@ -22,6 +22,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Mockery\LegacyMockInterface;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\UserNotDefinedException;
 use PHPOpenSourceSaver\JWTAuth\Factory;
 use PHPOpenSourceSaver\JWTAuth\JWT;
@@ -339,6 +340,25 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
         $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
+        $this->jwt->shouldReceive('unsetToken')->once();
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+            ->never()
+            ->with(\Mockery::type(Authenticated::class));
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+            ->once()
+            ->with(\Mockery::type(Logout::class));
+
+        $this->guard->logout();
+        $this->assertNull($this->guard->getUser());
+    }
+
+    public function testItShouldLogoutTheUserEvenWithExpiredToken()
+    {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
+        $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
+        $this->jwt->shouldReceive('invalidate')->andThrow(TokenExpiredException::class);
         $this->jwt->shouldReceive('unsetToken')->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
