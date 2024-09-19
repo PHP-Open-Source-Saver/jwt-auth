@@ -39,7 +39,12 @@ class TokenValidator extends Validator
      */
     protected function validateStructure($token)
     {
-        $parts = explode('.', $token);
+        if (is_string($token)) {
+            $parts = explode('.', $token);
+        } else {
+            throw new \InvalidArgumentException('Expected token to be a string.');
+        }
+
 
         if (3 !== count($parts)) {
             throw new TokenInvalidException('Wrong number of segments');
