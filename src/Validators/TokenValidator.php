@@ -42,7 +42,7 @@ class TokenValidator extends Validator
         if (is_string($token)) {
             $parts = explode('.', $token);
         } else {
-            throw new \InvalidArgumentException('Expected token to be a string.');
+            throw new TokenInvalidException('Expected token to be a string');
         }
 
 
