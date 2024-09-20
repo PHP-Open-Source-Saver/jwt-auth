@@ -52,11 +52,12 @@ class TokenValidatorTest extends AbstractTestCase
         $this->validator->check($token);
     }
 
-    public function testItShouldThrowAnExceptionTokenIsNotString()
+    #[DataProviderExternal(TokenValidatorTest::class, 'dataProviderInvalidTokenType')]
+    public function testItShouldThrowAnExceptionIfTokenIsNotString($token)
     {
         $this->expectException(TypeError::class);
 
-        $this->validator->check(['array']);
+        $this->validator->check($token);
     }
 
     #[DataProviderExternal(TokenValidatorTest::class, 'dataProviderTokensWithWrongSegmentsNumber')]
@@ -93,6 +94,14 @@ class TokenValidatorTest extends AbstractTestCase
             ['one.two'],
             ['one.two.three.four'],
             ['one.two.three.four.five'],
+        ];
+    }
+
+    public static function dataProviderInvalidTokenType()
+    {
+        return [
+            ['array'],
+            1,
         ];
     }
 }
