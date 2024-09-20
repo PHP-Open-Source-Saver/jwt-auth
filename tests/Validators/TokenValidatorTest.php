@@ -12,10 +12,11 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test\Validators;
 
-use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use TypeError;
 use PHPOpenSourceSaver\JWTAuth\Test\AbstractTestCase;
-use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPOpenSourceSaver\JWTAuth\Validators\TokenValidator;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 
 class TokenValidatorTest extends AbstractTestCase
 {
@@ -51,13 +52,11 @@ class TokenValidatorTest extends AbstractTestCase
         $this->validator->check($token);
     }
 
-    #[DataProviderExternal(TokenValidatorTest::class, 'dataProviderMalformedTokens')]
-    public function testItShouldThrowAnExceptionWhenProvidingAMalformedToken($token)
+    public function testItShouldThrowAnExceptionTokenIsNotString()
     {
-        $this->expectException(TokenInvalidException::class);
-        $this->expectExceptionMessage('Expected token to be a string');
+        $this->expectException(TypeError::class);
 
-        $this->validator->check($token);
+        $this->validator->check(['array']);
     }
 
     #[DataProviderExternal(TokenValidatorTest::class, 'dataProviderTokensWithWrongSegmentsNumber')]
@@ -85,7 +84,6 @@ class TokenValidatorTest extends AbstractTestCase
             ['..'],
             [' . . '],
             [' one . two . three '],
-            [['array']],
         ];
     }
 
