@@ -71,7 +71,7 @@ class Lcobucci extends Provider implements JWT
         $secret,
         $algo,
         array $keys,
-        $config = null
+        $config = null,
     ) {
         parent::__construct($secret, $algo, $keys);
         $this->generateConfig($config);

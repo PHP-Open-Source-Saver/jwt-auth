@@ -25,7 +25,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
 {
     public function boot()
     {
-        $path = realpath(__DIR__ . '/../../config/config.php');
+        $path = realpath(__DIR__.'/../../config/config.php');
 
         $this->publishes([$path => $this->app->configPath('jwt.php')], 'config');
         $this->mergeConfigFrom($path, 'jwt');
