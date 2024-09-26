@@ -25,7 +25,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
 {
     public function boot()
     {
-        $path = realpath(__DIR__.'/../../config/config.php');
+        $path = realpath(__DIR__ . '/../../config/config.php');
 
         $this->publishes([$path => $this->app->configPath('jwt.php')], 'config');
         $this->mergeConfigFrom($path, 'jwt');
@@ -34,9 +34,14 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
         $this->extendAuthGuard();
 
+        $config = $this->app->make('config');
+
         $this->app['tymon.jwt.parser']->addParser([
             new RouteParams(),
-            new Cookies($this->app->make('config')->get('jwt.decrypt_cookies')),
+            new Cookies(
+                $config->get('jwt.decrypt_cookies'),
+                $config->get('jwt.cookie_key_name'),
+            ),
         ]);
 
         if (isset($_SERVER['LARAVEL_OCTANE'])) {

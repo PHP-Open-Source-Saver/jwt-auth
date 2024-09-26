@@ -221,4 +221,18 @@ There are a number of ways to send the token via http:
 
 **Cookies**
 
+By default, you can send a token via a cookie. You can customize the cookie name within the `jwt.cookie_name` configuration.
+
+```php
+// config/jwt.php
+
+return [
+    // ...
+    'cookie_name' => 'token',
+    // ...
+];
+```
+
+When making requests, the token will be automatically read from the specified cookie, the default key name is `token`.
+
 **Laravel route parameter**
