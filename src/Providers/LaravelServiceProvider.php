@@ -38,10 +38,9 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
         $this->app['tymon.jwt.parser']->addParser([
             new RouteParams(),
-            new Cookies(
+            (new Cookies(
                 $config->get('jwt.decrypt_cookies'),
-                $config->get('jwt.cookie_key_name'),
-            ),
+            ))->setKey($config->get('jwt.cookie_key_name')),
         ]);
 
         if (isset($_SERVER['LARAVEL_OCTANE'])) {
