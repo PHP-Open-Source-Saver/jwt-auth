@@ -40,7 +40,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
             new RouteParams(),
             (new Cookies(
                 $config->get('jwt.decrypt_cookies'),
-            ))->setKey($config->get('jwt.cookie_key_name')),
+            ))->setKey($config->get('jwt.cookie_key_name', 'token')),
         ]);
 
         if (isset($_SERVER['LARAVEL_OCTANE'])) {
