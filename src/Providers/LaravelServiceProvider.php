@@ -34,9 +34,13 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
         $this->extendAuthGuard();
 
+        $config = $this->app->make('config');
+
         $this->app['tymon.jwt.parser']->addParser([
             new RouteParams(),
-            new Cookies($this->app->make('config')->get('jwt.decrypt_cookies')),
+            (new Cookies(
+                $config->get('jwt.decrypt_cookies'),
+            ))->setKey($config->get('jwt.cookie_key_name', 'token')),
         ]);
 
         if (isset($_SERVER['LARAVEL_OCTANE'])) {

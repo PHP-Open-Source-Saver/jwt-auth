@@ -109,4 +109,9 @@ class DefaultConfigValuesTest extends AbstractTestCase
         $this->assertEquals(AuthIlluminate::class, $this->configuration['providers']['auth']);
         $this->assertEquals(StorageIlluminate::class, $this->configuration['providers']['storage']);
     }
+
+    public function testCookieKeyNameShouldBeSet()
+    {
+        $this->assertEquals('token', $this->configuration['cookie_key_name']);
+    }
 }

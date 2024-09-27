@@ -10,6 +10,7 @@ You can find and compare releases at the GitHub release page.
 
 ### Added
 - Fixes #259 - Can't logout with an expired token
+- Add `cookie_key_name` config to customize cookie name for authentication
 
 ### Removed
 
