@@ -222,8 +222,6 @@ class ManagerTest extends AbstractTestCase
 
     public function testBuildRefreshClaimsMethodWillNotRefreshTheIAT()
     {
-        $this->app['config']->set('jwt.refresh_iat', false);
-
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -241,6 +239,7 @@ class ManagerTest extends AbstractTestCase
         $buildRefreshClaimsMethod = $managerClass->getMethod('buildRefreshClaims');
         $buildRefreshClaimsMethod->setAccessible(true);
         $managerInstance = new Manager($this->jwt, $this->blacklist, $this->factory);
+        $managerInstance->setRefreshIat(false);
 
         $firstResult = $buildRefreshClaimsMethod->invokeArgs($managerInstance, [$payload]);
         Carbon::setTestNow(Carbon::now()->addMinutes(2));
