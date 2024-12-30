@@ -49,7 +49,7 @@
         "illuminate/routing": "^10|^11",
         "orchestra/testbench": "^8|^9",
         "mockery/mockery": "^1.4.4",
-        "phpstan/phpstan": "^1",
+        "phpstan/phpstan": "^2",
         "phpunit/phpunit": "^10.5|^11"
     },
     "autoload": {
