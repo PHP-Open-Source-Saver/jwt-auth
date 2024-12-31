@@ -96,10 +96,20 @@ return [
     | Refresh time to live
     |--------------------------------------------------------------------------
     |
-    | Specify the length of time (in minutes) that the token can be refreshed
-    | within. I.E. The user can refresh their token within a 2 week window of
-    | the original token being created until they must re-authenticate.
-    | Defaults to 2 weeks.
+    | Specify the length of time (in minutes) that the token can be refreshed within.
+    | This defines the refresh window, during which the user can refresh their token
+    | before re-authentication is required.
+    |
+    | By default, each refresh will issue a new "iat" (issued at) timestamp, extending
+    | the refresh period from the most recent refresh. This results in a rolling refresh
+    | expiry, where the refresh window resets with each token refresh.
+    |
+    | To retain a fixed refresh window from the original token creation (i.e., the behavior
+    | prior to version 2.5.0), set "refresh_iat" to false. With this setting, the refresh
+    | window will remain based on the original "iat" of the initial token issued, regardless
+    | of subsequent refreshes.
+    |
+    | The refresh ttl defaults to 2 weeks.
     |
     | You can also set this to null, to yield an infinite refresh time.
     | Some may want this instead of never expiring tokens for e.g. a mobile app.
@@ -108,6 +118,7 @@ return [
     |
     */
 
+    'refresh_iat' => env('JWT_REFRESH_IAT', true),
     'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
 
     /*

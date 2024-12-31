@@ -9,6 +9,7 @@ You can find and compare releases at the GitHub release page.
 ## [Unreleased]
 
 ### Added
+- #268 Implement config variable to allow iat to remain unchanged claim when refreshing a token
 - Fixes #259 - Can't logout with an expired token
 - Add `cookie_key_name` config to customize cookie name for authentication
 
