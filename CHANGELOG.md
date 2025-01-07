@@ -11,6 +11,7 @@ You can find and compare releases at the GitHub release page.
 ### Fixed
 - Fixes #259 - Can't logout with an expired token
 - Fixed #271 - Changing JWT_TTL in .env doesn't work
+- Fixes #274 - Do not display jwt secret on console after successfully generated a new key
 
 ### Added
 - Add `cookie_key_name` config to customize cookie name for authentication
