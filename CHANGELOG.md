@@ -14,6 +14,7 @@ You can find and compare releases at the GitHub release page.
 
 ### Added
 - Add `cookie_key_name` config to customize cookie name for authentication
+- Delegate `Auth::id()` calls to the newly added `getUserId` method
 
 ### Removed
 
