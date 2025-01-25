@@ -129,6 +129,16 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Get the ID for the currently authenticated user.
+     *
+     * @return int|string|null
+     */
+    public function id()
+    {
+        $this->getUserId();
+    }
+
+    /**
      * Get the currently authenticated user or throws an exception.
      *
      * @return Authenticatable
