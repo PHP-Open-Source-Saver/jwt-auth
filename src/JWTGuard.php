@@ -135,15 +135,7 @@ class JWTGuard implements Guard
      */
     public function id()
     {
-        if ($id = $this->getUserId()) {
-            return $id;
-        }
-
-        if ($user = $this->user()) {
-            return $user->getAuthIdentifier();
-        }
-
-        return null;
+        return $this->getUserId();
     }
 
     /**
