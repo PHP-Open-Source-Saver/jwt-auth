@@ -24,6 +24,7 @@ class LaravelUserStub extends UserStub implements Authenticatable, JWTSubject
 
     public function getAuthIdentifier()
     {
+        return $this->getJWTIdentifier();
     }
 
     public function getAuthPasswordName(): string
