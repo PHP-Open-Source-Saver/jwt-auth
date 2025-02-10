@@ -20,25 +20,19 @@ use PHPOpenSourceSaver\JWTAuth\Support\Utils;
 class Factory
 {
     /**
-     * The request.
-     *
-     * @var Request
+     * The Laravel request.
      */
-    protected $request;
+    protected Request $request;
 
     /**
-     * The TTL.
-     *
-     * @var int|null
+     * The time to live in minutes.
      */
-    protected $ttl = 60;
+    protected int $ttl = 60;
 
     /**
      * Time leeway in seconds.
-     *
-     * @var int
      */
-    protected $leeway = 0;
+    protected int $leeway = 0;
 
     /**
      * The classes map.
@@ -179,11 +173,9 @@ class Factory
     }
 
     /**
-     * Set the request instance.
-     *
-     * @return $this
+     * Set the Laravel request instance.
      */
-    public function setRequest(Request $request)
+    public function setRequest(Request $request): self
     {
         $this->request = $request;
 
@@ -192,36 +184,26 @@ class Factory
 
     /**
      * Set the token ttl (in minutes).
-     *
-     * @param int|null $ttl
-     *
-     * @return $this
      */
-    public function setTTL($ttl)
+    public function setTTL(int $ttl): self
     {
-        $this->ttl = $ttl ? (int) $ttl : $ttl;
+        $this->ttl = $ttl;
 
         return $this;
     }
 
     /**
      * Get the token ttl.
-     *
-     * @return int|null
      */
-    public function getTTL()
+    public function getTTL(): int
     {
         return $this->ttl;
     }
 
     /**
      * Set the leeway in seconds.
-     *
-     * @param int $leeway
-     *
-     * @return $this
      */
-    public function setLeeway($leeway)
+    public function setLeeway(int $leeway): self
     {
         $this->leeway = $leeway;
 
