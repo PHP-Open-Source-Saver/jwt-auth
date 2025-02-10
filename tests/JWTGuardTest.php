@@ -193,6 +193,35 @@ class JWTGuardTest extends AbstractTestCase
         $this->assertSame(1, $this->guard->getUserId());
     }
 
+    public function testItShouldGetTheAuthenticatedUserIdNativelyIfAValidTokenIsProvided()
+    {
+        $payload = \Mockery::mock(Payload::class);
+        $payload->shouldReceive('offsetGet')->once()->with('sub')->andReturn(1);
+
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
+        $this->jwt->shouldReceive('checkSubjectModel')
+            ->once()
+            ->with('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub')
+            ->andReturn(true);
+
+        $this->provider->shouldReceive('getModel')
+            ->once()
+            ->andReturn('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub');
+
+        $this->assertSame(1, $this->guard->id());
+    }
+
+    public function testIdShouldFallBackToUserMethodIfATokenIsNotProvidedInFeatureTestScenarios()
+    {
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->guard->setUser(new LaravelUserStub());
+
+        $this->assertSame(1, $this->guard->id());
+    }
+
     public function testItShouldReturnNullForUserIdIfNoTokenIsProvided()
     {
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
