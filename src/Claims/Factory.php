@@ -39,7 +39,7 @@ class Factory
      *
      * @var array
      */
-    private $classMap = [
+    private array $classMap = [
         'aud' => Audience::class,
         'exp' => Expiration::class,
         'iat' => IssuedAt::class,
@@ -51,8 +51,6 @@ class Factory
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct(Request $request)
     {
@@ -62,13 +60,9 @@ class Factory
     /**
      * Get the instance of the claim when passing the name and value.
      *
-     * @param string $name
-     *
-     * @return Claim
-     *
      * @throws InvalidClaimException
      */
-    public function get($name, $value)
+    public function get(string $name, mixed $value): Custom
     {
         if ($this->has($name)) {
             $claim = new $this->classMap[$name]($value);
@@ -83,12 +77,8 @@ class Factory
 
     /**
      * Check whether the claim exists.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
-    public function has($name)
+    public function has(string $name): bool
     {
         return array_key_exists($name, $this->classMap);
     }
@@ -96,76 +86,57 @@ class Factory
     /**
      * Generate the initial value and return the Claim instance.
      *
-     * @param string $name
-     *
-     * @return Claim
-     *
      * @throws InvalidClaimException
      */
-    public function make($name)
+    public function make(string $name): Claim
     {
         return $this->get($name, $this->$name());
     }
 
     /**
      * Get the Issuer (iss) claim.
-     *
-     * @return string
      */
-    public function iss()
+    public function iss(): string
     {
-        return $this->request->url();
+        return $this->request->url() ?? '';
     }
 
     /**
      * Get the Issued At (iat) claim.
-     *
-     * @return int
      */
-    public function iat()
+    public function iat(): int
     {
         return Utils::now()->getTimestamp();
     }
 
     /**
-     * Get the Expiration (exp) claim.
-     *
-     * @return int
+     * Get the Expiration (exp) claim as a unix timestamp
      */
-    public function exp()
+    public function exp(): int
     {
         return Utils::now()->addMinutes($this->ttl)->getTimestamp();
     }
 
     /**
-     * Get the Not Before (nbf) claim.
-     *
-     * @return int
+     * Get the Not Before (nbf) claim as a unix timestamp
      */
-    public function nbf()
+    public function nbf(): int
     {
         return Utils::now()->getTimestamp();
     }
 
     /**
      * Get the JWT Id (jti) claim.
-     *
-     * @return string
      */
-    public function jti()
+    public function jti(): string
     {
         return Str::random();
     }
 
     /**
      * Add a new claim mapping.
-     *
-     * @param string $name
-     * @param string $classPath
-     *
-     * @return $this
      */
-    public function extend($name, $classPath)
+    public function extend(string $name, string $classPath): self
     {
         $this->classMap[$name] = $classPath;
 
