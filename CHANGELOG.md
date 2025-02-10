@@ -8,11 +8,15 @@ You can find and compare releases at the [GitHub release page](https://github.co
 
 ## [Unreleased]
 
-## [2.8.0] 2025-02-12 (TBA)
+## [2.8.0] 2025-02-11
+Please see (https://github.com/PHP-Open-Source-Saver/jwt-auth/releases/tag/2.8.0)
 
 ### Added
 - Adds support for Laravel 12
 - Adds CI testing for PHP 8.4
+- Don't show jwt secret if show option is false even if the key is updated
+- Casts config ints to int by default in new config file publishes
+- Override "id" method in JWTGuard
 
 ### Removed
 
