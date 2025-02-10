@@ -4,19 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-You can find and compare releases at the GitHub release page.
+You can find and compare releases at the [GitHub release page](https://github.com/PHP-Open-Source-Saver/jwt-auth/releases).
 
 ## [Unreleased]
 
-### Fixed
-- Fixes #259 - Can't logout with an expired token
-- Fixed #271 - Changing JWT_TTL in .env doesn't work
-- Fixes #274 - Do not display jwt secret on console after successfully generated a new key
+## [2.8.0] 2025-02-12 (TBA)
+
+### Added
+- Adds support for Laravel 12
+- Adds CI testing for PHP 8.4
+
+### Removed
+
+- Dropping support for PHP 8.1, if you are still on this version, please update your PHP version in order to use the latest version of this package.
+
+## [2.7.2] 2024-09-28
 
 ### Added
 - Add `cookie_key_name` config to customize cookie name for authentication
 
-### Removed
+## [2.7.0] 2024-07-24
+
+### Fixed
+- Support for Carbon 3 alongside Carbon 2
 
 ## [2.6.0] 2024-07-11
 
