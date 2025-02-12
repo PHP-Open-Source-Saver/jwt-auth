@@ -22,7 +22,7 @@ trait CustomClaims
     /**
      * Set the custom claims.
      */
-    public function setCustomClaims(array $customClaims): self
+    public function setCustomClaims(array $customClaims): static
     {
         $this->customClaims = $customClaims;
 
@@ -41,7 +41,7 @@ trait CustomClaims
      * Alias of setCustomClaims.
      * @deprecated Please use setCustomClaims(array)
      */
-    public function customClaims(array $customClaims): self
+    public function customClaims(array $customClaims): static
     {
         return $this->setCustomClaims($customClaims);
     }
@@ -50,7 +50,7 @@ trait CustomClaims
      * Alias of setCustomClaims.
      * @deprecated Please use setCustomClaims(array)
      */
-    public function claims(array $customClaims): self
+    public function claims(array $customClaims): static
     {
         return $this->setCustomClaims($customClaims);
     }
