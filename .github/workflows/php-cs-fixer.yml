@@ -10,7 +10,7 @@ jobs:
   php-cs-fixer:
     name: Fix Code Style
     timeout-minutes: 5
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       COMPOSER_NO_INTERACTION: 1
 
