@@ -17,31 +17,37 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class LaravelUserStub extends UserStub implements Authenticatable, JWTSubject
 {
-    public function getAuthIdentifierName()
+    public function getAuthIdentifierName(): string
     {
+        return '';
     }
 
     public function getAuthIdentifier()
     {
+        return $this->getJWTIdentifier();
     }
 
-    public function getAuthPasswordName()
+    public function getAuthPasswordName(): string
     {
+        return '';
     }
 
-    public function getAuthPassword()
+    public function getAuthPassword(): string
     {
+        return '';
     }
 
-    public function getRememberToken()
+    public function getRememberToken(): string
     {
+        return '';
     }
 
     public function setRememberToken($value)
     {
     }
 
-    public function getRememberTokenName()
+    public function getRememberTokenName(): string
     {
+        return '';
     }
 }

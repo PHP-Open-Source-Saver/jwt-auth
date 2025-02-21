@@ -16,7 +16,7 @@ use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Provider;
 
 class JWTProviderStub extends Provider
 {
-    protected function isAsymmetric()
+    protected function isAsymmetric(): bool
     {
         return false;
     }

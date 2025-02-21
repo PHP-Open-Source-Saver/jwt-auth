@@ -73,7 +73,7 @@ class JWTGenerateSecretCommand extends Command
 
         if ($updated) {
             $this->updateEnvEntry('JWT_ALGO', 'HS256');
-            $this->displayKey($key);
+            $this->info('jwt-auth secret set successfully.');
         }
     }
 
