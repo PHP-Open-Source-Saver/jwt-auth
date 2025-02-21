@@ -44,6 +44,11 @@ class DefaultConfigValuesTest extends AbstractTestCase
         $this->assertEquals(60, $this->configuration['ttl']);
     }
 
+    public function testRefreshIatShouldBeSet()
+    {
+        $this->assertEquals(true, $this->configuration['refresh_iat']);
+    }
+
     public function testRefreshTtlShouldBeSet()
     {
         $this->assertEquals(20160, $this->configuration['refresh_ttl']);
