@@ -16,17 +16,13 @@ trait CustomClaims
 {
     /**
      * Custom claims.
-     *
-     * @var array
      */
-    protected $customClaims = [];
+    protected array $customClaims = [];
 
     /**
      * Set the custom claims.
-     *
-     * @return $this
      */
-    public function customClaims(array $customClaims)
+    public function setCustomClaims(array $customClaims): self
     {
         $this->customClaims = $customClaims;
 
@@ -34,22 +30,28 @@ trait CustomClaims
     }
 
     /**
-     * Alias to set the custom claims.
-     *
-     * @return $this
+     * Get the custom claims.
      */
-    public function claims(array $customClaims)
+    public function getCustomClaims(): array
     {
-        return $this->customClaims($customClaims);
+        return $this->customClaims;
     }
 
     /**
-     * Get the custom claims.
-     *
-     * @return array
+     * Alias of setCustomClaims.
+     * @deprecated Please use setCustomClaims(array)
      */
-    public function getCustomClaims()
+    public function customClaims(array $customClaims): self
     {
-        return $this->customClaims;
+        return $this->setCustomClaims($customClaims);
+    }
+
+    /**
+     * Alias of setCustomClaims.
+     * @deprecated Please use setCustomClaims(array)
+     */
+    public function claims(array $customClaims): self
+    {
+        return $this->setCustomClaims($customClaims);
     }
 }
