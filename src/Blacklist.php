@@ -99,7 +99,7 @@ class Blacklist
 
         // Handle Carbon 2 vs 3 deprecation of "Real" diff functions, see https://github.com/PHP-Open-Source-Saver/jwt-auth/issues/260
         if (method_exists($intermediateResult, 'diffInRealMinutes')) {
-            return round($intermediateResult->diffInRealMinutes(null, true));
+            return (int) round($intermediateResult->diffInRealMinutes(null, true));
         } else {
             return (int) round($intermediateResult->diffInMinutes(null, true));
         }
