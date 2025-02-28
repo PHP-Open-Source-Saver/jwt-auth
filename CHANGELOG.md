@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 You can find and compare releases at the [GitHub release page](https://github.com/PHP-Open-Source-Saver/jwt-auth/releases).
 
 ## [Unreleased]
+### Fixed
+ - Fixed the return type of getMinutesUntilExpired in BlackList, which returned a float instead of an int when using Carbon v2.
 
 ## [2.8.0] 2025-02-11
 Please see (https://github.com/PHP-Open-Source-Saver/jwt-auth/releases/tag/2.8.0)
