@@ -9,6 +9,10 @@ You can find and compare releases at the [GitHub release page](https://github.co
 ## [Unreleased]
 ### Fixed
  - Fixed the return type of getMinutesUntilExpired in BlackList, which returned a float instead of an int when using Carbon v2.
+ - Fixed PHPStan issue in JWTGenerateSecretCommand by ensuring displayKey($key); is called before returning, avoiding returning a void method.  
+ - Fixed missing return true; statements in validatePayload() and validateRefresh() methods of Expiration.php, IssuedAt.php, and NotBefore.php to resolve PHPStan errors.  
+ - Fixed PHPStan error related to new static() by making the constructor final in Collection.php.  
+
 
 ## [2.8.0] 2025-02-11
 Please see (https://github.com/PHP-Open-Source-Saver/jwt-auth/releases/tag/2.8.0)
