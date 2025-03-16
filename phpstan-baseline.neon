@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 1
-			path: src/Claims/Collection.php
-
-		-
 			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\Expiration\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: src/Claims/Expiration.php
