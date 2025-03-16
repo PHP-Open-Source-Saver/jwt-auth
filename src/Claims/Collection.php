@@ -22,7 +22,7 @@ class Collection extends IlluminateCollection
      *
      * @return void
      */
-    final public function __construct($items = [])
+    public function __construct($items = [])
     {
         parent::__construct($this->getArrayableItems($items));
     }
@@ -70,7 +70,17 @@ class Collection extends IlluminateCollection
      */
     public function hasAllClaims($claims)
     {
-        return count($claims) && (new static($claims))->diff($this->keys())->isEmpty();
+        if (!count($claims)) {
+            return false;
+        }
+
+        foreach ($claims as $claim) {
+            if (!$this->has($claim)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
