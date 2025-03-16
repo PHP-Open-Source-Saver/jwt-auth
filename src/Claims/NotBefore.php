@@ -28,5 +28,7 @@ class NotBefore extends Claim
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
         }
+
+        return true;
     }
 }
