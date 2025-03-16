@@ -1,6 +1,0 @@
-chore: update CHANGELOG with recent PHPStan fixes
-
-Added entries to the CHANGELOG for fixes addressing PHPStan issues:
-- Ensured displayKey($key); is called before returning in JWTGenerateSecretCommand.
-- Added missing return true; statements in Expiration.php, IssuedAt.php, and NotBefore.php.
-- Made the constructor final in Collection.php to fix new static() usage.
