@@ -52,7 +52,9 @@ class JWTGenerateSecretCommand extends Command
         }
 
         if (!$this->envFileExists()) {
-            return $this->displayKey($key);
+            $this->displayKey($key);
+
+            return;
         }
 
         $updated = $this->updateEnvEntry('JWT_SECRET', $key, function () {

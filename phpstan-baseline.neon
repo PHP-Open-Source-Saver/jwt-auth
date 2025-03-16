@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Result of method PHPOpenSourceSaver\\\\JWTAuth\\\\Console\\\\JWTGenerateSecretCommand\\:\\:displayKey\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: src/Console/JWTGenerateSecretCommand.php
-
-		-
 			message: "#^Class Laravel\\\\Octane\\\\Events\\\\RequestReceived not found\\.$#"
 			count: 1
 			path: src/Providers/LaravelServiceProvider.php
