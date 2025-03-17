@@ -1,36 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 1
-			path: src/Claims/Collection.php
-
-		-
-			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\Expiration\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: src/Claims/Expiration.php
-
-		-
-			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\IssuedAt\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: src/Claims/IssuedAt.php
-
-		-
-			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\IssuedAt\\:\\:validateRefresh\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: src/Claims/IssuedAt.php
-
-		-
-			message: "#^Method PHPOpenSourceSaver\\\\JWTAuth\\\\Claims\\\\NotBefore\\:\\:validatePayload\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: src/Claims/NotBefore.php
-
-		-
-			message: "#^Result of method PHPOpenSourceSaver\\\\JWTAuth\\\\Console\\\\JWTGenerateSecretCommand\\:\\:displayKey\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: src/Console/JWTGenerateSecretCommand.php
-
-		-
 			message: "#^Class Laravel\\\\Octane\\\\Events\\\\RequestReceived not found\\.$#"
 			count: 1
 			path: src/Providers/LaravelServiceProvider.php
