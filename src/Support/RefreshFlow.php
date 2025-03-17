@@ -16,19 +16,13 @@ trait RefreshFlow
 {
     /**
      * The refresh flow flag.
-     *
-     * @var bool
      */
-    protected $refreshFlow = false;
+    protected bool $refreshFlow = false;
 
     /**
      * Set the refresh flow flag.
-     *
-     * @param bool $refreshFlow
-     *
-     * @return $this
      */
-    public function setRefreshFlow($refreshFlow = true)
+    public function setRefreshFlow(bool $refreshFlow = true): static
     {
         $this->refreshFlow = $refreshFlow;
 

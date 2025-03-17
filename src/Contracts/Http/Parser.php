@@ -17,9 +17,7 @@ use Illuminate\Http\Request;
 interface Parser
 {
     /**
-     * Parse the request.
-     *
-     * @return string|null
+     * Parse the request, and return the desired value from it.
      */
-    public function parse(Request $request);
+    public function parse(Request $request): string|null;
 }

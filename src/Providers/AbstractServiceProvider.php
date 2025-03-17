@@ -300,14 +300,15 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerClaimFactory()
+    protected function registerClaimFactory(): void
     {
         $this->app->singleton('tymon.jwt.claim.factory', function ($app) {
             $factory = new ClaimFactory($app['request']);
             $app->refresh('request', $factory, 'setRequest');
+            $config = $app->make('config');
 
-            return $factory->setTTL($app->make('config')->get('jwt.ttl'))
-                           ->setLeeway($app->make('config')->get('jwt.leeway'));
+            return $factory->setTTL((int) $config->get('jwt.ttl'))
+                           ->setLeeway((int) $config->get('jwt.leeway'));
         });
     }
 
