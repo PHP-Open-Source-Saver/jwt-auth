@@ -18,6 +18,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 Please see (https://github.com/PHP-Open-Source-Saver/jwt-auth/releases/tag/2.8.0)
 
 ### Added
+- #268 Implement config variable to allow iat to remain unchanged claim when refreshing a token
 - Adds support for Laravel 12
 - Adds CI testing for PHP 8.4
 - Don't show jwt secret if show option is false even if the key is updated

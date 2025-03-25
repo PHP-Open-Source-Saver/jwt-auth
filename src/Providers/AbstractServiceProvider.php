@@ -213,6 +213,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
             );
 
             return $instance->setBlacklistEnabled((bool) $app->make('config')->get('jwt.blacklist_enabled'))
+                ->setRefreshIat((bool) $app->make('config')->get('jwt.refresh_iat', true))
                 ->setPersistentClaims($app->make('config')->get('jwt.persistent_claims'))
                 ->setBlackListExceptionEnabled((bool) $app->make('config')->get('jwt.show_black_list_exception', 0));
         });

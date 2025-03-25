@@ -53,6 +53,13 @@ class Manager
     protected $blacklistEnabled = true;
 
     /**
+     * The refresh iat flag.
+     *
+     * @var bool
+     */
+    protected $refreshIat = true;
+
+    /**
      * the persistent claims.
      *
      * @var array
@@ -182,7 +189,7 @@ class Manager
             $persistentClaims,
             [
                 'sub' => $payload['sub'],
-                'iat' => Utils::now()->timestamp,
+                'iat' => $this->refreshIat ? Utils::now()->timestamp : $payload['iat'],
             ]
         );
     }
@@ -264,6 +271,20 @@ class Manager
     public function setPersistentClaims(array $claims)
     {
         $this->persistentClaims = $claims;
+
+        return $this;
+    }
+
+    /**
+     * Set whether the refresh iat is enabled.
+     *
+     * @param bool $enabled
+     *
+     * @return $this
+     */
+    public function setRefreshIat($refreshIat)
+    {
+        $this->refreshIat = $refreshIat;
 
         return $this;
     }
