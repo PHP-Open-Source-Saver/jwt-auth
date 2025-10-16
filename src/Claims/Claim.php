@@ -21,22 +21,20 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
 {
     /**
      * The claim name.
-     *
-     * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * The claim value.
      */
-    private $value;
+    private mixed $value;
 
     /**
      * @return void
      *
      * @throws InvalidClaimException
      */
-    public function __construct($value)
+    public function __construct(mixed $value)
     {
         $this->setValue($value);
     }
@@ -44,11 +42,9 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
     /**
      * Set the claim value, and call a validate method.
      *
-     * @return $this
-     *
      * @throws InvalidClaimException
      */
-    public function setValue($value)
+    public function setValue(mixed $value): static
     {
         $this->value = $this->validateCreate($value);
 
@@ -58,7 +54,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
     /**
      * Get the claim value.
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
@@ -70,7 +66,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
      *
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -82,17 +78,15 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * Validate the claim in a standalone Claim context.
-     *
-     * @return bool
      */
-    public function validateCreate($value)
+    public function validateCreate(mixed $value): mixed
     {
         return $value;
     }
@@ -102,42 +96,33 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
      *
      * @return bool
      */
-    public function validatePayload()
+    public function validatePayload(): mixed
     {
         return $this->getValue();
     }
 
     /**
      * Validate the Claim within a refresh context.
-     *
-     * @param int $refreshTTL
-     *
-     * @return bool
      */
-    public function validateRefresh($refreshTTL)
+    public function validateRefresh(int $refreshTTL): bool
     {
         return $this->getValue();
     }
 
     /**
      * Checks if the value matches the claim.
-     *
-     * @param bool $strict
-     *
-     * @return bool
      */
-    public function matches($value, $strict = true)
+    public function matches(mixed $value, bool $strict = true): bool
     {
         return $strict ? $this->value === $value : $this->value == $value;
     }
 
     /**
      * Convert the object into something JSON serializable.
-     *
-     * @return array
      */
+    // @todo: what the hell is this attribute
     #[\ReturnTypeWillChange]
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
@@ -147,7 +132,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [$this->getName() => $this->getValue()];
     }
@@ -156,20 +141,16 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, \JsonSeriali
      * Get the claim as JSON.
      *
      * @param int $options
-     *
-     * @return string
      */
-    public function toJson($options = JSON_UNESCAPED_SLASHES)
+    public function toJson($options = JSON_UNESCAPED_SLASHES): string
     {
         return json_encode($this->toArray(), $options);
     }
 
     /**
      * Get the payload as a string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toJson();
     }
