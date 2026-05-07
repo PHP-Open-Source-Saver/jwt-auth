@@ -127,6 +127,32 @@ class JWTGuardTest extends AbstractTestCase
         $this->assertTrue($this->guard->check());
     }
 
+    public function testItShouldReturnNullIfAProviderCannotdTheUser()
+    {
+        $payload = \Mockery::mock(Payload::class);
+        $payload->shouldReceive('offsetGet')->once()->with('sub')->andReturn(1);
+
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
+        $this->jwt->shouldReceive('checkSubjectModel')
+            ->once()
+            ->with('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub')
+            ->andReturn(true);
+
+        $this->provider->shouldReceive('getModel')
+            ->once()
+            ->andReturn('\PHPOpenSourceSaver\JWTAuth\Test\Stubs\LaravelUserStub');
+        $this->provider->shouldReceive('retrieveById')
+            ->once()
+            ->with(1)
+            ->andReturn(null);
+
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
+
+        $this->assertNull($this->guard->user());
+    }
+
     public function testItShouldReturnNullIfAnInvalidTokenIsProvided()
     {
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
