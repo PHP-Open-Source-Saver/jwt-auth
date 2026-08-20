@@ -12,7 +12,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 - Trigger Authenticated event when loading user from token
 
 ### Fixed
-- Laravel Octane does not keep `tymon.jwt` warm in between request.
+- Laravel Octane does not keep tymon.jwt warm between requests.
 
 ## [2.9.0] 2026-03-06
 Please see (https://github.com/PHP-Open-Source-Saver/jwt-auth/releases/tag/2.9.0)
