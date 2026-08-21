@@ -18,38 +18,28 @@ interface Claim
 {
     /**
      * Set the claim value, and call a validate method.
-     *
-     * @return $this
-     *
+
      * @throws InvalidClaimException
      */
-    public function setValue($value);
+    public function setValue(mixed $value): self;
 
     /**
      * Get the claim value.
      */
-    public function getValue();
+    public function getValue(): mixed;
 
     /**
      * Set the claim name.
-     *
-     * @param string $name
-     *
-     * @return $this
      */
-    public function setName($name);
+    public function setName(string $name): self;
 
     /**
      * Get the claim name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
-     * Validate the Claim value.
-     *
-     * @return bool
+     * Validate the Claim value, and return it
      */
-    public function validateCreate($value);
+    public function validateCreate(mixed $value): mixed;
 }
