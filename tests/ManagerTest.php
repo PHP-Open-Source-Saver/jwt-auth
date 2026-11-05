@@ -366,4 +366,75 @@ class ManagerTest extends AbstractTestCase
 
         $this->assertFalse($this->manager->getBlackListExceptionEnabled());
     }
+
+    /**
+     * @throws InvalidClaimException
+     */
+    public function testItShouldResetRefreshFlowAfterRefreshingAToken()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
+        ];
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
+        $token = new Token('foo.bar.baz');
+
+        $this->jwt->shouldReceive('decode')->twice()->with('foo.bar.baz')->andReturn($payload->toArray());
+        $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('baz.bar.foo');
+
+        $this->factory->shouldReceive('setRefreshFlow')->with(true)->andReturn($this->factory);
+        $this->factory->shouldReceive('customClaims')->andReturn($this->factory);
+        $this->factory->shouldReceive('make')->andReturn($payload);
+
+        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+        $this->blacklist->shouldReceive('add')->once()->with($payload);
+
+        $managerClass = new \ReflectionClass(Manager::class);
+        $refreshFlow = $managerClass->getProperty('refreshFlow');
+        $refreshFlow->setAccessible(true);
+
+        $this->assertFalse($refreshFlow->getValue($this->manager));
+
+        $this->manager->refresh($token);
+
+        $this->assertFalse($refreshFlow->getValue($this->manager));
+    }
+
+    /**
+     * @throws InvalidClaimException
+     */
+    public function testDecodeShouldRebuildPayloadClaimsFromScratch()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
+        ];
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
+        $token = new Token('foo.bar.baz');
+
+        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+
+        $this->factory->shouldReceive('setRefreshFlow')->once()->with(false)->andReturn($this->factory);
+        $this->factory->shouldReceive('customClaims')->once()->with($payload->toArray())->andReturn($this->factory);
+        $this->factory->shouldReceive('make')->once()->with(true)->andReturn($payload);
+
+        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+
+        $this->assertEquals($this->manager->decode($token), $payload);
+    }
+
 }

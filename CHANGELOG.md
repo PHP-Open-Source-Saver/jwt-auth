@@ -13,6 +13,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 
 ### Fixed
 - Laravel Octane does not keep tymon.jwt warm between requests.
+- Scope tymon.jwt.manager, tymon.jwt.payload.factory, and tymon.jwt.auth so refreshFlow / payload claims do not stick across Octane requests; reset refreshFlow after refresh() and rebuild decode payloads with a fresh claims collection.
 
 ## [2.9.0] 2026-03-06
 Please see (https://github.com/PHP-Open-Source-Saver/jwt-auth/releases/tag/2.9.0)

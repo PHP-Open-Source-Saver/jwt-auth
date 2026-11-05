@@ -297,4 +297,29 @@ class LaravelServiceProviderTest extends TestCase
             $jwtInstance->getTTL(),
         );
     }
+
+    public function testManagerPayloadFactoryAndAuthAreScoped()
+    {
+        $managerA = $this->app->make('tymon.jwt.manager');
+        $factoryA = $this->app->make('tymon.jwt.payload.factory');
+        $authA = $this->app->make('tymon.jwt.auth');
+        $jwtA = $this->app->make('tymon.jwt');
+        $blacklistA = $this->app->make('tymon.jwt.blacklist');
+
+        $this->assertSame($managerA, $this->app->make('tymon.jwt.manager'));
+        $this->assertSame($factoryA, $this->app->make('tymon.jwt.payload.factory'));
+        $this->assertSame($authA, $this->app->make('tymon.jwt.auth'));
+        $this->assertSame($jwtA, $this->app->make('tymon.jwt'));
+        $this->assertSame($blacklistA, $this->app->make('tymon.jwt.blacklist'));
+
+        $this->app->forgetScopedInstances();
+
+        $this->assertNotSame($managerA, $this->app->make('tymon.jwt.manager'));
+        $this->assertNotSame($factoryA, $this->app->make('tymon.jwt.payload.factory'));
+        $this->assertNotSame($authA, $this->app->make('tymon.jwt.auth'));
+        $this->assertNotSame($jwtA, $this->app->make('tymon.jwt'));
+        // Blacklist remains a singleton and must survive the scoped flush.
+        $this->assertSame($blacklistA, $this->app->make('tymon.jwt.blacklist'));
+    }
+
 }
