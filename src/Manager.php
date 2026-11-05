@@ -111,7 +111,7 @@ class Manager
         $payload = $this->payloadFactory
             ->setRefreshFlow($this->refreshFlow)
             ->customClaims($payloadArray)
-            ->make();
+            ->make(true);
 
         if (
             $checkBlacklist
@@ -137,17 +137,22 @@ class Manager
     {
         $this->setRefreshFlow();
 
-        $claims = $this->buildRefreshClaims($this->decode($token));
+        try {
+            $claims = $this->buildRefreshClaims($this->decode($token));
 
-        if ($this->blacklistEnabled) {
-            // Invalidate old token
-            $this->invalidate($token, $forceForever);
+            if ($this->blacklistEnabled) {
+                // Invalidate old token
+                $this->invalidate($token, $forceForever);
+            }
+
+            // Return the new token
+            return $this->encode(
+                $this->payloadFactory->customClaims($claims)->make($resetClaims)
+            );
+        } finally {
+            // Avoid sticky refreshFlow on long-lived (Octane) Manager instances.
+            $this->setRefreshFlow(false);
         }
-
-        // Return the new token
-        return $this->encode(
-            $this->payloadFactory->customClaims($claims)->make($resetClaims)
-        );
     }
 
     /**

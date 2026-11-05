@@ -205,7 +205,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerManager()
     {
-        $this->app->singleton('tymon.jwt.manager', function ($app) {
+        $this->app->scoped('tymon.jwt.manager', function ($app) {
             $instance = new Manager(
                 $app['tymon.jwt.provider.jwt'],
                 $app['tymon.jwt.blacklist'],
@@ -262,7 +262,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerJWTAuth()
     {
-        $this->app->singleton('tymon.jwt.auth', fn ($app) => (new JWTAuth(
+        $this->app->scoped('tymon.jwt.auth', fn ($app) => (new JWTAuth(
             $app['tymon.jwt.manager'],
             $app['tymon.jwt.provider.auth'],
             $app['tymon.jwt.parser']
@@ -319,7 +319,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerPayloadFactory()
     {
-        $this->app->singleton('tymon.jwt.payload.factory', fn ($app) => new Factory(
+        $this->app->scoped('tymon.jwt.payload.factory', fn ($app) => new Factory(
             $app['tymon.jwt.claim.factory'],
             $app['tymon.jwt.validators.payload']
         ));
