@@ -34,7 +34,7 @@ class PayloadValidator extends Validator
     /**
      * The refresh TTL.
      *
-     * @var int
+     * @var int|null
      */
     protected $refreshTTL = 20160;
 
@@ -107,13 +107,13 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl.
      *
-     * @param int $ttl
+     * @param int|null $ttl
      *
      * @return $this
      */
     public function setRefreshTTL($ttl)
     {
-        $this->refreshTTL = $ttl;
+        $this->refreshTTL = null !== $ttl ? (int) $ttl : null;
 
         return $this;
     }

@@ -215,6 +215,27 @@ class PayloadValidatorTest extends AbstractTestCase
     /**
      * @throws InvalidClaimException
      */
+    public function testItShouldCheckTheTokenInTheRefreshContextWithStringRefreshTtl()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 1000),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp - 2600), // this is LESS than the refresh ttl at 1 hour
+            new JwtId('foo'),
+        ];
+
+        $collection = Collection::make($claims);
+
+        $this->assertTrue(
+            $this->validator->setRefreshFlow()->setRefreshTTL('60')->isValid($collection)
+        );
+    }
+
+    /**
+     * @throws InvalidClaimException
+     */
     public function testItShouldThrowAnExceptionIfTheTokenCannotBeRefreshed()
     {
         $this->expectException(TokenExpiredException::class);

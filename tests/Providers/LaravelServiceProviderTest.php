@@ -12,12 +12,14 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test\Providers;
 
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Event;
 use Laravel\Octane\Events\RequestReceived;
 use Laravel\Octane\Events\TaskReceived;
 use Laravel\Octane\Events\TickReceived;
 use Orchestra\Testbench\TestCase;
 use PHPOpenSourceSaver\JWTAuth\Blacklist;
+use PHPOpenSourceSaver\JWTAuth\Claims\Collection;
 use PHPOpenSourceSaver\JWTAuth\Claims\Factory as ClaimFactory;
 use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateCertCommand;
 use PHPOpenSourceSaver\JWTAuth\Console\JWTGenerateSecretCommand;
@@ -298,6 +300,56 @@ class LaravelServiceProviderTest extends TestCase
         );
     }
 
+    public function testPermanentTokenWithoutExpClaimWhenJwtTtlEnvIsNull()
+    {
+        Env::getRepository()->set('JWT_TTL', 'null');
+
+        try {
+            $this->refreshApplication();
+            $this->app['config']->set('jwt.required_claims', ['iss', 'iat', 'nbf', 'sub', 'jti']);
+
+            /** @var Factory $factory */
+            $factory = $this->app->make('tymon.jwt.payload.factory');
+            $this->assertNull($factory->getTTL());
+
+            $payload = $factory->customClaims(['sub' => 1])->make();
+            $this->assertFalse($payload->hasKey('exp'));
+        } finally {
+            Env::getRepository()->clear('JWT_TTL');
+        }
+    }
+
+    public function testInfiniteRefreshTtlWhenJwtRefreshTtlEnvIsNull()
+    {
+        Env::getRepository()->set('JWT_REFRESH_TTL', 'null');
+
+        try {
+            $this->refreshApplication();
+
+            $this->assertNull($this->app['config']->get('jwt.refresh_ttl'));
+
+            /** @var PayloadValidator $validator */
+            $validator = $this->app->make('tymon.jwt.validators.payload');
+            $validator->setRefreshFlow()->setRequiredClaims(['iss', 'iat', 'exp', 'nbf', 'sub', 'jti']);
+
+            /** @var ClaimFactory $claimFactory */
+            $claimFactory = $this->app->make('tymon.jwt.claim.factory');
+            $now = time();
+            $claims = Collection::make([
+                $claimFactory->get('sub', 1),
+                $claimFactory->get('iss', 'http://example.com'),
+                $claimFactory->get('exp', $now - 3600),
+                $claimFactory->get('nbf', $now - 7200),
+                $claimFactory->get('iat', $now - 86400 * 365),
+                $claimFactory->get('jti', 'foo'),
+            ]);
+
+            $this->assertTrue($validator->isValid($claims));
+        } finally {
+            Env::getRepository()->clear('JWT_REFRESH_TTL');
+        }
+    }
+
     public function testManagerPayloadFactoryAndAuthAreScoped()
     {
         $managerA = $this->app->make('tymon.jwt.manager');
@@ -321,5 +373,4 @@ class LaravelServiceProviderTest extends TestCase
         // Blacklist remains a singleton and must survive the scoped flush.
         $this->assertSame($blacklistA, $this->app->make('tymon.jwt.blacklist'));
     }
-
 }
