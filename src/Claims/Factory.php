@@ -199,7 +199,7 @@ class Factory
      */
     public function setTTL($ttl)
     {
-        $this->ttl = $ttl ? (int) $ttl : $ttl;
+        $this->ttl = null !== $ttl ? (int) $ttl : null;
 
         return $this;
     }
@@ -223,7 +223,7 @@ class Factory
      */
     public function setLeeway($leeway)
     {
-        $this->leeway = $leeway;
+        $this->leeway = (int) $leeway;
 
         return $this;
     }

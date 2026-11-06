@@ -52,6 +52,32 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($ttl, $this->factory->getTTL());
     }
 
+    public function testItShouldAllowNullTtl()
+    {
+        $this->factory->setTTL(null);
+        $this->assertNull($this->factory->getTTL());
+    }
+
+    public function testItShouldCastStringTtlToInt()
+    {
+        $this->factory->setTTL('30');
+        $this->assertSame(30, $this->factory->getTTL());
+
+        $this->factory->setTTL('0');
+        $this->assertSame(0, $this->factory->getTTL());
+
+        $exp = $this->factory->make('exp');
+        $this->assertSame($this->testNowTimestamp, $exp->getValue());
+    }
+
+    public function testItShouldCastStringLeewayToInt()
+    {
+        $this->factory->setLeeway('10');
+
+        $exp = $this->factory->get('exp', $this->testNowTimestamp - 5);
+        $this->assertTrue($exp->validatePayload());
+    }
+
     public function testItShouldGetADefinedClaimInstanceWhenPassingANameAndValue()
     {
         $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));

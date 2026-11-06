@@ -12,6 +12,7 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Test;
 
+use Illuminate\Support\Env;
 use PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate as AuthIlluminate;
 use PHPOpenSourceSaver\JWTAuth\Providers\JWT\Lcobucci;
 use PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate as StorageIlluminate;
@@ -41,7 +42,33 @@ class DefaultConfigValuesTest extends AbstractTestCase
 
     public function testTtlShouldBeSet()
     {
-        $this->assertEquals(60, $this->configuration['ttl']);
+        $this->assertSame(60, $this->configuration['ttl']);
+    }
+
+    public function testTtlShouldAllowNullFromEnv()
+    {
+        Env::getRepository()->set('JWT_TTL', 'null');
+
+        try {
+            $configuration = include __DIR__.'/../config/config.php';
+
+            $this->assertNull($configuration['ttl']);
+        } finally {
+            Env::getRepository()->clear('JWT_TTL');
+        }
+    }
+
+    public function testTtlShouldCastNumericEnvStringToInt()
+    {
+        Env::getRepository()->set('JWT_TTL', '120');
+
+        try {
+            $configuration = include __DIR__.'/../config/config.php';
+
+            $this->assertSame(120, $configuration['ttl']);
+        } finally {
+            Env::getRepository()->clear('JWT_TTL');
+        }
     }
 
     public function testRefreshIatShouldBeSet()
@@ -51,7 +78,33 @@ class DefaultConfigValuesTest extends AbstractTestCase
 
     public function testRefreshTtlShouldBeSet()
     {
-        $this->assertEquals(20160, $this->configuration['refresh_ttl']);
+        $this->assertSame(20160, $this->configuration['refresh_ttl']);
+    }
+
+    public function testRefreshTtlShouldAllowNullFromEnv()
+    {
+        Env::getRepository()->set('JWT_REFRESH_TTL', 'null');
+
+        try {
+            $configuration = include __DIR__.'/../config/config.php';
+
+            $this->assertNull($configuration['refresh_ttl']);
+        } finally {
+            Env::getRepository()->clear('JWT_REFRESH_TTL');
+        }
+    }
+
+    public function testRefreshTtlShouldCastNumericEnvStringToInt()
+    {
+        Env::getRepository()->set('JWT_REFRESH_TTL', '1440');
+
+        try {
+            $configuration = include __DIR__.'/../config/config.php';
+
+            $this->assertSame(1440, $configuration['refresh_ttl']);
+        } finally {
+            Env::getRepository()->clear('JWT_REFRESH_TTL');
+        }
     }
 
     public function testAlgoShouldBeHs256()
