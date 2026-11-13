@@ -15,6 +15,7 @@ namespace PHPOpenSourceSaver\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT as JWTContract;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Support\CustomClaims;
 use PHPOpenSourceSaver\JWTAuth\Support\RefreshFlow;
 use PHPOpenSourceSaver\JWTAuth\Support\Utils;
@@ -113,13 +114,12 @@ class Manager
             ->customClaims($payloadArray)
             ->make(true);
 
-        if (
-            $checkBlacklist
-            && $this->blacklistEnabled
-            && $this->getBlackListExceptionEnabled()
-            && $this->blacklist->has($payload)
-        ) {
-            throw new TokenBlacklistedException('The token has been blacklisted');
+        if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
+            if ($this->getBlackListExceptionEnabled()) {
+                throw new TokenBlacklistedException('The token has been blacklisted');
+            }
+
+            throw new TokenInvalidException('The token has been blacklisted');
         }
 
         return $payload;
