@@ -26,6 +26,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Factory;
 use PHPOpenSourceSaver\JWTAuth\Manager;
 use PHPOpenSourceSaver\JWTAuth\Payload;
@@ -145,6 +146,40 @@ class ManagerTest extends AbstractTestCase
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
 
+        $this->manager->decode($token);
+    }
+
+    /**
+     * @throws InvalidClaimException
+     */
+    public function testItShouldRejectBlacklistedTokenWhenExceptionLoggingIsDisabled()
+    {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('The token has been blacklisted');
+
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
+        ];
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
+        $token = new Token('foo.bar.baz');
+
+        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+
+        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
+        $this->factory->shouldReceive('customClaims')->with($payload->toArray())->andReturn($this->factory);
+        $this->factory->shouldReceive('make')->andReturn($payload);
+
+        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
+
+        $this->manager->setBlackListExceptionEnabled(false);
         $this->manager->decode($token);
     }
 
