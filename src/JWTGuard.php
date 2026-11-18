@@ -176,6 +176,7 @@ class JWTGuard implements Guard
      * @param bool $login
      *
      * @return bool|string
+     * @phpstan-return ($login is true ? string|false : true|false)
      */
     public function attempt(array $credentials = [], $login = true)
     {
