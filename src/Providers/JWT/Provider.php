@@ -36,14 +36,11 @@ abstract class Provider
     /**
      * Constructor.
      *
-     * @param string $secret
-     * @param string $algo
-     *
-     * @return void
+     * @throws SecretMissingException
      */
-    public function __construct($secret, $algo, array $keys)
+    public function __construct(?string $secret, string $algo, array $keys)
     {
-        if (is_null($secret) && (is_null($keys['public']) || is_null($keys['private']))) {
+        if (is_null($secret) && (empty($keys['public']) || empty($keys['private']))) {
             throw new SecretMissingException();
         }
 
@@ -54,12 +51,8 @@ abstract class Provider
 
     /**
      * Set the algorithm used to sign the token.
-     *
-     * @param string $algo
-     *
-     * @return $this
      */
-    public function setAlgo($algo)
+    public function setAlgo(string $algo): self
     {
         $this->algo = $algo;
 
@@ -68,22 +61,16 @@ abstract class Provider
 
     /**
      * Get the algorithm used to sign the token.
-     *
-     * @return string
      */
-    public function getAlgo()
+    public function getAlgo(): string
     {
         return $this->algo;
     }
 
     /**
      * Set the secret used to sign the token.
-     *
-     * @param string $secret
-     *
-     * @return $this
      */
-    public function setSecret($secret)
+    public function setSecret(string $secret): self
     {
         $this->secret = $secret;
 
@@ -92,20 +79,16 @@ abstract class Provider
 
     /**
      * Get the secret used to sign the token.
-     *
-     * @return string
      */
-    public function getSecret()
+    public function getSecret(): string
     {
         return $this->secret;
     }
 
     /**
      * Set the keys used to sign the token.
-     *
-     * @return $this
      */
-    public function setKeys(array $keys)
+    public function setKeys(array $keys): self
     {
         $this->keys = $keys;
 
@@ -115,10 +98,8 @@ abstract class Provider
     /**
      * Get the array of keys used to sign tokens
      * with an asymmetric algorithm.
-     *
-     * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return $this->keys;
     }
@@ -148,10 +129,8 @@ abstract class Provider
     /**
      * Get the passphrase used to sign tokens
      * with an asymmetric algorithm.
-     *
-     * @return string
      */
-    public function getPassphrase()
+    public function getPassphrase(): string
     {
         return Arr::get($this->keys, 'passphrase');
     }
@@ -180,9 +159,7 @@ abstract class Provider
      * Determine if the algorithm is asymmetric, and thus
      * requires a public/private key combo.
      *
-     * @return bool
-     *
      * @throws JWTException
      */
-    abstract protected function isAsymmetric();
+    abstract protected function isAsymmetric(): bool;
 }

@@ -21,33 +21,25 @@ class Token
     /**
      * Create a new JSON Web Token.
      *
-     * @param string $value
-     *
-     * @return void
-     *
      * @throws Exceptions\TokenInvalidException
      */
-    public function __construct($value)
+    public function __construct(string $value)
     {
-        $this->value = (string) (new TokenValidator())->check($value);
+        $this->value = (new TokenValidator())->check($value);
     }
 
     /**
-     * Get the token.
-     *
-     * @return string
+     * Get the token as string.
      */
-    public function get()
+    public function get(): string
     {
         return $this->value;
     }
 
     /**
      * Get the token when casting to string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->get();
     }

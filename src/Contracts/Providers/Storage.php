@@ -20,7 +20,7 @@ interface Storage
      *
      * @return void
      */
-    public function add($key, $value, $minutes);
+    public function add(string $key, $value, int $minutes);
 
     /**
      * @param string $key

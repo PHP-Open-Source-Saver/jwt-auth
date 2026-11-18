@@ -17,15 +17,14 @@ use PHPOpenSourceSaver\JWTAuth\Exceptions\InvalidClaimException;
 class Custom extends Claim
 {
     /**
-     * @param string $name
-     *
-     * @return void
+     * Creates a custom claim
      *
      * @throws InvalidClaimException
      */
-    public function __construct($name, $value)
+    public function __construct(string $name, mixed $value)
     {
         parent::__construct($value);
+
         $this->setName($name);
     }
 }

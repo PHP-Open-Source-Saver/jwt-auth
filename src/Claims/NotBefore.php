@@ -18,12 +18,12 @@ class NotBefore extends Claim
 {
     use DatetimeTrait;
 
-    protected $name = 'nbf';
+    protected string $name = 'nbf';
 
     /**
      * @throws TokenInvalidException
      */
-    public function validatePayload()
+    public function validatePayload(): void
     {
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');

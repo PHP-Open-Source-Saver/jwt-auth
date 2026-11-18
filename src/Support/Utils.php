@@ -17,36 +17,25 @@ use Carbon\Carbon;
 class Utils
 {
     /**
-     * Get the Carbon instance for the current time.
-     *
-     * @return Carbon
+     * Get the Carbon instance for the current time, in the UTC timezone
      */
-    public static function now()
+    public static function now(): Carbon
     {
         return Carbon::now('UTC');
     }
 
     /**
-     * Get the Carbon instance for the timestamp.
-     *
-     * @param int $timestamp
-     *
-     * @return Carbon
+     * Get the Carbon instance for a unix timestamp, in UTC
      */
-    public static function timestamp($timestamp)
+    public static function timestamp(int $timestamp): Carbon
     {
         return Carbon::createFromTimestampUTC($timestamp)->timezone('UTC');
     }
 
     /**
-     * Checks if a timestamp is in the past.
-     *
-     * @param int $timestamp
-     * @param int $leeway
-     *
-     * @return bool
+     * Checks if a unix timestamp is in the past.
      */
-    public static function isPast($timestamp, $leeway = 0)
+    public static function isPast(int $timestamp, int $leeway = 0): bool
     {
         $timestamp = static::timestamp($timestamp);
 
@@ -56,14 +45,9 @@ class Utils
     }
 
     /**
-     * Checks if a timestamp is in the future.
-     *
-     * @param int $timestamp
-     * @param int $leeway
-     *
-     * @return bool
+     * Checks if a unix timestamp is in the future.
      */
-    public static function isFuture($timestamp, $leeway = 0)
+    public static function isFuture(int $timestamp, int $leeway = 0): bool
     {
         $timestamp = static::timestamp($timestamp);
 
