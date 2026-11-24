@@ -92,7 +92,9 @@ class Parser
     public function parseToken()
     {
         foreach ($this->chain as $parser) {
-            if ($response = $parser->parse($this->request)) {
+            $response = $parser->parse($this->request);
+
+            if ($response && is_string($response)) {
                 return $response;
             }
         }

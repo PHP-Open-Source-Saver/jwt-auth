@@ -323,6 +323,64 @@ class ParserTest extends AbstractTestCase
         $parser->parseToken();
     }
 
+    public function testItShouldIgnoreAnArrayInTheQueryString()
+    {
+        $request = Request::create('foo', 'GET', ['token' => ['foobar']]);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders(),
+            new QueryString(),
+            new InputSource(),
+            new RouteParams(),
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
+    public function testItShouldIgnoreAnArrayInTheInputSource()
+    {
+        $request = Request::create('foo', 'POST', [], [], [], ['CONTENT_TYPE' => 'application/json'], json_encode(['token' => ['foobar']]));
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders(),
+            new InputSource(),
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
+    public function testItShouldFallThroughToTheNextParserWhenTheQueryStringIsAnArray()
+    {
+        $request = Request::create('foo', 'GET', ['token' => ['foobar']], ['token' => 'foobaz']);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders(),
+            new QueryString(),
+            new Cookies(false),
+        ]);
+
+        $this->assertSame('foobaz', $parser->parseToken());
+    }
+
+    public function testItShouldIgnoreAnArrayInAnEncryptedCookie()
+    {
+        $request = Request::create('foo', 'POST', [], ['token' => ['foobar']]);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders(),
+            new Cookies(true),
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
     public function testItShouldReturnTheTokenFromRoute()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
